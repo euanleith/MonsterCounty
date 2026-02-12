@@ -30,8 +30,8 @@ namespace MonsterCounty.Actor.World
 
 		public void NewGame()
 		{
-			_hud.Start();
-			_worldPlayer.Start();
+			_hud.Reset();
+			_worldPlayer.Reset();
 			GetTree().CallGroup("mobs", Node.MethodName.QueueFree);
 			GetNode<Timer>("StartTimer").Start();
 		}

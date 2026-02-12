@@ -16,7 +16,7 @@ namespace MonsterCounty.UI
 			_world = world;
 		}
 
-		public void Start()
+		public void Reset()
 		{
 			UpdateScore(_world.Score);
 			ShowMessage("Get Ready!");
