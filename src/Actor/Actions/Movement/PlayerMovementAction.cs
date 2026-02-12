@@ -16,8 +16,7 @@ namespace MonsterCounty.Actor.Actions.Movement
 			{
 				velocity = velocity.Normalized() * Actor.Controllers.Get<MovementController>().Speed;
 			}
-			Vector2 position = Actor.Position + velocity * (float)delta;
-			return position;
+			return velocity;
 		}
 	}
 }

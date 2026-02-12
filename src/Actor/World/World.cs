@@ -41,29 +41,11 @@ namespace MonsterCounty.Actor.World
 	
 		public void OnMobTimerTimeout()
 		{
-			// Create a new instance of the Mob scene.
 			WorldEnemy worldEnemy = MobScene.Instantiate<WorldEnemy>();
-
-			// Choose a random location on Path2D.
-			var mobSpawnLocation = GetNode<PathFollow2D>("MobPath/MobSpawnLocation");
-			mobSpawnLocation.ProgressRatio = GD.Randf();
-
-			// Set the mob's direction perpendicular to the path direction.
-			float direction = mobSpawnLocation.Rotation + Mathf.Pi / 2;
-
-			// Set the mob's position to a random location.
-			worldEnemy.Position = mobSpawnLocation.Position;
-
-			// Add some randomness to the direction.
-			direction += (float)GD.RandRange(-Mathf.Pi / 4, Mathf.Pi / 4);
-			worldEnemy.Rotation = direction;
-
-			// Choose the velocity.
-			var velocity = new Vector2((float)GD.RandRange(150.0, 250.0), 0);
-			worldEnemy.Velocity = velocity.Rotated(direction);
-
-			// Spawn the mob by adding it to the Main scene.
-			AddChild(worldEnemy);	}
+			AddChild(worldEnemy);
+			PathFollow2D spawnLocation = GetNode<PathFollow2D>("MobPath/MobSpawnLocation");
+			worldEnemy.CustomInit(this, spawnLocation);
+		}
 	
 		public void OnScoreTimerTimeout()
 		{

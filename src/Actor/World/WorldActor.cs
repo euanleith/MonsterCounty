@@ -1,4 +1,3 @@
-using Godot;
 using MonsterCounty.Actor.Controllers;
 using MonsterCounty.Model;
 

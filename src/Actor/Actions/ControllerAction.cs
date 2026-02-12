@@ -3,7 +3,7 @@ using Godot;
 namespace MonsterCounty.Actor.Actions
 {
     [Tool]
-    public abstract partial class ControllerAction<R> : Resource
+    public abstract partial class ControllerAction<R> : Node
     {
         protected Actor Actor { get; private set; }
         

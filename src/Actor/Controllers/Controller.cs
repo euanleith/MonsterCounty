@@ -11,7 +11,7 @@ namespace MonsterCounty.Actor.Controllers
             Actor = actor;
         }
         
-        public virtual void _Process(double delta)
+        public override void _Process(double delta)
         {
             // do nothing
         }
