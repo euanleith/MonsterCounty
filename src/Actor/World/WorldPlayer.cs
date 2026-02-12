@@ -1,21 +1,15 @@
 using Godot;
+using MonsterCounty.Model;
 
 namespace MonsterCounty.Actor.World
 {
 	public partial class WorldPlayer : WorldActor
 	{
-		public static WorldPlayer Instance { get; private set; } // todo move to Singleton class?
+		public static Singleton<WorldPlayer> Instance = new();
 		
 		public override void CustomInit(World world)
 		{
-			base.CustomInit(world);
-			if (Instance == null) Instance = this;
-			else
-			{
-				GD.PushWarning("Attempted to start more than one player");
-				QueueFree();
-				return;
-			}
+			if (!Instance.Create(this)) return;
 			base.CustomInit(world);
 		}
 	

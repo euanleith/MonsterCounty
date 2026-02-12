@@ -1,6 +1,7 @@
 using Godot;
 using MonsterCounty.Actor.Actions.Movement;
 using MonsterCounty.Actor.Controllers;
+using MonsterCounty.Model;
 
 namespace MonsterCounty.Actor.World
 {
@@ -9,8 +10,6 @@ namespace MonsterCounty.Actor.World
 		public void CustomInit(World world, PathFollow2D spawnLocation)
 		{
 			base.CustomInit(world);
-			// Controllers.Get<MovementController>().Actions[0] = 
-			// 	Controllers.Get<MovementController>().Actions[0].Duplicate() as EnemyMovementAction;
 			(Controllers.Get<MovementController>().Actions[0] as EnemyMovementAction).CustomInit(spawnLocation);
 		}
 		

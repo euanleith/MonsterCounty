@@ -32,10 +32,7 @@ namespace MonsterCounty.Actor.World
 		{
 			_hud.Start();
 			_worldPlayer.Start();
-
-			// todo
 			GetTree().CallGroup("mobs", Node.MethodName.QueueFree);
-		
 			GetNode<Timer>("StartTimer").Start();
 		}
 	
