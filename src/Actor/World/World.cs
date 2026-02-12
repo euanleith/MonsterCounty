@@ -20,11 +20,11 @@ namespace MonsterCounty.Actor.World
 			StartPosition = GetNode<Marker2D>("StartPosition");
 		
 			_worldPlayer = PlayerScene.Instantiate<WorldPlayer>(); 
-			_worldPlayer.Init(this);
+			_worldPlayer.CustomInit(this);
 			AddChild(_worldPlayer);
 		
 			_hud = HUDScene.Instantiate<HUD>();
-			_hud.Init(this);
+			_hud.CustomInit(this);
 			AddChild(_hud);
 		}
 

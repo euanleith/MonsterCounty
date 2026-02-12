@@ -1,12 +1,23 @@
+using Godot;
+using MonsterCounty.Actor.Controllers;
+using MonsterCounty.Model;
+
 namespace MonsterCounty.Actor.World
 {
-    public partial class WorldActor : Actor
+    public abstract partial class WorldActor : Actor
     {
-        protected World _world;
+        protected World World;
 
-        public void Init(World world)
+        public virtual void CustomInit(World world)
         {
-            _world = world;
+            World = world;
+        }
+
+        protected override TypeMap<Controller> LoadControllers()
+        {
+            TypeMap<Controller> controllers = new TypeMap<Controller>();
+            controllers.Add(GetNode<MovementController>("MovementController"));
+            return controllers;
         }
     }
 }

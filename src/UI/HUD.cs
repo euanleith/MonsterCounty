@@ -10,7 +10,7 @@ namespace MonsterCounty.UI
 
 		private World _world;
 
-		public void Init(World world)
+		public void CustomInit(World world)
 		{
 			// todo singleton
 			_world = world;

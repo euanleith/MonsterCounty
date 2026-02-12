@@ -4,15 +4,11 @@ namespace MonsterCounty.Actor.World
 {
 	public partial class WorldPlayer : WorldActor
 	{
-		public static WorldPlayer Instance { get; private set; }
-	
-		[Export]
-		public int Speed { get; set; } = 400;
-
-		public Vector2 ScreenSize;
-
-		public void Init(World world)
+		public static WorldPlayer Instance { get; private set; } // todo move to Singleton class?
+		
+		public override void CustomInit(World world)
 		{
+			base.CustomInit(world);
 			if (Instance == null) Instance = this;
 			else
 			{
@@ -20,52 +16,29 @@ namespace MonsterCounty.Actor.World
 				QueueFree();
 				return;
 			}
-
-			base.Init(world);
+			base.CustomInit(world);
 		}
 	
 		public void Start()
 		{
-			Position = _world.StartPosition.Position;
-			Show();
-			GetNode<CollisionShape2D>("CollisionShape2D").Disabled = false;
-		}
-	
-		public override void _Ready()
-		{
-			ScreenSize = GetViewportRect().Size;
+			Position = World.StartPosition.Position; // todo move to movementcontroller
+			Show(); // todo move to visualcontroller
+			GetNode<CollisionShape2D>("CollisionShape2D").Disabled = false; // todo move
 		}
 	
 		public override void _Process(double delta)
 		{
-			var velocity = Vector2.Zero;
-
-			if (Input.IsActionPressed("right"))
-				velocity.X += 1;
-			if (Input.IsActionPressed("left"))
-				velocity.X -= 1;
-			if (Input.IsActionPressed("down"))
-				velocity.Y += 1;
-			if (Input.IsActionPressed("up"))
-				velocity.Y -= 1;
-
-			var animatedSprite2D = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
-
-			if (velocity.Length() > 0)
-			{
-				velocity = velocity.Normalized() * Speed;
-				animatedSprite2D.Play();
-			}
-			else
-			{
-				animatedSprite2D.Stop();
-			}
-		
-			Position += velocity * (float)delta;
-			Position = new Vector2(
-				x: Mathf.Clamp(Position.X, 0, ScreenSize.X),
-				y: Mathf.Clamp(Position.Y, 0, ScreenSize.Y)
-			);
+			base._Process(delta);
+			// // todo move to visual controller
+			// var animatedSprite2D = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
+			// if (Velocity.Length() > 0)
+			// {
+			// 	animatedSprite2D.Play();
+			// }
+			// else
+			// {
+			// 	animatedSprite2D.Stop();
+			// }
 		}
 	}
 }
