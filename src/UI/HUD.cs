@@ -1,18 +1,20 @@
 using Godot;
 using MonsterCounty.Actor.World;
+using MonsterCounty.Model;
 
 namespace MonsterCounty.UI
 {
 	public partial class HUD : CanvasLayer
 	{
-		[Signal]
-		public delegate void StartGameEventHandler();
+		public static readonly Singleton<HUD> Instance = new();
+		
+		[Signal] public delegate void StartGameEventHandler();
 
 		private World _world;
 
 		public void CustomInit(World world)
 		{
-			// todo singleton
+			if (!Instance.Create(this)) return;
 			_world = world;
 		}
 

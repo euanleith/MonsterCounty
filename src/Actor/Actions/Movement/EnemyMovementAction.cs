@@ -4,6 +4,7 @@ using MonsterCounty.Actor.Controllers;
 namespace MonsterCounty.Actor.Actions.Movement
 {
 	[Tool]
+	// todo rename like RuntimeEnemy
 	public partial class EnemyMovementAction : ControllerAction<Vector2>
 	{
 		public void CustomInit(PathFollow2D spawnLocation)

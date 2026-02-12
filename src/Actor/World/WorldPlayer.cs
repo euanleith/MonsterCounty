@@ -1,11 +1,10 @@
-using Godot;
 using MonsterCounty.Model;
 
 namespace MonsterCounty.Actor.World
 {
 	public partial class WorldPlayer : WorldActor
 	{
-		public static Singleton<WorldPlayer> Instance = new();
+		public static readonly Singleton<WorldPlayer> Instance = new();
 		
 		public override void CustomInit(World world)
 		{
