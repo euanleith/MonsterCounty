@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://ba8b0slnplf64"]
+
+[ext_resource type="Texture2D" uid="uid://fdey0f6gyorj" path="res://art/enemyWalking_2.png" id="1_30xtd"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3jyax"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_30xtd")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="CombatEnemy" type="Node2D" unique_id=1605384622]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=630393008]
+sprite_frames = SubResource("SpriteFrames_3jyax")

@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://b2yhcwvd1q564"]
+
+[ext_resource type="Script" uid="uid://k5abwf11gvfe" path="res://src/Actor/Actions/Interaction/EnemyTransmissionAction.cs" id="1_2koa7"]
+
+[node name="EnemyTransmissionAction" type="Node" unique_id=1607805577]
+script = ExtResource("1_2koa7")

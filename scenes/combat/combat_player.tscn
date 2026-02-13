@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://bxbhopi7dcape"]
+
+[ext_resource type="Texture2D" uid="uid://scvabxdnh5qr" path="res://art/playerGrey_walk1.png" id="1_eqesl"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kvvui"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_eqesl")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="CombatPlayer" type="Node2D" unique_id=711857539]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=303734267]
+sprite_frames = SubResource("SpriteFrames_kvvui")

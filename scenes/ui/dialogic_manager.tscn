@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://dk0ks7et20aql"]
+
+[ext_resource type="Script" uid="uid://tu4cw7ma4u8q" path="res://src/Utilities/DialogicManager.cs" id="1_0ivq3"]
+
+[node name="DialogicManager" type="Node" unique_id=1193956838]
+script = ExtResource("1_0ivq3")

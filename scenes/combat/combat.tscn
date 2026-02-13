@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://3i2bjf6xfoyy"]
+
+[ext_resource type="PackedScene" uid="uid://b06auojv8t4uh" path="res://scenes/ui/combat_ui.tscn" id="1_764e3"]
+[ext_resource type="PackedScene" uid="uid://bxbhopi7dcape" path="res://scenes/combat/combat_player.tscn" id="2_aic3r"]
+[ext_resource type="PackedScene" uid="uid://ba8b0slnplf64" path="res://scenes/combat/combat_enemy.tscn" id="3_4l26h"]
+
+[node name="Combat" type="Node" unique_id=1629342209]
+
+[node name="CombatUI" parent="." unique_id=1878144606 instance=ExtResource("1_764e3")]
+
+[node name="CombatEnemy" parent="." unique_id=1605384622 instance=ExtResource("3_4l26h")]
+position = Vector2(880, 96)
+
+[node name="CombatPlayer" parent="." unique_id=711857539 instance=ExtResource("2_aic3r")]
+position = Vector2(192, 496)
