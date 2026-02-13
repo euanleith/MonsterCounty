@@ -22,6 +22,7 @@ namespace MonsterCounty.Actor.World
 		{
 			TypeMap<Controller> controllers = base.LoadControllers();
 			controllers.Add(GetNode<TransmissionController>("TransmissionController"));
+			controllers.Add(GetNode<ReceptionController>("ReceptionController"));
 			return controllers;
 		}
 	}

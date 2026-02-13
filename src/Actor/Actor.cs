@@ -6,7 +6,7 @@ namespace MonsterCounty.Actor
 {
     public abstract partial class Actor : CharacterBody2D
     {
-        public TypeMap<Controller> Controllers { get; private set; } 
+        public TypeMap<Controller> Controllers { get; private set; } // todo having predefined controller attributes would be better, but idk how
         
         protected abstract TypeMap<Controller> LoadControllers();
 

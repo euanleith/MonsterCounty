@@ -16,5 +16,18 @@ namespace MonsterCounty.Actor.Controllers
 					animation.Stop();
 			}
 		}
+
+		public Vector2 GetSize()
+		{
+			Shape2D shape = Actor.GetNode<CollisionShape2D>("CollisionShape2D").Shape;
+			if (shape is CapsuleShape2D capsule)
+				return new Vector2(capsule.Radius*2, capsule.Height + capsule.Radius*2);
+			if (shape is CircleShape2D circle)
+				return new Vector2(circle.Radius*2, circle.Radius*2);
+			if (shape is RectangleShape2D rect)
+				return rect.Size;
+			GD.PushError("Couldn't determine size of " + Actor.Name + ", unknown CollisionShape2D");
+			return Vector2.Zero;
+		}
 	}
 }

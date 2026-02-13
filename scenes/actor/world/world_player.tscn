@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://cuh0yo2ws1low" path="res://scenes/actor/controller/transmission_controller.tscn" id="7_yx67p"]
 [ext_resource type="PackedScene" uid="uid://c181w7lt7s5nl" path="res://scenes/actor/actions/interaction/player_transmission_action.tscn" id="8_jc8oq"]
 [ext_resource type="PackedScene" uid="uid://jov3fdj1u72d" path="res://scenes/actor/controller/visual_controller.tscn" id="8_smehm"]
+[ext_resource type="PackedScene" uid="uid://1cp2fatumnjx" path="res://scenes/actor/controller/reception_controller.tscn" id="9_jc8oq"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_sweqy"]
 radius = 27.018513
@@ -27,6 +28,7 @@ animations = [{
 }]
 
 [node name="Player" type="CharacterBody2D" unique_id=1818493891]
+collision_mask = 7
 script = ExtResource("1_qlg0r")
 metadata/_edit_group_ = true
 
@@ -50,3 +52,5 @@ Speed = 400.0
 Range = 100.0
 
 [node name="PlayerTransmissionAction" parent="TransmissionController" unique_id=436325940 instance=ExtResource("8_jc8oq")]
+
+[node name="ReceptionController" parent="." unique_id=1035087376 instance=ExtResource("9_jc8oq")]

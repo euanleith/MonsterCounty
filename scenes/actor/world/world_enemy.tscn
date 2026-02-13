@@ -10,6 +10,8 @@
 [ext_resource type="PackedScene" uid="uid://bt1olxot22da" path="res://scenes/actor/controller/movement_controller.tscn" id="8_ipns3"]
 [ext_resource type="PackedScene" uid="uid://imi6hcj735w2" path="res://scenes/actor/actions/movement/enemy_movement_action.tscn" id="9_ipns3"]
 [ext_resource type="PackedScene" uid="uid://jov3fdj1u72d" path="res://scenes/actor/controller/visual_controller.tscn" id="10_8qclf"]
+[ext_resource type="PackedScene" uid="uid://cuh0yo2ws1low" path="res://scenes/actor/controller/transmission_controller.tscn" id="11_fn7wt"]
+[ext_resource type="PackedScene" uid="uid://b2yhcwvd1q564" path="res://scenes/actor/actions/interaction/enemy_transmission_action.tscn" id="12_veedt"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wujgv"]
 radius = 36.0
@@ -54,6 +56,8 @@ animations = [{
 [sub_resource type="Curve2D" id="Curve2D_nenq2"]
 
 [node name="Enemy" type="CharacterBody2D" unique_id=412161836 groups=["mobs"]]
+collision_layer = 4
+collision_mask = 7
 script = ExtResource("1_nenq2")
 metadata/_edit_group_ = true
 
@@ -81,3 +85,8 @@ Speed = 200.0
 [node name="MobMovementAction" parent="MovementController" unique_id=770279032 instance=ExtResource("9_ipns3")]
 
 [node name="VisualController" parent="." unique_id=98789701 instance=ExtResource("10_8qclf")]
+
+[node name="TransmissionController" parent="." unique_id=1682635438 instance=ExtResource("11_fn7wt")]
+Range = 100.0
+
+[node name="EnemyTransmissionAction" parent="TransmissionController" unique_id=1607805577 instance=ExtResource("12_veedt")]
