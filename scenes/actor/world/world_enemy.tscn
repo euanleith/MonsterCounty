@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://jov3fdj1u72d" path="res://scenes/actor/controller/visual_controller.tscn" id="10_8qclf"]
 [ext_resource type="PackedScene" uid="uid://cuh0yo2ws1low" path="res://scenes/actor/controller/transmission_controller.tscn" id="11_fn7wt"]
 [ext_resource type="PackedScene" uid="uid://b2yhcwvd1q564" path="res://scenes/actor/actions/interaction/enemy_transmission_action.tscn" id="12_veedt"]
+[ext_resource type="PackedScene" uid="uid://b06auojv8t4uh" path="res://scenes/ui/combat_ui.tscn" id="13_veedt"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wujgv"]
 radius = 36.0
@@ -90,3 +91,4 @@ Speed = 200.0
 Range = 100.0
 
 [node name="EnemyTransmissionAction" parent="TransmissionController" unique_id=1607805577 instance=ExtResource("12_veedt")]
+CombatScene = ExtResource("13_veedt")

@@ -1,10 +1,10 @@
 using Godot;
-using Godot.Collections;
 using MonsterCounty.Actor.Controllers;
+using MonsterCounty.Model;
 
 namespace MonsterCounty.Actor.Actions.Interaction
 {
-    public abstract partial class TransmissionAction : ControllerAction<ReceptionController>
+    public abstract partial class TransmissionAction : ControllerAction<CustomVoid>
     {
         [Export] private float _range;
         
@@ -17,12 +17,12 @@ namespace MonsterCounty.Actor.Actions.Interaction
         {
             base.CustomInit(actor);
             
+            // todo move elsewhere
             _area = new Area2D();
             Actor.AddChild(_area);
 
             CollisionShape2D shape = new CollisionShape2D();
             RectangleShape2D rect = new RectangleShape2D();
-            GetTree().DebugCollisionsHint = true;
 
             Vector2 size = Actor.Controllers.Get<VisualController>().GetSize();
             rect.Size = new Vector2(_range, size.X);
@@ -40,27 +40,7 @@ namespace MonsterCounty.Actor.Actions.Interaction
 
         public override bool CanDo()
         {
-            if (Actor.Controllers.Get<TransmissionController>().IsInteracting) return false;
-            // Actor hit = Raycast();
-            // Responder = hit?.Controllers.Get<ReceptionController>();
             return Responder != null;
-        }
-
-        private Actor Raycast()
-        {
-            Vector2 start = Actor.GlobalPosition;
-            Vector2 end = start + Vector2.FromAngle(Actor.Rotation).Normalized() * Actor.Controllers.Get<TransmissionController>().Range;
-            PhysicsRayQueryParameters2D query = PhysicsRayQueryParameters2D.Create(start, end);
-            Dictionary result = Actor.GetWorld2D().DirectSpaceState.IntersectRay(query);
-            query.CollisionMask = GetCollisionMask();
-            if (result.Count == 0) return null;
-            return result["collider"].AsGodotObject() as Actor;
-        }
-        
-        public override ReceptionController Do(double delta)
-        {
-            Responder.Respond(delta);
-            return Responder;
         }
     }
 }

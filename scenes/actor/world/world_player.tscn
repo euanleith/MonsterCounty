@@ -52,5 +52,6 @@ Speed = 400.0
 Range = 100.0
 
 [node name="PlayerTransmissionAction" parent="TransmissionController" unique_id=436325940 instance=ExtResource("8_jc8oq")]
+_range = 100.0
 
 [node name="ReceptionController" parent="." unique_id=1035087376 instance=ExtResource("9_jc8oq")]

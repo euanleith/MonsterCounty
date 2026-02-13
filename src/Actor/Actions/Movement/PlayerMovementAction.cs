@@ -6,8 +6,6 @@ namespace MonsterCounty.Actor.Actions.Movement
 {
 	public partial class PlayerMovementAction : ControllerAction<Vector2>
 	{
-		// public override bool CanDo() => !controllers.Get<InteractionController>().IsInteracting;
-		
 		public override Vector2 Do(double delta)
 		{
 			Vector2 velocity = GetMovementInput() * Actor.Controllers.Get<MovementController>().Speed;

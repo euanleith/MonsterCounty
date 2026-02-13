@@ -25,7 +25,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="NPC" type="CharacterBody2D" unique_id=1355807265]
+[node name="NPC" type="CharacterBody2D" unique_id=1355807265 groups=["pause"]]
 collision_layer = 2
 collision_mask = 7
 script = ExtResource("1_7n8xq")
