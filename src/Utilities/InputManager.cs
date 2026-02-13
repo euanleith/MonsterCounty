@@ -17,5 +17,7 @@ namespace MonsterCounty.Utilities
                 movement.Y = -1;
             return movement;
         }
+
+        public static bool GetInteractInput() => Input.IsActionJustPressed("interact");
     }
 }

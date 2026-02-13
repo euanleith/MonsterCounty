@@ -10,11 +10,12 @@ namespace MonsterCounty.Actor.Controllers
 
 		public override void _PhysicsProcess(double delta)
 		{
-			if (currentAction == null) return;
+			if (CurrentAction == null) return;
 			_prevPosition = Actor.Position;
-			Actor.Position = currentAction.Do(delta);
+			Actor.Position = CurrentAction.Do(delta);
 			Actor.Velocity = Vector2.Zero;
-			Actor.Rotation = GetRotation(Actor.Position, _prevPosition);
+			if (_prevPosition != Actor.Position) 
+				Actor.Rotation = GetRotation(Actor.Position, _prevPosition);
 			Actor.MoveAndSlide();
 		}
 

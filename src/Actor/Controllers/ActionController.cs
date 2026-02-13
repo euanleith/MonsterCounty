@@ -7,7 +7,7 @@ namespace MonsterCounty.Actor.Controllers
 	public abstract partial class ActionController<R> : Controller
 	{
 		public Array<ControllerAction<R>> Actions;
-		protected ControllerAction<R> currentAction;
+		public ControllerAction<R> CurrentAction { get; private set; }
 
 		public override void CustomInit(Actor actor)
 		{
@@ -24,8 +24,8 @@ namespace MonsterCounty.Actor.Controllers
 		{
 			base._Process(delta);
 			ControllerAction<R> newAction = Actions.FirstOrDefault(action => action.ShouldDo());
-			if (newAction != null && newAction != currentAction) newAction.Reactivate(Actor);
-			currentAction = newAction;
+			if (newAction != null && newAction != CurrentAction) newAction.Reactivate(Actor);
+			CurrentAction = newAction;
 		}
 	}
 }
