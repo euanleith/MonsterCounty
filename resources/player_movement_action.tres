@@ -1,0 +1,7 @@
+[gd_resource type="Resource" format=3 uid="uid://v82jrs4ks284"]
+
+[ext_resource type="Script" uid="uid://b6iwghcvyj65y" path="res://src/Actor/Actions/Movement/PlayerMovementAction.cs" id="1_l5bph"]
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("1_l5bph")

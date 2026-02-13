@@ -1,0 +1,83 @@
+[gd_scene format=3 uid="uid://cv8uxn0ajjhqx"]
+
+[ext_resource type="Script" uid="uid://cfiohv5fprm06" path="res://src/Actor/World/WorldEnemy.cs" id="1_nenq2"]
+[ext_resource type="Texture2D" uid="uid://bjlppq0ejicmw" path="res://art/enemyFlyingAlt_1.png" id="2_hb8ge"]
+[ext_resource type="Texture2D" uid="uid://bhy2dsju3meop" path="res://art/enemyFlyingAlt_2.png" id="3_e1ltt"]
+[ext_resource type="Texture2D" uid="uid://dpkkkg7cup0cf" path="res://art/enemySwimming_1.png" id="4_dxifv"]
+[ext_resource type="Texture2D" uid="uid://c6h035w7e3h1" path="res://art/enemySwimming_2.png" id="5_pwjut"]
+[ext_resource type="Texture2D" uid="uid://b2mwmap64dbr3" path="res://art/enemyWalking_1.png" id="6_n0g06"]
+[ext_resource type="Texture2D" uid="uid://fdey0f6gyorj" path="res://art/enemyWalking_2.png" id="7_ar8e5"]
+[ext_resource type="PackedScene" uid="uid://bt1olxot22da" path="res://scenes/actor/controller/movement_controller.tscn" id="8_ipns3"]
+[ext_resource type="PackedScene" uid="uid://imi6hcj735w2" path="res://scenes/actor/actions/movement/enemy_movement_action.tscn" id="9_ipns3"]
+[ext_resource type="PackedScene" uid="uid://jov3fdj1u72d" path="res://scenes/actor/controller/visual_controller.tscn" id="10_8qclf"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wujgv"]
+radius = 36.0
+height = 96.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_doop2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_hb8ge")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_e1ltt")
+}],
+"loop": true,
+"name": &"fly",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_dxifv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_pwjut")
+}],
+"loop": true,
+"name": &"swim",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_n0g06")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_ar8e5")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[sub_resource type="Curve2D" id="Curve2D_nenq2"]
+
+[node name="Enemy" type="CharacterBody2D" unique_id=412161836 groups=["mobs"]]
+script = ExtResource("1_nenq2")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1884176777]
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_wujgv")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1686951384]
+scale = Vector2(0.75, 0.75)
+sprite_frames = SubResource("SpriteFrames_doop2")
+animation = &"walk"
+frame = 1
+frame_progress = 0.9267399
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=1407742141]
+
+[node name="Path2D" type="Path2D" parent="." unique_id=116702083]
+curve = SubResource("Curve2D_nenq2")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D" unique_id=735048270]
+
+[node name="MovementController" parent="." unique_id=1435023787 instance=ExtResource("8_ipns3")]
+Speed = 200.0
+
+[node name="MobMovementAction" parent="MovementController" unique_id=770279032 instance=ExtResource("9_ipns3")]
+
+[node name="VisualController" parent="." unique_id=98789701 instance=ExtResource("10_8qclf")]

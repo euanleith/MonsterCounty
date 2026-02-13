@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://imi6hcj735w2"]
+
+[ext_resource type="Script" uid="uid://dead5j5olu03t" path="res://src/Actor/Actions/Movement/EnemyMovementAction.cs" id="1_4piu4"]
+
+[node name="EnemyMovementAction" type="Node" unique_id=770279032]
+script = ExtResource("1_4piu4")

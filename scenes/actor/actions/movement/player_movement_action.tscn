@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://c1x12gk76pb81"]
+
+[ext_resource type="Script" uid="uid://b6iwghcvyj65y" path="res://src/Actor/Actions/Movement/PlayerMovementAction.cs" id="1_vhtbd"]
+
+[node name="PlayerMovementAction" type="Node" unique_id=189672219]
+script = ExtResource("1_vhtbd")

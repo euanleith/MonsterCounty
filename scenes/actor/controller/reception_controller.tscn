@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://1cp2fatumnjx"]
+
+[ext_resource type="Script" uid="uid://d0xufl03n1nyb" path="res://src/Actor/Controllers/ReceptionController.cs" id="1_0v767"]
+
+[node name="ReceptionController" type="Node" unique_id=1035087376]
+script = ExtResource("1_0v767")

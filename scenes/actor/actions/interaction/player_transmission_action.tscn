@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://c181w7lt7s5nl"]
+
+[ext_resource type="Script" uid="uid://bn0dfn621lq21" path="res://src/Actor/Actions/Interaction/PlayerTransmissionAction.cs" id="1_7u5nl"]
+
+[node name="PlayerTransmissionAction" type="Node" unique_id=436325940]
+script = ExtResource("1_7u5nl")

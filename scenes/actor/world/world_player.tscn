@@ -1,0 +1,52 @@
+[gd_scene format=3 uid="uid://5bgltxvdkt4x"]
+
+[ext_resource type="Script" uid="uid://cpvdae31banch" path="res://src/Actor/World/WorldPlayer.cs" id="1_qlg0r"]
+[ext_resource type="Texture2D" uid="uid://scvabxdnh5qr" path="res://art/playerGrey_walk1.png" id="4_pkg7o"]
+[ext_resource type="Texture2D" uid="uid://dtmussxuxoj62" path="res://art/playerGrey_walk2.png" id="5_gbfbk"]
+[ext_resource type="PackedScene" uid="uid://bt1olxot22da" path="res://scenes/actor/controller/movement_controller.tscn" id="6_fjrip"]
+[ext_resource type="PackedScene" uid="uid://c1x12gk76pb81" path="res://scenes/actor/actions/movement/player_movement_action.tscn" id="7_fjrip"]
+[ext_resource type="PackedScene" uid="uid://cuh0yo2ws1low" path="res://scenes/actor/controller/transmission_controller.tscn" id="7_yx67p"]
+[ext_resource type="PackedScene" uid="uid://c181w7lt7s5nl" path="res://scenes/actor/actions/interaction/player_transmission_action.tscn" id="8_jc8oq"]
+[ext_resource type="PackedScene" uid="uid://jov3fdj1u72d" path="res://scenes/actor/controller/visual_controller.tscn" id="8_smehm"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_sweqy"]
+radius = 27.018513
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fj7yv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_pkg7o")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_gbfbk")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[node name="Player" type="CharacterBody2D" unique_id=1818493891]
+script = ExtResource("1_qlg0r")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=926645763]
+position = Vector2(7, 0)
+shape = SubResource("CircleShape2D_sweqy")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=523992060]
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_fj7yv")
+animation = &"walk"
+
+[node name="MovementController" parent="." unique_id=1435023787 instance=ExtResource("6_fjrip")]
+Speed = 400.0
+
+[node name="PlayerMovementAction" parent="MovementController" unique_id=189672219 instance=ExtResource("7_fjrip")]
+
+[node name="VisualController" parent="." unique_id=98789701 instance=ExtResource("8_smehm")]
+
+[node name="TransmissionController" parent="." unique_id=1682635438 instance=ExtResource("7_yx67p")]
+Range = 100.0
+
+[node name="PlayerTransmissionAction" parent="TransmissionController" unique_id=436325940 instance=ExtResource("8_jc8oq")]

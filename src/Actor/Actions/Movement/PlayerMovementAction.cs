@@ -4,7 +4,6 @@ using static MonsterCounty.Utilities.InputManager;
 
 namespace MonsterCounty.Actor.Actions.Movement
 {
-	[Tool]
 	public partial class PlayerMovementAction : ControllerAction<Vector2>
 	{
 		// public override bool CanDo() => !controllers.Get<InteractionController>().IsInteracting;

@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://cqaqm4aqymh8n"]
+
+[ext_resource type="Script" uid="uid://dy62jlnhlc3gx" path="res://src/Actor/World/WorldNPC.cs" id="1_7n8xq"]
+[ext_resource type="Texture2D" uid="uid://scvabxdnh5qr" path="res://art/playerGrey_walk1.png" id="2_4wlns"]
+[ext_resource type="Texture2D" uid="uid://dtmussxuxoj62" path="res://art/playerGrey_walk2.png" id="3_hwkja"]
+[ext_resource type="PackedScene" uid="uid://bt1olxot22da" path="res://scenes/actor/controller/movement_controller.tscn" id="3_tl2vt"]
+[ext_resource type="PackedScene" uid="uid://jov3fdj1u72d" path="res://scenes/actor/controller/visual_controller.tscn" id="4_hwkja"]
+[ext_resource type="PackedScene" uid="uid://1cp2fatumnjx" path="res://scenes/actor/controller/reception_controller.tscn" id="6_j8avc"]
+[ext_resource type="PackedScene" uid="uid://emhbsgb0vhx3" path="res://scenes/actor/actions/interaction/dialogue_reception_action.tscn" id="7_kpptc"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7n8xq"]
+radius = 56.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0tygy"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_4wlns")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_hwkja")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="NPC" type="CharacterBody2D" unique_id=1355807265]
+script = ExtResource("1_7n8xq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=720475724]
+position = Vector2(16, 0)
+shape = SubResource("CircleShape2D_7n8xq")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=851536855]
+sprite_frames = SubResource("SpriteFrames_0tygy")
+
+[node name="MovementController" parent="." unique_id=1435023787 instance=ExtResource("3_tl2vt")]
+Speed = 0.5
+
+[node name="VisualController" parent="." unique_id=98789701 instance=ExtResource("4_hwkja")]
+
+[node name="ReceptionController" parent="." unique_id=1035087376 instance=ExtResource("6_j8avc")]
+
+[node name="DialogueReceptionAction" parent="ReceptionController" unique_id=1653715695 instance=ExtResource("7_kpptc")]

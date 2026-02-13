@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://jov3fdj1u72d"]
+
+[ext_resource type="Script" uid="uid://dfrmv1dkpey2w" path="res://src/Actor/Controllers/VisualController.cs" id="1_bwwgc"]
+
+[node name="VisualController" type="Node" unique_id=98789701]
+script = ExtResource("1_bwwgc")

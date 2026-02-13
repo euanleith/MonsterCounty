@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://emhbsgb0vhx3"]
+
+[ext_resource type="Script" uid="uid://c6lipmpftdvic" path="res://src/Actor/Actions/Interaction/DialogueReceptionAction.cs" id="1_ghjkd"]
+
+[node name="DialogueReceptionAction" type="Node" unique_id=1653715695]
+script = ExtResource("1_ghjkd")

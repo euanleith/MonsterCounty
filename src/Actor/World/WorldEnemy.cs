@@ -10,7 +10,7 @@ namespace MonsterCounty.Actor.World
 		public void CustomInit(World world, PathFollow2D spawnLocation)
 		{
 			base.CustomInit(world);
-			(Controllers.Get<MovementController>().Actions[0] as EnemyMovementAction).CustomInit(spawnLocation);
+			(Controllers.Get<MovementController>().Actions[0] as MobMovementAction).CustomInit(spawnLocation);
 		}
 	
 		private void OnVisibleOnScreenNotifier2DScreenExited()

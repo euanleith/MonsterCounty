@@ -10,7 +10,7 @@ namespace MonsterCounty.Actor.Actions.Movement
 		public override void CustomInit(Actor actor)
 		{
 			base.CustomInit(actor);
-			_pathFollow = Actor.GetParent().GetNode<PathFollow2D>("PathFollow2D");
+			_pathFollow = Actor.GetParent().GetNode<PathFollow2D>("PathFollow2D"); // todo could i have this contain a Curve resource, and programmatically wrap the actor in a path2d & pathfollow2d?
 			if (_pathFollow == null) GD.PushError($"PathMovementAction for {Actor.GetType().Name} missing PathFollow2D sibling.");
 		}
 

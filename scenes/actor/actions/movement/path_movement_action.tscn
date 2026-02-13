@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://ckdx61gurmr3r"]
+
+[ext_resource type="Script" uid="uid://ipunyo8kfmnx" path="res://src/Actor/Actions/Movement/PathMovementAction.cs" id="1_1hlfj"]
+
+[node name="PathMovementAction" type="Node" unique_id=1337701144]
+script = ExtResource("1_1hlfj")
