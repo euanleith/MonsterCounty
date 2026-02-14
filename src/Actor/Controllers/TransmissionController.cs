@@ -7,9 +7,9 @@ namespace MonsterCounty.Actor.Controllers
     {
         [Export] public float Range { get; private set; }
         
-        public override void _Process(double delta)
+        public override void _PhysicsProcess(double delta)
         {
-            base._Process(delta);
+            base._PhysicsProcess(delta);
             CurrentAction?.Do(delta);
         }
     }

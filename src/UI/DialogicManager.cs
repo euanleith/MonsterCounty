@@ -11,7 +11,7 @@ namespace MonsterCounty.Utilities
 
 		public override void _Ready()
 		{
-			if (!Instance.Create(this)) return;
+			if (!Instance.Create(this, true)) return;
 			_dialogic = GetRoot();
 			_dialogic.ProcessMode = ProcessModeEnum.Always;
 			_dialogic.Connect("timeline_ended", Callable.From(TimelineEnded));

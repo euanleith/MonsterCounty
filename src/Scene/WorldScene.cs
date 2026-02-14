@@ -1,38 +1,27 @@
 using Godot;
+using MonsterCounty.Actor.World;
+using MonsterCounty.Model;
 using MonsterCounty.UI;
 
-namespace MonsterCounty.Actor.World
+namespace MonsterCounty.Scene
 {
-	public partial class World : Node
+	public partial class WorldScene : Scene
 	{
+		public static readonly Singleton<WorldScene> Instance = new();
+		
 		[Export] public PackedScene MobScene { get; set; }
-		[Export] public PackedScene PlayerScene { get; set; }
-		private WorldPlayer _worldPlayer;
-		[Export] public PackedScene HUDScene { get; set; }
-		private HUD _hud;
 
 		public int Score { get; private set; }
-		public Marker2D StartPosition { get; private set; }
 
 		public override void _Ready()
 		{
+			if (!Instance.Create(this, false)) return;
 			Score = 0;
-			StartPosition = GetNode<Marker2D>("StartPosition");
-		
-			_worldPlayer = PlayerScene.Instantiate<WorldPlayer>(); 
-			_worldPlayer.CustomInit(this);
-			_worldPlayer.Position = StartPosition.Position;
-			AddChild(_worldPlayer);
-		
-			_hud = HUDScene.Instantiate<HUD>();
-			_hud.CustomInit(this);
-			AddChild(_hud);
 		}
 
 		public void NewGame()
 		{
-			_hud.Reset();
-			_worldPlayer.Reset();
+			HUD.Instance.Get().Reset();
 			GetTree().CallGroup("mobs", Node.MethodName.QueueFree);
 			GetNode<Timer>("StartTimer").Start();
 		}
@@ -42,13 +31,13 @@ namespace MonsterCounty.Actor.World
 			WorldEnemy worldEnemy = MobScene.Instantiate<WorldEnemy>();
 			AddChild(worldEnemy);
 			PathFollow2D spawnLocation = GetNode<PathFollow2D>("MobPath/MobSpawnLocation");
-			worldEnemy.CustomInit(this, spawnLocation);
+			worldEnemy.Start(spawnLocation);
 		}
 	
 		public void OnScoreTimerTimeout()
 		{
 			Score++;
-			_hud.UpdateScore(Score);
+			HUD.Instance.Get().UpdateScore(Score);
 		}
 	
 		public void OnStartTimerTimeout()

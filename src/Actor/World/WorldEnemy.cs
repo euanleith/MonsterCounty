@@ -7,9 +7,8 @@ namespace MonsterCounty.Actor.World
 {
 	public partial class WorldEnemy : WorldActor
 	{
-		public void CustomInit(World world, PathFollow2D spawnLocation)
+		public void Start(PathFollow2D spawnLocation)
 		{
-			base.CustomInit(world);
 			(Controllers.Get<MovementController>().Actions[0] as MobMovementAction).CustomInit(spawnLocation);
 		}
 		

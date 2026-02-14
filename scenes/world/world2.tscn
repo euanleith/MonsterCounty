@@ -1,14 +1,14 @@
-[gd_scene format=4 uid="uid://uvkjup8xtt83"]
+[gd_scene format=4 uid="uid://uskguirijcn0"]
 
-[ext_resource type="Script" uid="uid://cj453rmg5slj4" path="res://src/Scene/WorldScene.cs" id="1_1yooq"]
-[ext_resource type="PackedScene" uid="uid://cv8uxn0ajjhqx" path="res://scenes/actor/world/world_enemy.tscn" id="2_036b0"]
-[ext_resource type="PackedScene" uid="uid://5bgltxvdkt4x" path="res://scenes/actor/world/world_player.tscn" id="3_dwbse"]
-[ext_resource type="PackedScene" uid="uid://bprvrex4wphsq" path="res://scenes/ui/hud.tscn" id="4_pkg7o"]
-[ext_resource type="Script" uid="uid://cqw2h4dn5kaba" path="res://src/CameraController.cs" id="5_bq33v"]
-[ext_resource type="PackedScene" uid="uid://x2jy23d5u43b" path="res://scenes/actor/world/path_world_npc.tscn" id="5_qfnet"]
-[ext_resource type="Texture2D" uid="uid://qdtvym21dfmw" path="res://art/tilesheet_complete.png" id="6_t5ptc"]
-[ext_resource type="PackedScene" uid="uid://crlb6673y01ua" path="res://scenes/world/portal.tscn" id="8_j2gmx"]
-[ext_resource type="PackedScene" uid="uid://8wgc112a71tx" path="res://scenes/world/spawn.tscn" id="9_1yooq"]
+[ext_resource type="Script" uid="uid://cj453rmg5slj4" path="res://src/Scene/WorldScene.cs" id="1_4gjx5"]
+[ext_resource type="PackedScene" uid="uid://cv8uxn0ajjhqx" path="res://scenes/actor/world/world_enemy.tscn" id="2_4gjx5"]
+[ext_resource type="PackedScene" uid="uid://5bgltxvdkt4x" path="res://scenes/actor/world/world_player.tscn" id="3_0givv"]
+[ext_resource type="PackedScene" uid="uid://bprvrex4wphsq" path="res://scenes/ui/hud.tscn" id="4_mru6i"]
+[ext_resource type="Script" uid="uid://cqw2h4dn5kaba" path="res://src/CameraController.cs" id="5_5whwl"]
+[ext_resource type="PackedScene" uid="uid://x2jy23d5u43b" path="res://scenes/actor/world/path_world_npc.tscn" id="6_4wd2b"]
+[ext_resource type="Texture2D" uid="uid://qdtvym21dfmw" path="res://art/tilesheet_complete.png" id="7_f46eg"]
+[ext_resource type="PackedScene" uid="uid://crlb6673y01ua" path="res://scenes/world/portal.tscn" id="8_6y33s"]
+[ext_resource type="PackedScene" uid="uid://8wgc112a71tx" path="res://scenes/world/spawn.tscn" id="9_4gjx5"]
 
 [sub_resource type="Curve2D" id="Curve2D_1bvp3"]
 _data = {
@@ -16,7 +16,7 @@ _data = {
 }
 point_count = 5
 
-[sub_resource type="Curve2D" id="Curve2D_1yooq"]
+[sub_resource type="Curve2D" id="Curve2D_4gjx5"]
 resource_local_to_scene = true
 _data = {
 "points": PackedVector2Array(0, 0, 0, 0, 13, 2, 0, 0, 0, 0, 256, 3, 0, 0, 0, 0, 10, 2)
@@ -24,7 +24,7 @@ _data = {
 point_count = 3
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_j2gmx"]
-texture = ExtResource("6_t5ptc")
+texture = ExtResource("7_f46eg")
 texture_region_size = Vector2i(64, 64)
 0:0/0 = 0
 1:0/0 = 0
@@ -305,16 +305,15 @@ physics_layer_0/collision_mask = 3
 sources/0 = SubResource("TileSetAtlasSource_j2gmx")
 
 [node name="World" type="Node" unique_id=1342078205]
-script = ExtResource("1_1yooq")
-MobScene = ExtResource("2_036b0")
+script = ExtResource("1_4gjx5")
+MobScene = ExtResource("2_4gjx5")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=26234498]
-script = ExtResource("5_bq33v")
+script = ExtResource("5_5whwl")
 
-[node name="HUD" parent="." unique_id=948406758 instance=ExtResource("4_pkg7o")]
+[node name="HUD" parent="." unique_id=948406758 instance=ExtResource("4_mru6i")]
 
-[node name="WorldPlayer" parent="." unique_id=1818493891 instance=ExtResource("3_dwbse")]
-position = Vector2(416, 480)
+[node name="WorldPlayer" parent="." unique_id=1818493891 instance=ExtResource("3_0givv")]
 
 [node name="MobTimer" type="Timer" parent="." unique_id=278192026]
 wait_time = 0.5
@@ -333,24 +332,26 @@ curve = SubResource("Curve2D_1bvp3")
 
 [node name="MobSpawnLocation" type="PathFollow2D" parent="MobPath" unique_id=507339214]
 
-[node name="PathNPC" parent="." unique_id=1629924361 instance=ExtResource("5_qfnet")]
+[node name="PathNPC" parent="." unique_id=1629924361 instance=ExtResource("6_4wd2b")]
 position = Vector2(289, 161)
-curve = SubResource("Curve2D_1yooq")
+curve = SubResource("Curve2D_4gjx5")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=1992197526]
-tile_map_data = PackedByteArray("AAAAAAAAAAAGAAMAAAABAAAAAAAGAAMAAAACAAAAAAAGAAMAAAADAAAAAAAGAAMAAAAEAAAAAAAGAAMAAAAFAAAAAAAGAAMAAAAGAAAAAAAGAAMAAAAHAAAAAAAGAAMAAAAIAAAAAAAGAAMAAAAJAAAAAAAGAAMAAAAKAAAAAAAGAAMAAAALAAAAAAAGAAMAAAARAAAAAAAGAAMAAAAMAAAAAAAGAAMAAAANAAAAAAAGAAMAAAAOAAAAAAAGAAMAAAAPAAAAAAAGAAMAAAAQAAAAAAAGAAMAAAAWAAkAAAAGAAMAAAAWAAgAAAAGAAMAAAAWAAcAAAAGAAMAAAAWAAYAAAAGAAMAAAAWAAUAAAAGAAMAAAAWAAQAAAAGAAMAAAAWAAMAAAAGAAMAAAAWAAIAAAAGAAMAAAAWAAEAAAAGAAMAAAAWAAAAAAAGAAMAAAAVAAAAAAAGAAMAAAAUAAAAAAAGAAMAAAATAAAAAAAGAAMAAAASAAAAAAAGAAMAAAD//wAAAAAGAAMAAAD+/wAAAAAGAAMAAAD9/wAAAAAGAAMAAAD8/wAAAAAGAAMAAAD8/wEAAAAGAAMAAAD8/wIAAAAGAAMAAAD8/wMAAAAGAAMAAAD8/wQAAAAGAAMAAAD8/wUAAAAGAAMAAAD8/wYAAAAGAAMAAAD8/wcAAAAGAAMAAAD8/wgAAAAGAAMAAAD8/wkAAAAGAAMAAAD8/woAAAAGAAMAAAD8/wsAAAAGAAMAAAAWAAoAAAAGAAMAAAAWAAsAAAAGAAMAAAAWAAwAAAAGAAMAAAAWAA0AAAAGAAMAAAD8/wwAAAAGAAMAAAD8/w0AAAAGAAMAAAD9/w0AAAAGAAMAAAD+/w0AAAAGAAMAAAD//w0AAAAGAAMAAAAAAA0AAAAGAAMAAAABAA0AAAAGAAMAAAACAA0AAAAGAAMAAAADAA0AAAAGAAMAAAAEAA0AAAAGAAMAAAAFAA0AAAAGAAMAAAAGAA0AAAAGAAMAAAAHAA0AAAAGAAMAAAAIAA0AAAAGAAMAAAAJAA0AAAAGAAMAAAAKAA0AAAAGAAMAAAALAA0AAAAGAAMAAAAMAA0AAAAGAAMAAAANAA0AAAAGAAMAAAAOAA0AAAAGAAMAAAAPAA0AAAAGAAMAAAAQAA0AAAAGAAMAAAARAA0AAAAGAAMAAAASAA0AAAAGAAMAAAATAA0AAAAGAAMAAAAUAA0AAAAGAAMAAAAVAA0AAAAGAAMAAAANAAUAAAAQAAUAAAANAAQAAAAQAAUAAAAOAAQAAAAQAAUAAAAPAAQAAAAQAAUAAAAPAAUAAAAQAAUAAAA=")
+tile_map_data = PackedByteArray("AAALAAoAAAAMAAsAAAAMAAoAAAAMAAsAAAANAAoAAAAMAAsAAAAOAAoAAAAMAAsAAAAPAAoAAAAMAAsAAAAQAAoAAAAMAAsAAAARAAoAAAAMAAsAAAASAAoAAAAMAAsAAAAVAAoAAAAMAAsAAAAWAAoAAAAMAAsAAAAXAAoAAAAMAAsAAAAYAAoAAAAMAAsAAAAZAAoAAAAMAAsAAAAaAAoAAAAMAAsAAAAbAAoAAAAMAAsAAAAcAAoAAAAMAAsAAAAdAAoAAAAMAAsAAAAeAAoAAAAMAAsAAAAfAAoAAAAMAAsAAAAgAAoAAAAMAAsAAAAgAAkAAAAMAAsAAAAgAAgAAAAMAAsAAAAgAAcAAAAMAAsAAAAgAAYAAAAMAAsAAAAgAAUAAAAMAAsAAAAgAAQAAAAMAAsAAAAgAAMAAAAMAAsAAAAgAAIAAAAMAAsAAAAgAAEAAAAMAAsAAAAgAAAAAAAMAAsAAAAgAP//AAAMAAsAAAAgAP7/AAAMAAsAAAAKAAoAAAAMAAsAAAAJAAoAAAAMAAsAAAAIAAoAAAAMAAsAAAAIAAkAAAAMAAsAAAAIAAgAAAAMAAsAAAAIAAcAAAAMAAsAAAAIAAYAAAAMAAsAAAAIAAUAAAAMAAsAAAAIAAQAAAAMAAsAAAAIAAMAAAAMAAsAAAAIAAIAAAAMAAsAAAAIAAEAAAAMAAsAAAAIAAAAAAAMAAsAAAAIAP//AAAMAAsAAAAIAP7/AAAMAAsAAAAJAP7/AAAMAAsAAAAKAP7/AAAMAAsAAAALAP7/AAAMAAsAAAAMAP7/AAAMAAsAAAANAP7/AAAMAAsAAAAOAP7/AAAMAAsAAAAPAP7/AAAMAAsAAAAQAP7/AAAMAAsAAAARAP7/AAAMAAsAAAASAP7/AAAMAAsAAAATAP7/AAAMAAsAAAAUAP7/AAAMAAsAAAAVAP7/AAAMAAsAAAAWAP7/AAAMAAsAAAAXAP7/AAAMAAsAAAAYAP7/AAAMAAsAAAAZAP7/AAAMAAsAAAAaAP7/AAAMAAsAAAAbAP7/AAAMAAsAAAAcAP7/AAAMAAsAAAAdAP7/AAAMAAsAAAAeAP7/AAAMAAsAAAAfAP7/AAAMAAsAAAAUAAoAAAAMAAsAAAA=")
 tile_set = SubResource("TileSet_1yooq")
 
-[node name="Portals" type="Node" parent="." unique_id=1053877030]
+[node name="Portals" type="Node" parent="." unique_id=1704154002]
 
-[node name="ToWorld2" parent="Portals" unique_id=1518531521 instance=ExtResource("8_j2gmx")]
-position = Vector2(928, 352)
-_dstScene = "res://scenes/world/world2.tscn"
-_dstPortal = "FromWorld1"
+[node name="ToWorld1" parent="Portals" unique_id=1518531521 instance=ExtResource("8_6y33s")]
+position = Vector2(1248, 672)
+_dstScene = "res://scenes/world/world.tscn"
+_dstPortal = "FromWorld2"
 
-[node name="FromWorld2" parent="Portals" unique_id=252361889 instance=ExtResource("9_1yooq")]
-position = Vector2(928, 416)
+[node name="FromWorld1" parent="Portals" unique_id=1203108869 instance=ExtResource("9_4gjx5")]
+position = Vector2(1248, 608)
 
 [connection signal="timeout" from="MobTimer" to="." method="OnMobTimerTimeout"]
 [connection signal="timeout" from="ScoreTimer" to="." method="OnScoreTimerTimeout"]
 [connection signal="timeout" from="StartTimer" to="." method="OnStartTimerTimeout"]
+
+[editable path="WorldPlayer"]

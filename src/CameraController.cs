@@ -28,8 +28,16 @@ namespace MonsterCounty
 			LimitBottom = (int)(mapPos.Y + mapSize.Y);
 		}
 
+
+		private bool _initialised;
 		public override void _Process(double delta)
 		{
+			if (!_initialised)
+			{
+				_initialised = true;
+				return;
+			}
+			// todo add condition here or something idk (could just use initialised flag)
 			GlobalPosition = WorldPlayer.Instance.Get().GlobalPosition;
 		}
 	}

@@ -1,26 +1,24 @@
 using Godot;
 using MonsterCounty.Actor.World;
 using MonsterCounty.Model;
+using MonsterCounty.Scene;
 
 namespace MonsterCounty.UI
 {
 	public partial class HUD : CanvasLayer
 	{
 		public static readonly Singleton<HUD> Instance = new();
-		
+
 		[Signal] public delegate void StartGameEventHandler();
-
-		private World _world;
-
-		public void CustomInit(World world)
+		
+		public override void _Ready()
 		{
-			if (!Instance.Create(this)) return;
-			_world = world;
+			if (!Instance.Create(this, false)) return;
 		}
 
 		public void Reset()
 		{
-			UpdateScore(_world.Score);
+			UpdateScore(WorldScene.Instance.Get().Score);
 			ShowMessage("Get Ready!");
 		}
 	
@@ -56,7 +54,7 @@ namespace MonsterCounty.UI
 		private void OnStartButtonPressed()
 		{
 			GetNode<Button>("StartButton").Hide();
-			_world.NewGame();
+			WorldScene.Instance.Get().NewGame();
 		}
 
 		private void OnMessageTimerTimeout()

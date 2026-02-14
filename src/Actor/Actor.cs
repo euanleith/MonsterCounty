@@ -4,26 +4,21 @@ using MonsterCounty.Model;
 
 namespace MonsterCounty.Actor
 {
-    public abstract partial class Actor : CharacterBody2D
-    {
-        public TypeMap<Controller> Controllers { get; private set; } // todo having predefined controller attributes would be better, but idk how
-        
-        protected abstract TypeMap<Controller> LoadControllers();
+	public abstract partial class Actor : CharacterBody2D
+	{
+		public TypeMap<Controller> Controllers { get; private set; }
+		
+		protected abstract TypeMap<Controller> LoadControllers();
 
-        public override void _Ready()
-        {
-            CustomInit();
-        }
-        
-        protected virtual void CustomInit()
-        {
-            Controllers = LoadControllers();
-            Controllers.ForEach(controller => controller.CustomInit(this));
-        }
-        
-        public override void _Process(double delta)
-        {
-            Controllers.ForEach(controller => controller._Process(delta));
-        }
-    }
+		public override void _Ready()
+		{
+			Controllers = LoadControllers();
+			Controllers.ForEach(controller => controller.Load(this));
+		}
+		
+		public override void _Process(double delta)
+		{
+			Controllers.ForEach(controller => controller._Process(delta));
+		}
+	}
 }

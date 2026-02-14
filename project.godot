@@ -18,7 +18,8 @@ config/icon="res://icon.svg"
 [autoload]
 
 Dialogic="*uid://ds2q0uclmolvu"
-DialogicManager="*uid://dk0ks7et20aql"
+DialogicManager="*uid://tu4cw7ma4u8q"
+GameState="*uid://ba7bikla0icy2"
 
 [dialogic]
 
@@ -43,6 +44,10 @@ version_control/autoload_on_startup=true
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/dialogic/plugin.cfg")
+
+[global_group]
+
+spawn=""
 
 [input]
 

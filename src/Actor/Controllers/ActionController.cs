@@ -9,9 +9,9 @@ namespace MonsterCounty.Actor.Controllers
 		public Array<ControllerAction<R>> Actions; // todo enforce that actions are of same type as controller
 		public ControllerAction<R> CurrentAction { get; private set; }
 
-		public override void CustomInit(Actor actor)
+		public override void Load(Actor actor)
 		{
-			base.CustomInit(actor);
+			base.Load(actor);
 			Actions = [];
 			foreach (ControllerAction<R> action in GetChildren().OfType<ControllerAction<R>>())
 			{

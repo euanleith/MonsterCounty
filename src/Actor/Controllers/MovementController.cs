@@ -1,4 +1,6 @@
 using Godot;
+using MonsterCounty.Actor.World;
+using MonsterCounty.State;
 
 namespace MonsterCounty.Actor.Controllers
 {
@@ -7,6 +9,12 @@ namespace MonsterCounty.Actor.Controllers
 		[Export] public float Speed { get; private set; }
 
 		private Vector2 _prevPosition;
+
+		protected override void Save()
+		{
+			base.Save();
+			GameState.PlayerPosition = WorldPlayer.Instance.Get().GlobalPosition;
+		}
 
 		public override void _PhysicsProcess(double delta)
 		{
