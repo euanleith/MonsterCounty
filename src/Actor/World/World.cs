@@ -21,6 +21,7 @@ namespace MonsterCounty.Actor.World
 		
 			_worldPlayer = PlayerScene.Instantiate<WorldPlayer>(); 
 			_worldPlayer.CustomInit(this);
+			_worldPlayer.Position = StartPosition.Position;
 			AddChild(_worldPlayer);
 		
 			_hud = HUDScene.Instantiate<HUD>();

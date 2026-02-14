@@ -6,7 +6,7 @@ namespace MonsterCounty.Actor.Controllers
 {
 	public abstract partial class ActionController<R> : Controller
 	{
-		public Array<ControllerAction<R>> Actions;
+		public Array<ControllerAction<R>> Actions; // todo enforce that actions are of same type as controller
 		public ControllerAction<R> CurrentAction { get; private set; }
 
 		public override void CustomInit(Actor actor)
