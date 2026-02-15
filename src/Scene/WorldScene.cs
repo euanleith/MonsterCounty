@@ -5,7 +5,7 @@ using MonsterCounty.UI;
 
 namespace MonsterCounty.Scene
 {
-	public partial class WorldScene : Scene
+	public partial class WorldScene : Node
 	{
 		public static readonly Singleton<WorldScene> Instance = new();
 		

@@ -1,4 +1,7 @@
+using System.Collections.Generic;
+using System.ComponentModel;
 using Godot;
+using MonsterCounty.Model;
 using MonsterCounty.State;
 
 namespace MonsterCounty.Actor.Controllers
@@ -6,6 +9,16 @@ namespace MonsterCounty.Actor.Controllers
 	public partial class SpawnController : Controller
 	{
 		[Export] public string SpawnName;
+
+		public enum SpawnType
+		{
+			[Description(null)] Testing,
+			[Description("CurrentPosition")] CurrentPosition
+		}
+
+		public Dictionary<SpawnType, string> SpawnTypes;
+		
+		public static readonly string DefaultSpawnName = null;
 
 		public override void Load(Actor actor)
 		{
@@ -21,7 +34,12 @@ namespace MonsterCounty.Actor.Controllers
 
 		public void MoveToSpawn(string spawnName)
 		{
-			if (spawnName == null) return;
+			if (spawnName == SpawnType.Testing.GetStringValue()) return;
+			if (spawnName == SpawnType.CurrentPosition.GetStringValue())
+			{
+				Actor.GlobalPosition = GameState.PlayerPosition;
+				return;
+			}
 			foreach (Node node in GetTree().GetNodesInGroup("spawn"))
 			{
 				if (node is not Node2D node2D || node2D.Name != spawnName) continue;

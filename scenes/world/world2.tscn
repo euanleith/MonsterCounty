@@ -288,6 +288,7 @@ texture_region_size = Vector2i(64, 64)
 10:11/0 = 0
 11:11/0 = 0
 12:11/0 = 0
+12:11/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
 13:11/0 = 0
 14:11/0 = 0
 15:11/0 = 0
@@ -314,6 +315,7 @@ script = ExtResource("5_5whwl")
 [node name="HUD" parent="." unique_id=948406758 instance=ExtResource("4_mru6i")]
 
 [node name="WorldPlayer" parent="." unique_id=1818493891 instance=ExtResource("3_0givv")]
+position = Vector2(1056, 96)
 
 [node name="MobTimer" type="Timer" parent="." unique_id=278192026]
 wait_time = 0.5
@@ -353,5 +355,3 @@ position = Vector2(1248, 608)
 [connection signal="timeout" from="MobTimer" to="." method="OnMobTimerTimeout"]
 [connection signal="timeout" from="ScoreTimer" to="." method="OnScoreTimerTimeout"]
 [connection signal="timeout" from="StartTimer" to="." method="OnStartTimerTimeout"]
-
-[editable path="WorldPlayer"]

@@ -19,7 +19,7 @@ namespace MonsterCounty.Model
 			}
 			Instance = obj;
 			_isAutoload = isAutoload;
-			SceneManager.SceneCleanup += Destroy;
+			SceneManager.Instance.Get().SceneCleanup += Destroy;
 			return true;
 		}
 		

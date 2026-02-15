@@ -10,7 +10,7 @@ namespace MonsterCounty.Actor.Controllers
         public virtual void Load(Actor actor)
         {
             Actor = actor;
-            SceneManager.SceneChanging += Save;
+            SceneManager.Instance.Get().Connect(SceneManager.SignalName.SceneChange, Callable.From(Save)); // using this rather than '+=' syntax as that still runs after the node is freed  
         }
 
         protected virtual void Save()

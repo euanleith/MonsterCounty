@@ -37,7 +37,6 @@ namespace MonsterCounty
 				_initialised = true;
 				return;
 			}
-			// todo add condition here or something idk (could just use initialised flag)
 			GlobalPosition = WorldPlayer.Instance.Get().GlobalPosition;
 		}
 	}
