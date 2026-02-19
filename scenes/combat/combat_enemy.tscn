@@ -1,19 +1,25 @@
-[gd_scene format=3 uid="uid://ba8b0slnplf64"]
+[gd_scene format=3 uid="uid://draqkjhp70lmy"]
 
-[ext_resource type="Texture2D" uid="uid://fdey0f6gyorj" path="res://art/enemyWalking_2.png" id="1_30xtd"]
+[ext_resource type="Script" uid="uid://dygwxegjt4eky" path="res://src/Actor/Combat/CombatEnemy.cs" id="1_nho5u"]
+[ext_resource type="PackedScene" uid="uid://cp3l3q4tklvp8" path="res://scenes/actor/controller/combat_controller.tscn" id="2_55h4l"]
+[ext_resource type="Texture2D" uid="uid://fdey0f6gyorj" path="res://art/enemyWalking_2.png" id="3_55h4l"]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_3jyax"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_ss3kh"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_30xtd")
+"texture": ExtResource("3_55h4l")
 }],
 "loop": true,
 "name": &"default",
 "speed": 5.0
 }]
 
-[node name="CombatEnemy" type="Node2D" unique_id=1605384622]
+[node name="CombatEnemy" type="CharacterBody2D" unique_id=1594809982]
+script = ExtResource("1_nho5u")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=630393008]
-sprite_frames = SubResource("SpriteFrames_3jyax")
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=472985003]
+sprite_frames = SubResource("SpriteFrames_ss3kh")
+
+[node name="CombatController" parent="." unique_id=380955144 instance=ExtResource("2_55h4l")]
+_maxHealth = 2

@@ -1,15 +1,22 @@
 [gd_scene format=3 uid="uid://3i2bjf6xfoyy"]
 
 [ext_resource type="PackedScene" uid="uid://b06auojv8t4uh" path="res://scenes/ui/combat_ui.tscn" id="1_764e3"]
-[ext_resource type="PackedScene" uid="uid://bxbhopi7dcape" path="res://scenes/combat/combat_player.tscn" id="2_aic3r"]
-[ext_resource type="PackedScene" uid="uid://ba8b0slnplf64" path="res://scenes/combat/combat_enemy.tscn" id="3_4l26h"]
+[ext_resource type="Script" uid="uid://c0w7sgsuq5vs8" path="res://src/Scene/CombatScene.cs" id="1_ltalu"]
+[ext_resource type="PackedScene" uid="uid://sjxtixbl402j" path="res://scenes/combat/combat_player.tscn" id="2_aic3r"]
+[ext_resource type="PackedScene" uid="uid://draqkjhp70lmy" path="res://scenes/combat/combat_enemy.tscn" id="3_4l26h"]
 
-[node name="Combat" type="Node" unique_id=1629342209]
+[node name="Combat" type="Node" unique_id=1629342209 node_paths=PackedStringArray("_player", "_enemy")]
+script = ExtResource("1_ltalu")
+_player = NodePath("CombatPlayer")
+_enemy = NodePath("CombatEnemy")
 
 [node name="CombatUI" parent="." unique_id=1878144606 instance=ExtResource("1_764e3")]
 
-[node name="CombatEnemy" parent="." unique_id=1605384622 instance=ExtResource("3_4l26h")]
-position = Vector2(880, 96)
-
 [node name="CombatPlayer" parent="." unique_id=711857539 instance=ExtResource("2_aic3r")]
-position = Vector2(192, 496)
+position = Vector2(176, 496)
+
+[node name="CombatEnemy" parent="." unique_id=1564967612 instance=ExtResource("3_4l26h")]
+position = Vector2(816, 104)
+
+[editable path="CombatPlayer"]
+[editable path="CombatEnemy"]

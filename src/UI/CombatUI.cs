@@ -1,8 +1,6 @@
 using Godot;
-using MonsterCounty.Actor.Controllers;
 using MonsterCounty.Model;
 using MonsterCounty.Scene;
-using MonsterCounty.State;
 
 namespace MonsterCounty.UI
 {
@@ -22,8 +20,7 @@ namespace MonsterCounty.UI
 
         private void OnToWorldButtonPressed()
         {
-            GameState.PlayerSpawnName = SpawnController.SpawnType.CurrentPosition.GetStringValue();
-            SceneManager.Instance.Get().ChangeScene(GetTree(), SceneManager.CurrentWorldScene);
+            CombatScene.Instance.Get().ProcessTurn();
         }
     }
 }

@@ -1,6 +1,8 @@
-[gd_scene format=3 uid="uid://bxbhopi7dcape"]
+[gd_scene format=3 uid="uid://sjxtixbl402j"]
 
+[ext_resource type="Script" uid="uid://gtmsmutejk8n" path="res://src/Actor/Combat/CombatPlayer.cs" id="1_3plt8"]
 [ext_resource type="Texture2D" uid="uid://scvabxdnh5qr" path="res://art/playerGrey_walk1.png" id="1_eqesl"]
+[ext_resource type="PackedScene" uid="uid://cp3l3q4tklvp8" path="res://scenes/actor/controller/combat_controller.tscn" id="3_kbrux"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_kvvui"]
 animations = [{
@@ -13,7 +15,11 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="CombatPlayer" type="Node2D" unique_id=711857539]
+[node name="CombatPlayer" type="CharacterBody2D" unique_id=1566038033]
+script = ExtResource("1_3plt8")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=303734267]
 sprite_frames = SubResource("SpriteFrames_kvvui")
+
+[node name="CombatController" parent="." unique_id=380955144 instance=ExtResource("3_kbrux")]
+_maxHealth = 3

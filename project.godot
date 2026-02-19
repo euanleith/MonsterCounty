@@ -19,7 +19,7 @@ config/icon="res://icon.svg"
 
 SceneManager="*uid://6xuaroeq50ak"
 Dialogic="*uid://ds2q0uclmolvu"
-DialogicManager="*uid://tu4cw7ma4u8q"
+DialogicManager="*uid://b0m3wey7sv1vk"
 GameState="*uid://ba7bikla0icy2"
 
 [dialogic]
