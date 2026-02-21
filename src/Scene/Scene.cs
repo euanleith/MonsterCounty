@@ -6,7 +6,7 @@ namespace MonsterCounty.Scene
 {
     public abstract partial class Scene : Node
     {
-        private readonly List<string> _loadOrder = ["player", "npc", "enemy"];
+        private readonly List<string> _loadOrder = ["player", "npc", "enemy", "ui"];
         
         public override void _Ready()
         {

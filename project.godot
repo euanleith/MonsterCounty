@@ -52,6 +52,7 @@ spawn=""
 enemy=""
 npc=""
 player=""
+ui=""
 
 [input]
 

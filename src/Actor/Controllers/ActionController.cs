@@ -1,4 +1,5 @@
 using System.Linq;
+using Godot;
 using Godot.Collections;
 using MonsterCounty.Actor.Actions;
 using MonsterCounty.Actor.Decisions;
@@ -20,13 +21,10 @@ namespace MonsterCounty.Actor.Controllers
 				Actions.Add(action);
 				action.CustomInit(Actor);
 			}
-			Decision = GetDecision();
+			Decision = LoadDecision();
 		}
 
-		protected Decision<R> GetDecision()
-		{
-			return new FirstDecision<R>();
-		}
+		protected virtual Decision<R> LoadDecision() => new FirstDecision<R>();
 
 		protected ControllerAction<R> NextAction()
 		{

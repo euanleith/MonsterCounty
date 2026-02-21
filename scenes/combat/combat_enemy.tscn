@@ -3,6 +3,9 @@
 [ext_resource type="Script" uid="uid://dygwxegjt4eky" path="res://src/Actor/Combat/CombatEnemy.cs" id="1_nho5u"]
 [ext_resource type="PackedScene" uid="uid://cp3l3q4tklvp8" path="res://scenes/actor/controller/combat_controller.tscn" id="2_55h4l"]
 [ext_resource type="Texture2D" uid="uid://fdey0f6gyorj" path="res://art/enemyWalking_2.png" id="3_55h4l"]
+[ext_resource type="Script" uid="uid://sqtpyxvmihvi" path="res://src/Actor/Controllers/EnemyCombatController.cs" id="4_eq8mf"]
+[ext_resource type="PackedScene" uid="uid://10enj2mend3b" path="res://scenes/actor/actions/combat/attack_action.tscn" id="5_c8j84"]
+[ext_resource type="PackedScene" uid="uid://40wij836ji7i" path="res://scenes/actor/actions/combat/heal_action.tscn" id="6_boyqr"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ss3kh"]
 animations = [{
@@ -22,4 +25,9 @@ script = ExtResource("1_nho5u")
 sprite_frames = SubResource("SpriteFrames_ss3kh")
 
 [node name="CombatController" parent="." unique_id=380955144 instance=ExtResource("2_55h4l")]
-_maxHealth = 2
+script = ExtResource("4_eq8mf")
+_maxHealth = 4
+
+[node name="AttackAction" parent="CombatController" unique_id=607789692 instance=ExtResource("5_c8j84")]
+
+[node name="HealAction" parent="CombatController" unique_id=909520099 instance=ExtResource("6_boyqr")]
