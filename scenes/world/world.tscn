@@ -334,7 +334,7 @@ curve = SubResource("Curve2D_1bvp3")
 [node name="MobSpawnLocation" type="PathFollow2D" parent="MobPath" unique_id=507339214]
 
 [node name="PathNPC" parent="." unique_id=1629924361 instance=ExtResource("5_qfnet")]
-position = Vector2(314, 222)
+position = Vector2(180, 128)
 curve = SubResource("Curve2D_1yooq")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=1992197526]
