@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://40wij836ji7i"]
+
+[ext_resource type="Script" uid="uid://dvlwfrwofskwd" path="res://src/Actor/Actions/Combat/HealAction.cs" id="1_p3hme"]
+
+[node name="HealAction" type="Node" unique_id=909520099]
+script = ExtResource("1_p3hme")

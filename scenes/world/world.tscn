@@ -314,7 +314,7 @@ script = ExtResource("5_bq33v")
 [node name="HUD" parent="." unique_id=948406758 instance=ExtResource("4_pkg7o")]
 
 [node name="WorldPlayer" parent="." unique_id=1818493891 instance=ExtResource("3_dwbse")]
-position = Vector2(416, 480)
+position = Vector2(415, 480)
 
 [node name="MobTimer" type="Timer" parent="." unique_id=278192026]
 wait_time = 0.5
