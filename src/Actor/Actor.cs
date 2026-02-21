@@ -4,13 +4,13 @@ using MonsterCounty.Model;
 
 namespace MonsterCounty.Actor
 {
-	public abstract partial class Actor : CharacterBody2D
+	public abstract partial class Actor : CharacterBody2D, Loadable
 	{
 		public TypeMap<Controller> Controllers { get; private set; }
 		
 		protected abstract TypeMap<Controller> LoadControllers();
 
-		public override void _Ready()
+		public virtual void Load()
 		{
 			Controllers = LoadControllers();
 			Controllers.ForEach(controller => controller.Load(this));

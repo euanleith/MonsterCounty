@@ -8,10 +8,10 @@ namespace MonsterCounty.Actor.World
 	{
 		public static readonly Singleton<WorldPlayer> Instance = new();
 
-		public override void _Ready()
+		public override void Load()
 		{
 			if (!Instance.Create(this, false)) return;
-			base._Ready();
+			base.Load();
 		}
 
 		protected override TypeMap<Controller> LoadControllers()

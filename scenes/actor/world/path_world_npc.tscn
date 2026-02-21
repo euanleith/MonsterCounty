@@ -10,7 +10,7 @@ curve = ExtResource("1_s62kv")
 [node name="PathFollow2D" type="PathFollow2D" parent="." unique_id=1522427681]
 position = Vector2(24, 0)
 
-[node name="NPC" parent="." unique_id=1355807265 instance=ExtResource("1_wdry7")]
+[node name="NPC" parent="." unique_id=1355807265 groups=["npc"] instance=ExtResource("1_wdry7")]
 
 [node name="PathMovementAction" parent="NPC/MovementController" parent_id_path=PackedInt32Array(1355807265, 1435023787) index="0" unique_id=1337701144 instance=ExtResource("2_3qym3")]
 

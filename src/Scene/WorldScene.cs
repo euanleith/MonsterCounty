@@ -5,7 +5,7 @@ using MonsterCounty.UI;
 
 namespace MonsterCounty.Scene
 {
-	public partial class WorldScene : Node
+	public partial class WorldScene : Scene
 	{
 		public static readonly Singleton<WorldScene> Instance = new();
 		
@@ -16,6 +16,7 @@ namespace MonsterCounty.Scene
 		public override void _Ready()
 		{
 			if (!Instance.Create(this, false)) return;
+			base._Ready();
 			Score = 0;
 		}
 
@@ -31,6 +32,7 @@ namespace MonsterCounty.Scene
 			WorldEnemy worldEnemy = MobScene.Instantiate<WorldEnemy>();
 			AddChild(worldEnemy);
 			PathFollow2D spawnLocation = GetNode<PathFollow2D>("MobPath/MobSpawnLocation");
+			worldEnemy.Load();
 			worldEnemy.Start(spawnLocation);
 		}
 	

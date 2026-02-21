@@ -6,7 +6,7 @@ using MonsterCounty.State;
 
 namespace MonsterCounty.Scene
 {
-	public partial class CombatScene : Node
+	public partial class CombatScene : Scene
 	{
 		public static readonly Singleton<CombatScene> Instance = new();
 		
@@ -18,6 +18,7 @@ namespace MonsterCounty.Scene
 		public override void _Ready()
 		{
 			if (!Instance.Create(this, false)) return;
+			base._Ready();
 			_turnOrder = new CircularLinkedList<CombatActor>(_player, _enemy);
 		}
 

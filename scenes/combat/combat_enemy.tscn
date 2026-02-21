@@ -15,7 +15,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="CombatEnemy" type="CharacterBody2D" unique_id=1594809982]
+[node name="CombatEnemy" type="CharacterBody2D" unique_id=1594809982 groups=["enemy"]]
 script = ExtResource("1_nho5u")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=472985003]

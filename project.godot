@@ -49,6 +49,9 @@ enabled=PackedStringArray("res://addons/dialogic/plugin.cfg")
 [global_group]
 
 spawn=""
+enemy=""
+npc=""
+player=""
 
 [input]
 

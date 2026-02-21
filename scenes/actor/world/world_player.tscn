@@ -28,7 +28,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="WorldPlayer" type="CharacterBody2D" unique_id=1818493891]
+[node name="WorldPlayer" type="CharacterBody2D" unique_id=1818493891 groups=["player"]]
 collision_mask = 15
 script = ExtResource("1_qlg0r")
 metadata/_edit_group_ = true
