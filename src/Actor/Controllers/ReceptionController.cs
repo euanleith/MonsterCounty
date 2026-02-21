@@ -6,7 +6,7 @@ namespace MonsterCounty.Actor.Controllers
     {
         public void Respond(double delta)
         {
-            CurrentAction?.Do(delta);
+            NextAction()?.Do(delta);
         }
     }
 }

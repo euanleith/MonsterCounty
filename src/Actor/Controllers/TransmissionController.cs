@@ -10,7 +10,7 @@ namespace MonsterCounty.Actor.Controllers
         public override void _PhysicsProcess(double delta)
         {
             base._PhysicsProcess(delta);
-            CurrentAction?.Do(delta);
+            NextAction()?.Do(delta);
         }
     }
 }

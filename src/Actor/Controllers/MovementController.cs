@@ -1,4 +1,5 @@
 using Godot;
+using MonsterCounty.Actor.Actions;
 using MonsterCounty.Actor.World;
 using MonsterCounty.State;
 
@@ -18,9 +19,10 @@ namespace MonsterCounty.Actor.Controllers
 
 		public override void _PhysicsProcess(double delta)
 		{
-			if (CurrentAction == null) return;
+			ControllerAction<Vector2> currentAction = NextAction();
+			if (currentAction == null) return;
 			_prevPosition = Actor.Position;
-			Actor.Position = CurrentAction.Do(delta);
+			Actor.Position = currentAction.Do(delta);
 			Actor.Velocity = Vector2.Zero;
 			if (_prevPosition != Actor.Position) 
 				Actor.Rotation = GetRotation(Actor.Position, _prevPosition);

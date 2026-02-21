@@ -8,7 +8,7 @@ namespace MonsterCounty.Actor.Controllers
 	public abstract partial class ActionController<R> : Controller
 	{
 		public Array<ControllerAction<R>> Actions; // todo enforce that actions are of same type as controller
-		public ControllerAction<R> CurrentAction { get; private set; }
+		private ControllerAction<R> _currentAction;
 		protected Decision<R> Decision;
 
 		public override void Load(Actor actor)
@@ -27,13 +27,13 @@ namespace MonsterCounty.Actor.Controllers
 		{
 			return new FirstDecision<R>();
 		}
-		
-		public override void _Process(double delta)
+
+		protected ControllerAction<R> NextAction()
 		{
-			base._Process(delta);
 			ControllerAction<R> newAction = Decision.Choose(Actions);
-			if (newAction != null && newAction != CurrentAction) newAction.Reactivate(Actor);
-			CurrentAction = newAction;
+			if (newAction != null && newAction != _currentAction) newAction.Reactivate(Actor);
+			_currentAction = newAction;
+			return newAction;
 		}
 	}
 }
