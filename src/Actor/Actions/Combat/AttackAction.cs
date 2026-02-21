@@ -9,8 +9,8 @@ namespace MonsterCounty.Actor.Actions.Combat
         
         public override CombatState Do(double delta)
         {
-            GD.Print($"{Actor.Name} hitting {Self.Opponent.Name}");
-            Self.Opponent.GetHit(_strength);
+            GD.Print($"{Actor.Name} hitting opponent");
+            Self.Opponent.CurrentHealth -= _strength;
             return base.Do(delta);
         }
     }

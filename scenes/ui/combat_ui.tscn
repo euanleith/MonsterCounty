@@ -2,9 +2,11 @@
 
 [ext_resource type="Script" uid="uid://cnn8sqsn4dphy" path="res://src/UI/CombatUI.cs" id="1_n7134"]
 
-[node name="CombatUI" type="CanvasLayer" unique_id=1878144606 node_paths=PackedStringArray("_buttons") groups=["ui"]]
+[node name="CombatUI" type="CanvasLayer" unique_id=1878144606 node_paths=PackedStringArray("_buttons", "_playerHealthLabel", "_enemyHealthLabel") groups=["ui"]]
 script = ExtResource("1_n7134")
 _buttons = [NodePath("Button0"), NodePath("Button1")]
+_playerHealthLabel = NodePath("PlayerHealthLabel")
+_enemyHealthLabel = NodePath("EnemyHealthLabel")
 
 [node name="Button0" type="Button" parent="." unique_id=533142607]
 offset_left = 568.0
@@ -19,9 +21,13 @@ offset_right = 704.0
 offset_bottom = 384.0
 
 [node name="PlayerHealthLabel" type="Label" parent="." unique_id=743464063]
-offset_right = 40.0
-offset_bottom = 23.0
+offset_left = 496.0
+offset_top = 464.0
+offset_right = 536.0
+offset_bottom = 487.0
 
 [node name="EnemyHealthLabel" type="Label" parent="." unique_id=845313175]
-offset_right = 40.0
-offset_bottom = 23.0
+offset_left = 808.0
+offset_top = 216.0
+offset_right = 848.0
+offset_bottom = 239.0

@@ -16,7 +16,6 @@ namespace MonsterCounty.Actor.Actions.Combat
 		
 		public override CombatState Do(double delta)
 		{
-			GD.Print($"{Actor.Name} at {Self.CurrentHealth} health, opponent at {Self.Opponent.CurrentHealth} health");
 			if (Self.CurrentHealth <= 0) return CombatState.Lose;
 			if (Self.Opponent.CurrentHealth <= 0) return CombatState.Win;
 			return CombatState.Continue;

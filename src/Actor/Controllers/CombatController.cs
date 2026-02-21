@@ -5,9 +5,17 @@ namespace MonsterCounty.Actor.Controllers
 {
 	public partial class CombatController : ActionController<CombatState>
 	{
-		public CombatController Opponent;
 		[Export] private int _maxHealth;
-		public int CurrentHealth;
+		
+		[Signal] public delegate void CurrentHealthChangedEventHandler(int health);
+		
+		public CombatController Opponent;
+		private int _currentHealth;
+		public int CurrentHealth
+		{
+			get => _currentHealth;
+			set { EmitSignal(nameof(CurrentHealthChanged), value); _currentHealth = value; }
+		}
 		
 		public override void Load(Actor actor)
 		{
@@ -23,11 +31,6 @@ namespace MonsterCounty.Actor.Controllers
 		public CombatState TakeTurn(double delta)
 		{
 			return LoadDecision().Choose(Actions).Do(delta);
-		}
-		
-		public void GetHit(int damage)
-		{
-			CurrentHealth -= damage;
 		}
 	}
 }

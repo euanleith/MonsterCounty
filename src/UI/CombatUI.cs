@@ -12,14 +12,35 @@ namespace MonsterCounty.UI
 		private static readonly Singleton<CombatUI> Instance = new();
 
 		[Export] private Array<Button> _buttons;
+		[Export] private Label _playerHealthLabel;
+		[Export] private Label _enemyHealthLabel;
 
 		public void Load()
 		{
 			if (!Instance.Create(this, false)) return;
 			
 			InitCombatButtons();
+			// todo generalise
+			CombatController player = CombatPlayer.Instance.Get().Controllers.Get<CombatController>();
+			player.Connect(nameof(CombatController.CurrentHealthChanged), 
+				new Callable(this, nameof(SetPlayerHealthLabel)));
+			CombatController enemy = CombatEnemy.Instance.Get().Controllers.Get<CombatController>();
+			enemy.Connect(nameof(CombatController.CurrentHealthChanged), 
+				new Callable(this, nameof(SetEnemyHealthLabel)));
+			SetPlayerHealthLabel(player.CurrentHealth);
+			SetEnemyHealthLabel(enemy.CurrentHealth);
 		}
 
+		public void SetPlayerHealthLabel(int health)
+		{
+			_playerHealthLabel.Text = $"Player health: {health}";
+		}
+
+		public void SetEnemyHealthLabel(int health)
+		{
+			_enemyHealthLabel.Text = $"Enemy health: {health}";
+		}
+		
 		private void InitCombatButtons()
 		{
 			CombatController player = CombatPlayer.Instance.Get().Controllers.Get<CombatController>();
