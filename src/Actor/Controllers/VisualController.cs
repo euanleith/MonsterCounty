@@ -22,6 +22,7 @@ namespace MonsterCounty.Actor.Controllers
 					_sprite.Play();
 				else
 					_sprite.Stop();
+				_sprite.Rotation = -Actor.Rotation;
 			}
 		}
 

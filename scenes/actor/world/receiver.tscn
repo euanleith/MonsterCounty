@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://w66w4orih5r"]
+
+[ext_resource type="Script" uid="uid://cqcrgrnwjwlvw" path="res://src/Actor/World/Receiver.cs" id="1_dfgqb"]
+[ext_resource type="Texture2D" uid="uid://dpkkkg7cup0cf" path="res://art/enemy/enemySwimming_1.png" id="1_f4vvk"]
+[ext_resource type="PackedScene" uid="uid://1cp2fatumnjx" path="res://scenes/actor/controller/reception_controller.tscn" id="2_46x6a"]
+[ext_resource type="PackedScene" uid="uid://emhbsgb0vhx3" path="res://scenes/actor/actions/interaction/dialogue_reception_action.tscn" id="3_46x6a"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dfgqb"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_f4vvk")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7svrf"]
+radius = 47.0
+height = 138.0
+
+[node name="Receiver" type="CharacterBody2D" unique_id=1082027508 groups=["interactable"]]
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("1_dfgqb")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=589924571]
+sprite_frames = SubResource("SpriteFrames_dfgqb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=89813763]
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_7svrf")
+
+[node name="ReceptionController" parent="." unique_id=1035087376 instance=ExtResource("2_46x6a")]
+
+[node name="DialogueReceptionAction" parent="ReceptionController" unique_id=1653715695 instance=ExtResource("3_46x6a")]

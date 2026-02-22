@@ -8,7 +8,7 @@ namespace MonsterCounty.Actor.Actions.Interaction
 	{
 		public override bool WantsToDo() => GetInteractInput();
 
-		protected override uint GetCollisionMask() => Layers.ToLayerMask(Layers.NPC);
+		protected override uint GetCollisionMask() => Layers.ToLayerMask(Layers.NPC, Layers.INTERACTABLE);
 
 		public override CustomVoid Do(double delta)
 		{

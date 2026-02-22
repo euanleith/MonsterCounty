@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://cv8uxn0ajjhqx" path="res://scenes/actor/world/world_enemy.tscn" id="2_4gjx5"]
 [ext_resource type="PackedScene" uid="uid://5bgltxvdkt4x" path="res://scenes/actor/world/world_player.tscn" id="3_0givv"]
 [ext_resource type="PackedScene" uid="uid://bprvrex4wphsq" path="res://scenes/ui/hud.tscn" id="4_mru6i"]
-[ext_resource type="Script" uid="uid://cqw2h4dn5kaba" path="res://src/CameraController.cs" id="5_5whwl"]
+[ext_resource type="Script" uid="uid://cqw2h4dn5kaba" path="res://src/Camera/CameraController.cs" id="5_5whwl"]
 [ext_resource type="PackedScene" uid="uid://x2jy23d5u43b" path="res://scenes/actor/world/path_world_npc.tscn" id="6_4wd2b"]
 [ext_resource type="Texture2D" uid="uid://qdtvym21dfmw" path="res://art/tilesheet_complete.png" id="7_f46eg"]
 [ext_resource type="PackedScene" uid="uid://crlb6673y01ua" path="res://scenes/world/portal.tscn" id="8_6y33s"]

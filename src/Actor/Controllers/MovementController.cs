@@ -28,7 +28,7 @@ namespace MonsterCounty.Actor.Controllers
 			if (_prevPosition != Actor.Position)
 			{
 				Actor.Controllers.Get<VisualController>().UpdateAnimation(GetDirection(Actor.Position, _prevPosition));
-				// Actor.Rotation = GetRotation(Actor.Position, _prevPosition);
+				Actor.Rotation = GetRotation(Actor.Position, _prevPosition);
 			}
 
 			Actor.MoveAndSlide();

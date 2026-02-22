@@ -1,7 +1,7 @@
 using Godot;
 using MonsterCounty.Actor.World;
 
-namespace MonsterCounty
+namespace MonsterCounty.Camera
 {
 	public partial class CameraController : Camera2D
 	{
