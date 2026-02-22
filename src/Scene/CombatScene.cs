@@ -1,3 +1,4 @@
+using System;
 using Godot;
 using MonsterCounty.Actor.Actions;
 using MonsterCounty.Actor.Combat;
@@ -24,40 +25,31 @@ namespace MonsterCounty.Scene
 			_turnOrder = new CircularLinkedList<CombatActor>(_player, _enemy);
 			CombatController playerCombatController = _player.Controllers.Get<CombatController>();
 			CombatController enemyCombatController = _enemy.Controllers.Get<CombatController>();
-			playerCombatController.LoadOpponent(enemyCombatController);
-			enemyCombatController.LoadOpponent(playerCombatController);
+			playerCombatController.LoadOpponent(_enemy);
+			enemyCombatController.LoadOpponent(_player);
 		}
 
-		public void ProcessTurn(ControllerAction<CombatState> playerAction)
+		public void ProcessTurn(ControllerAction<Actor.Actor> playerAction)
 		{
 			double delta = -1;
-			// todo clean up
-			CombatState state = playerAction.Do(delta);
-			if (state == CombatState.Win)
+			Actor.Actor actorToDie = playerAction.Do(delta);
+			if (actorToDie != null)
 			{
-				GD.Print("player won!");
-				ChangeToWorldScene();
+				OnActorDie(actorToDie);
 				return;
 			}
-			if (state == CombatState.Lose)
+			actorToDie = _enemy.Controllers.Get<CombatController>().TakeTurn(delta);
+			if (actorToDie != null)
 			{
-				GD.Print("player lost :(");
-				ChangeToWorldScene();
+				OnActorDie(actorToDie);
 				return;
 			}
-			state = _enemy.Controllers.Get<CombatController>().TakeTurn(delta);
-			if (state == CombatState.Win)
-			{
-				GD.Print("player lost :(");
-				ChangeToWorldScene();
-				return;
-			}
-			if (state == CombatState.Lose)
-			{
-				GD.Print("player won!");
-				ChangeToWorldScene();
-				return;
-			}
+		}
+
+		private void OnActorDie(Actor.Actor actor)
+		{
+			GD.Print($"{actor.Name} died!");
+			ChangeToWorldScene();
 		}
 
 		private void ChangeToWorldScene()

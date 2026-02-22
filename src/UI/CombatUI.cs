@@ -20,27 +20,11 @@ namespace MonsterCounty.UI
 			if (!Instance.Create(this, false)) return;
 			
 			InitCombatButtons();
-			// todo generalise
 			CombatController player = CombatPlayer.Instance.Get().Controllers.Get<CombatController>();
-			player.Connect(nameof(CombatController.CurrentHealthChanged), 
-				new Callable(this, nameof(SetPlayerHealthLabel)));
 			CombatController enemy = CombatEnemy.Instance.Get().Controllers.Get<CombatController>();
-			enemy.Connect(nameof(CombatController.CurrentHealthChanged), 
-				new Callable(this, nameof(SetEnemyHealthLabel)));
-			SetPlayerHealthLabel(player.CurrentHealth);
-			SetEnemyHealthLabel(enemy.CurrentHealth);
+			BindHealthLabel(player, _playerHealthLabel, "Player");
+			BindHealthLabel(enemy, _enemyHealthLabel, "Enemy");
 		}
-
-		public void SetPlayerHealthLabel(int health)
-		{
-			_playerHealthLabel.Text = $"Player health: {health}";
-		}
-
-		public void SetEnemyHealthLabel(int health)
-		{
-			_enemyHealthLabel.Text = $"Enemy health: {health}";
-		}
-		
 		private void InitCombatButtons()
 		{
 			CombatController player = CombatPlayer.Instance.Get().Controllers.Get<CombatController>();
@@ -50,6 +34,18 @@ namespace MonsterCounty.UI
 				int capturedIndex = i;
 				_buttons[i].Pressed += () => CombatScene.Instance.Get().ProcessTurn(player.Actions[capturedIndex]);
 			}
+		}
+		
+		private void BindHealthLabel(CombatController controller, Label label, string actorName)
+		{
+			controller.CurrentHealthChanged += health =>
+				OnHealthChanged(health, label, actorName);
+			OnHealthChanged(controller.CurrentHealth, label, actorName);
+		}
+
+		private static void OnHealthChanged(int health, Label label, string actorName)
+		{
+			label.Text = $"{actorName} health: {health}";
 		}
 	}
 }

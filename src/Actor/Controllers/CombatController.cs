@@ -1,15 +1,14 @@
 using Godot;
-using MonsterCounty.State;
 
 namespace MonsterCounty.Actor.Controllers
 {
-	public partial class CombatController : ActionController<CombatState>
+	public partial class CombatController : ActionController<Actor>
 	{
 		[Export] private int _maxHealth;
 		
 		[Signal] public delegate void CurrentHealthChangedEventHandler(int health);
 		
-		public CombatController Opponent;
+		public Actor Opponent;
 		private int _currentHealth;
 		public int CurrentHealth
 		{
@@ -23,12 +22,12 @@ namespace MonsterCounty.Actor.Controllers
 			CurrentHealth = _maxHealth; // todo get from state
 		}
 
-		public void LoadOpponent(CombatController other)
+		public void LoadOpponent(Actor other)
 		{
 			Opponent = other;
 		}
 		
-		public CombatState TakeTurn(double delta)
+		public Actor TakeTurn(double delta)
 		{
 			return LoadDecision().Choose(Actions).Do(delta);
 		}

@@ -1,4 +1,5 @@
 using Godot;
+using MonsterCounty.Actor.Controllers;
 using MonsterCounty.State;
 
 namespace MonsterCounty.Actor.Actions.Combat
@@ -7,7 +8,7 @@ namespace MonsterCounty.Actor.Actions.Combat
     {
         [Export] private int _strength = 1;
         
-        public override CombatState Do(double delta)
+        public override Actor Do(double delta)
         {
             GD.Print($"{Actor.Name} healing");
             Self.CurrentHealth += _strength;
