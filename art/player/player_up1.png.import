@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://fdey0f6gyorj"
-path="res://.godot/imported/enemyWalking_2.png-67c480ed60c35e95f5acb0436246b935.ctex"
+uid="uid://1kswymjxamht"
+path="res://.godot/imported/player_up1.png-7a88a9e6e3800d8c202f964568c333ae.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/enemyWalking_2.png"
-dest_files=["res://.godot/imported/enemyWalking_2.png-67c480ed60c35e95f5acb0436246b935.ctex"]
+source_file="res://art/player/player_up1.png"
+dest_files=["res://.godot/imported/player_up1.png-7a88a9e6e3800d8c202f964568c333ae.ctex"]
 
 [params]
 

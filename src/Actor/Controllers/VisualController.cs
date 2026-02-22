@@ -1,19 +1,27 @@
 using Godot;
+using MonsterCounty.Model;
+using static MonsterCounty.Utilities.VectorUtilities;
 
 namespace MonsterCounty.Actor.Controllers
 {
 	public partial class VisualController : Controller
 	{
+		private AnimatedSprite2D _sprite;
+		public override void Load(Actor actor)
+		{
+			base.Load(actor);
+			_sprite = Actor.GetNode<AnimatedSprite2D>("AnimatedSprite2D"); // todo shouldn't be dependent on specific names. i think $mynode is better though? 
+		}
+		
 		public override void _Process(double delta)
 		{
 			base._Process(delta);
-			AnimatedSprite2D animation = Actor.GetNode<AnimatedSprite2D>("AnimatedSprite2D"); // todo shouldn't be dependent on specific names. i think $mynode is better though? 
-			if (animation != null)
+			if (_sprite != null)
 			{
 				if (Actor.Velocity.Length() > 0)
-					animation.Play();
+					_sprite.Play();
 				else
-					animation.Stop();
+					_sprite.Stop();
 			}
 		}
 
@@ -28,6 +36,21 @@ namespace MonsterCounty.Actor.Controllers
 				return rect.Size;
 			GD.PushError("Couldn't determine size of " + Actor.Name + ", unknown CollisionShape2D");
 			return Vector2.Zero;
+		}
+
+		public void UpdateAnimation(Vector2 direction)
+		{
+			if (direction == Vector2.Zero) return;
+			direction = ClampDirection(direction).Normalized();
+			string anim = direction switch
+			{
+				{ X: > 0.5f } => Direction.RIGHT,
+				{ X: < -0.5f } => Direction.LEFT,
+				{ Y: > 0.5f } => Direction.DOWN,
+				{ Y: < -0.5f } => Direction.UP,
+				_ => _sprite.Animation
+			};
+			_sprite.Play(anim);
 		}
 	}
 }

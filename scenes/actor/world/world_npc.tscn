@@ -1,12 +1,18 @@
 [gd_scene format=3 uid="uid://cqaqm4aqymh8n"]
 
 [ext_resource type="Script" uid="uid://dy62jlnhlc3gx" path="res://src/Actor/World/WorldNPC.cs" id="1_7n8xq"]
-[ext_resource type="Texture2D" uid="uid://scvabxdnh5qr" path="res://art/playerGrey_walk1.png" id="2_4wlns"]
-[ext_resource type="Texture2D" uid="uid://dtmussxuxoj62" path="res://art/playerGrey_walk2.png" id="3_hwkja"]
+[ext_resource type="Texture2D" uid="uid://scvabxdnh5qr" path="res://art/player/player_right1.png" id="2_4wlns"]
+[ext_resource type="Texture2D" uid="uid://wjubxi7ckm1o" path="res://art/player/player_down1.png" id="2_ymaks"]
+[ext_resource type="Texture2D" uid="uid://dtmussxuxoj62" path="res://art/player/player_right2.png" id="3_hwkja"]
+[ext_resource type="Texture2D" uid="uid://b31i3yae68b7b" path="res://art/player/player_down2.png" id="3_ks21u"]
 [ext_resource type="PackedScene" uid="uid://bt1olxot22da" path="res://scenes/actor/controller/movement_controller.tscn" id="3_tl2vt"]
+[ext_resource type="Texture2D" uid="uid://bdp7xyrgsbx1q" path="res://art/player/player_left1.png" id="4_b0c76"]
 [ext_resource type="PackedScene" uid="uid://jov3fdj1u72d" path="res://scenes/actor/controller/visual_controller.tscn" id="4_hwkja"]
+[ext_resource type="Texture2D" uid="uid://o2pacmoxwcod" path="res://art/player/player_left2.png" id="5_n1jfc"]
 [ext_resource type="PackedScene" uid="uid://1cp2fatumnjx" path="res://scenes/actor/controller/reception_controller.tscn" id="6_j8avc"]
 [ext_resource type="PackedScene" uid="uid://emhbsgb0vhx3" path="res://scenes/actor/actions/interaction/dialogue_reception_action.tscn" id="7_kpptc"]
+[ext_resource type="Texture2D" uid="uid://1kswymjxamht" path="res://art/player/player_up1.png" id="8_e3xkw"]
+[ext_resource type="Texture2D" uid="uid://by762fkhowxh4" path="res://art/player/player_up2.png" id="9_onx6l"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7n8xq"]
 radius = 56.0
@@ -15,13 +21,46 @@ radius = 56.0
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": ExtResource("2_ymaks")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_ks21u")
+}],
+"loop": true,
+"name": &"down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_b0c76")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_n1jfc")
+}],
+"loop": true,
+"name": &"left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": ExtResource("2_4wlns")
 }, {
 "duration": 1.0,
 "texture": ExtResource("3_hwkja")
 }],
 "loop": true,
-"name": &"default",
+"name": &"right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_e3xkw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_onx6l")
+}],
+"loop": true,
+"name": &"up",
 "speed": 5.0
 }]
 
@@ -36,6 +75,7 @@ shape = SubResource("CircleShape2D_7n8xq")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=851536855]
 sprite_frames = SubResource("SpriteFrames_0tygy")
+animation = &"up"
 
 [node name="MovementController" parent="." unique_id=1435023787 instance=ExtResource("3_tl2vt")]
 Speed = 0.5

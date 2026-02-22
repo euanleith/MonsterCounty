@@ -2,6 +2,7 @@ using Godot;
 using MonsterCounty.Actor.Actions;
 using MonsterCounty.Actor.World;
 using MonsterCounty.State;
+using static MonsterCounty.Utilities.VectorUtilities;
 
 namespace MonsterCounty.Actor.Controllers
 {
@@ -24,14 +25,13 @@ namespace MonsterCounty.Actor.Controllers
 			_prevPosition = Actor.Position;
 			Actor.Position = currentAction.Do(delta);
 			Actor.Velocity = Vector2.Zero;
-			if (_prevPosition != Actor.Position) 
-				Actor.Rotation = GetRotation(Actor.Position, _prevPosition);
-			Actor.MoveAndSlide();
-		}
+			if (_prevPosition != Actor.Position)
+			{
+				Actor.Controllers.Get<VisualController>().UpdateAnimation(GetDirection(Actor.Position, _prevPosition));
+				// Actor.Rotation = GetRotation(Actor.Position, _prevPosition);
+			}
 
-		private float GetRotation(Vector2 currentPosition, Vector2 prevPosition)
-		{
-			return (currentPosition - prevPosition).Angle();
+			Actor.MoveAndSlide();
 		}
 	}
 }
