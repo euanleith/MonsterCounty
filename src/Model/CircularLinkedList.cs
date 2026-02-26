@@ -59,19 +59,36 @@ namespace MonsterCounty.Model
         public bool Remove(T value)
         {
             if (_head == null) return false;
+
             Node prev = null;
             var node = _head;
             do
             {
                 if (Equals(node.Value, value))
                 {
-                    if (prev != null) prev.Next = node.Next;
-                    if (node == _head) _head = node.Next;
-                    if (node == _current) _current = node.Next;
                     if (Count == 1)
                     {
                         _head = null;
                         _current = null;
+                    }
+                    else
+                    {
+                        if (node == _head)
+                        {
+                            var tail = _head;
+                            while (tail.Next != _head)
+                            {
+                                tail = tail.Next;
+                            }
+                            _head = node.Next;
+                            tail.Next = _head;
+                        }
+                        else
+                        {
+                            prev.Next = node.Next;
+                        }
+                        if (node == _current)
+                            _current = node.Next;
                     }
                     Count--;
                     return true;
@@ -79,6 +96,17 @@ namespace MonsterCounty.Model
                 prev = node;
                 node = node.Next;
             } while (node != _head);
+            return false;
+        }
+
+        public bool Contains(Type type)
+        {
+            var node = _current;
+            do
+            {
+                if (type.IsAssignableFrom(node.Value.GetType())) return true;
+                node = node.Next;
+            } while (node != _current);
             return false;
         }
     }

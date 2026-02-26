@@ -4,19 +4,51 @@
 [ext_resource type="Script" uid="uid://c0w7sgsuq5vs8" path="res://src/Scene/CombatScene.cs" id="1_ltalu"]
 [ext_resource type="PackedScene" uid="uid://sjxtixbl402j" path="res://scenes/combat/combat_player.tscn" id="2_aic3r"]
 [ext_resource type="PackedScene" uid="uid://draqkjhp70lmy" path="res://scenes/combat/combat_enemy.tscn" id="3_4l26h"]
+[ext_resource type="PackedScene" uid="uid://10enj2mend3b" path="res://scenes/actor/actions/combat/attack_action.tscn" id="4_jgg25"]
+[ext_resource type="PackedScene" uid="uid://40wij836ji7i" path="res://scenes/actor/actions/combat/heal_action.tscn" id="6_ijgaf"]
 
-[node name="Combat" type="Node" unique_id=1629342209 node_paths=PackedStringArray("_player", "_enemy")]
+[node name="Combat" type="Node" unique_id=1629342209 node_paths=PackedStringArray("_playerParty", "_enemyParty")]
 script = ExtResource("1_ltalu")
-_player = NodePath("CombatPlayer")
-_enemy = NodePath("CombatEnemy")
+_playerParty = [NodePath("CombatPlayer"), NodePath("CombatPlayer2")]
+_enemyParty = [NodePath("CombatEnemy"), NodePath("CombatEnemy2")]
 
-[node name="CombatUI" parent="." unique_id=1878144606 instance=ExtResource("1_764e3")]
+[node name="CombatUI" parent="." unique_id=1878144606 node_paths=PackedStringArray("_playerParty", "_enemyParty") instance=ExtResource("1_764e3")]
+_playerParty = [NodePath("../CombatPlayer"), NodePath("../CombatPlayer2")]
+_enemyParty = [NodePath("../CombatEnemy"), NodePath("../CombatEnemy2")]
 
 [node name="CombatPlayer" parent="." unique_id=711857539 instance=ExtResource("2_aic3r")]
 position = Vector2(176, 496)
 
+[node name="CombatController" parent="CombatPlayer" index="2" unique_id=380955144]
+MaxHealth = 6
+
+[node name="AttackAction" parent="CombatPlayer/CombatController" index="0" unique_id=607789692 instance=ExtResource("4_jgg25")]
+
+[node name="HealAction" parent="CombatPlayer/CombatController" index="1" unique_id=909520099 instance=ExtResource("6_ijgaf")]
+
 [node name="CombatEnemy" parent="." unique_id=1564967612 instance=ExtResource("3_4l26h")]
 position = Vector2(816, 104)
 
+[node name="CombatController" parent="CombatEnemy" index="2" unique_id=380955144]
+MaxHealth = 4
+
+[node name="CombatPlayer2" parent="." unique_id=1566038033 instance=ExtResource("2_aic3r")]
+position = Vector2(352, 520)
+
+[node name="CombatController" parent="CombatPlayer2" index="2" unique_id=380955144]
+MaxHealth = 6
+
+[node name="AttackAction" parent="CombatPlayer2/CombatController" index="0" unique_id=908869376 instance=ExtResource("4_jgg25")]
+
+[node name="HealAction" parent="CombatPlayer2/CombatController" index="1" unique_id=1960495997 instance=ExtResource("6_ijgaf")]
+
+[node name="CombatEnemy2" parent="." unique_id=1594809982 instance=ExtResource("3_4l26h")]
+position = Vector2(976, 104)
+
+[node name="CombatController" parent="CombatEnemy2" index="2" unique_id=380955144]
+MaxHealth = 5
+
 [editable path="CombatPlayer"]
 [editable path="CombatEnemy"]
+[editable path="CombatPlayer2"]
+[editable path="CombatEnemy2"]

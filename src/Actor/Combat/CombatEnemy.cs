@@ -1,15 +1,4 @@
-using MonsterCounty.Model;
-
 namespace MonsterCounty.Actor.Combat
 {
-	public partial class CombatEnemy : CombatActor
-	{
-		public static readonly Singleton<CombatEnemy> Instance = new();
-
-		public override void Load()
-		{
-			if (!Instance.Create(this, false)) return;
-			base.Load();
-		}
-	}
+	public partial class CombatEnemy : CombatActor;
 }

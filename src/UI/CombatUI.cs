@@ -1,3 +1,4 @@
+using System;
 using Godot;
 using Godot.Collections;
 using MonsterCounty.Actor.Combat;
@@ -9,43 +10,104 @@ namespace MonsterCounty.UI
 {
 	public partial class CombatUI : CanvasLayer, Loadable
 	{
-		private static readonly Singleton<CombatUI> Instance = new();
+		public static readonly Singleton<CombatUI> Instance = new();
 
+		[Export] private Array<CombatActor> _playerParty;
+		[Export] private Array<CombatActor> _enemyParty;
+		
 		[Export] private Array<Button> _buttons;
-		[Export] private Label _playerHealthLabel;
-		[Export] private Label _enemyHealthLabel;
+		[Export] private VBoxContainer _playerPartyHealthBars;
+		[Export] private HealthBar _playerHealthBarTemplate;
+		[Export] private VBoxContainer _enemyPartyHealthBars;
+		[Export] private HealthBar _enemyHealthBarTemplate;
+
+		[Export] private Sprite2D _playerArrow;
+		private int _selectedPlayer;
+		[Export] private Sprite2D _enemyArrow;
+		public int SelectedEnemy;
+		[Export] private float _arrowOffsetY = 10;
+		
+		private CombatController _currentPlayer;
 
 		public void Load()
 		{
 			if (!Instance.Create(this, false)) return;
-			
-			InitCombatButtons();
-			CombatController player = CombatPlayer.Instance.Get().Controllers.Get<CombatController>();
-			CombatController enemy = CombatEnemy.Instance.Get().Controllers.Get<CombatController>();
-			BindHealthLabel(player, _playerHealthLabel, "Player");
-			BindHealthLabel(enemy, _enemyHealthLabel, "Enemy");
+			LoadCombatButtons();
+			BindHealthBars(_playerPartyHealthBars, _playerHealthBarTemplate, _playerParty);
+			BindHealthBars(_enemyPartyHealthBars, _enemyHealthBarTemplate, _enemyParty);
+			SelectWithArrow(_enemyArrow, _enemyParty[SelectedEnemy], ArrowPosition.Below);
 		}
-		private void InitCombatButtons()
+
+		private void LoadCombatButtons()
 		{
-			CombatController player = CombatPlayer.Instance.Get().Controllers.Get<CombatController>();
 			for (int i = 0; i < _buttons.Count; i++)
 			{
-				_buttons[i].Text = player.Actions[i].Name;
 				int capturedIndex = i;
-				_buttons[i].Pressed += () => CombatScene.Instance.Get().ProcessTurn(player.Actions[capturedIndex]);
+				_buttons[i].Pressed += () => OnButtonPressed(capturedIndex);
+			}
+		}
+
+		private void OnButtonPressed(int buttonIndex)
+		{
+			CombatScene.Instance.Get().ProcessPlayerTurn(_currentPlayer.Actions[buttonIndex]);
+		}
+
+		public void NextPlayer(CombatActor player)
+		{
+			BindCombatButtons(player);
+			SelectWithArrow(_playerArrow, player, ArrowPosition.Above);
+		}
+		
+		private void BindCombatButtons(CombatActor player)
+		{
+			_currentPlayer = player.Controllers.Get<CombatController>();
+			for (int i = 0; i < _buttons.Count; i++)
+			{
+				_buttons[i].Text = _currentPlayer.Actions[i].Name;
 			}
 		}
 		
-		private void BindHealthLabel(CombatController controller, Label label, string actorName)
+		private void BindHealthBars(VBoxContainer container, HealthBar template, Array<CombatActor> party)
 		{
-			controller.CurrentHealthChanged += health =>
-				OnHealthChanged(health, label, actorName);
-			OnHealthChanged(controller.CurrentHealth, label, actorName);
+			foreach (CombatActor member in party)
+			{
+				HealthBar bar = template.Duplicate() as HealthBar;
+				bar.Visible = true;
+				bar.Bind(member);
+				container.AddChild(bar);
+			}
+			template.Visible = false;
 		}
 
-		private static void OnHealthChanged(int health, Label label, string actorName)
+		public override void _UnhandledInput(InputEvent inputEvent)
 		{
-			label.Text = $"{actorName} health: {health}";
+			if (inputEvent.IsActionPressed(Direction.RIGHT)) SelectNextEnemy();
+			else if (inputEvent.IsActionPressed(Direction.LEFT)) SelectPreviousEnemy();
+		}
+		
+		private void SelectNextEnemy()
+		{
+			SelectedEnemy = Math.Min(SelectedEnemy+1, _enemyParty.Count-1);
+			SelectWithArrow(_enemyArrow, _enemyParty[SelectedEnemy], ArrowPosition.Below);
+		}
+
+		private void SelectPreviousEnemy()
+		{
+			SelectedEnemy = Math.Max(SelectedEnemy-1, 0);
+			SelectWithArrow(_enemyArrow, _enemyParty[SelectedEnemy], ArrowPosition.Below);
+		}
+
+		private enum ArrowPosition
+		{
+			Above,
+			Below
+		}
+
+		private void SelectWithArrow(Sprite2D arrow, CombatActor actor, ArrowPosition arrowPosition)
+		{
+			float offsetY = _arrowOffsetY + actor.Controllers.Get<VisualController>().GetSize().Y/2;
+			if (arrowPosition == ArrowPosition.Above) offsetY *= -1;
+			arrow.GlobalPosition = actor.GlobalPosition + new Vector2(0, offsetY);
 		}
 	}
 }

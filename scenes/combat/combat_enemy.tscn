@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://sqtpyxvmihvi" path="res://src/Actor/Controllers/EnemyCombatController.cs" id="4_eq8mf"]
 [ext_resource type="PackedScene" uid="uid://10enj2mend3b" path="res://scenes/actor/actions/combat/attack_action.tscn" id="5_c8j84"]
 [ext_resource type="PackedScene" uid="uid://40wij836ji7i" path="res://scenes/actor/actions/combat/heal_action.tscn" id="6_boyqr"]
+[ext_resource type="PackedScene" uid="uid://jov3fdj1u72d" path="res://scenes/actor/controller/visual_controller.tscn" id="7_v4q8q"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ss3kh"]
 animations = [{
@@ -18,16 +19,25 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_v4q8q"]
+radius = 47.0
+height = 126.0
+
 [node name="CombatEnemy" type="CharacterBody2D" unique_id=1594809982 groups=["enemy"]]
 script = ExtResource("1_nho5u")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=472985003]
 sprite_frames = SubResource("SpriteFrames_ss3kh")
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1528179319]
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_v4q8q")
+
 [node name="CombatController" parent="." unique_id=380955144 instance=ExtResource("2_55h4l")]
 script = ExtResource("4_eq8mf")
-_maxHealth = 4
 
 [node name="AttackAction" parent="CombatController" unique_id=607789692 instance=ExtResource("5_c8j84")]
 
 [node name="HealAction" parent="CombatController" unique_id=909520099 instance=ExtResource("6_boyqr")]
+
+[node name="VisualController" parent="." unique_id=98789701 instance=ExtResource("7_v4q8q")]

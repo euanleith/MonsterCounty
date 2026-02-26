@@ -1,4 +1,5 @@
 using Godot;
+using MonsterCounty.Actor.Combat;
 using MonsterCounty.Actor.Controllers;
 
 namespace MonsterCounty.Actor.Actions.Combat
@@ -7,10 +8,11 @@ namespace MonsterCounty.Actor.Actions.Combat
     {
         [Export] private int _strength = 2;
         
-        public override Actor Do(double delta)
+        public override CombatActor Do(double delta)
         {
-            GD.Print($"{Actor.Name} hitting {Self.Opponent.Name}");
-            Self.Opponent.Controllers.Get<CombatController>().CurrentHealth -= _strength;
+            int index = (int)delta;
+            GD.Print($"{Actor.Name} hitting {Self.Opponents[index].Name}");
+            Self.Opponents[index].Controllers.Get<CombatController>().CurrentHealth -= _strength;
             return base.Do(delta);
         }
     }

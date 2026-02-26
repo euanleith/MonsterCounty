@@ -9,6 +9,7 @@ namespace MonsterCounty.Actor.Combat
         {
             TypeMap<Controller> controllers = new TypeMap<Controller>();
             controllers.Add(GetNode<CombatController>("CombatController"));
+            controllers.Add(GetNode<VisualController>("VisualController"));
             return controllers;
         }
     }

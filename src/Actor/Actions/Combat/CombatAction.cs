@@ -1,8 +1,9 @@
+using MonsterCounty.Actor.Combat;
 using MonsterCounty.Actor.Controllers;
 
 namespace MonsterCounty.Actor.Actions.Combat
 {
-	public abstract partial class CombatAction : ControllerAction<Actor>
+	public abstract partial class CombatAction : ControllerAction<CombatActor>
 	{
 		protected CombatController Self;
 
@@ -12,10 +13,11 @@ namespace MonsterCounty.Actor.Actions.Combat
 			Self = actor.Controllers.Get<CombatController>();
 		}
 		
-		public override Actor Do(double delta)
+		public override CombatActor Do(double delta)
 		{
-			if (Self.CurrentHealth <= 0) return Actor;
-			if (Self.Opponent.Controllers.Get<CombatController>().CurrentHealth <= 0) return Self.Opponent;
+			int index = (int)delta;
+			if (Self.CurrentHealth <= 0) return Actor as CombatActor;
+			if (Self.Opponents[index].Controllers.Get<CombatController>().CurrentHealth <= 0) return Self.Opponents[index];
 			return null;
 		}
 	}
