@@ -22,6 +22,7 @@ namespace MonsterCounty.Scene
 			base._Ready();
 			_ui.Load(_playerParty, _enemyParty);
 			new Combat.Combat(_playerParty, _enemyParty);
+			Combat.Combat.Exiting += ChangeToWorldScene;
 		}
 
 		public void ChangeToWorldScene()
@@ -33,6 +34,11 @@ namespace MonsterCounty.Scene
 		private void ApplyGameState()
 		{
 			GameState.PlayerSpawnName = SpawnController.SpawnType.CurrentPosition.GetStringValue();
+		}
+		
+		public override void _ExitTree()
+		{
+			Combat.Combat.Exiting -= ChangeToWorldScene;
 		}
 	}
 }

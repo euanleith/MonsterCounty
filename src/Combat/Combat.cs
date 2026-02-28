@@ -3,10 +3,7 @@ using System.Linq;
 using Godot;
 using Godot.Collections;
 using MonsterCounty.Actor.Combat;
-using MonsterCounty.Actor.Controllers;
-using MonsterCounty.Combat.UI;
 using MonsterCounty.Model;
-using MonsterCounty.Scene;
 using MonsterCounty.State;
 
 namespace MonsterCounty.Combat
@@ -14,6 +11,10 @@ namespace MonsterCounty.Combat
     public class Combat
     {
         public static Combat Instance { get; private set; }
+
+        public static event Action<CombatActor> ActorDying;
+        public static event Action Exiting;
+        
         private readonly Party _playerParty;
         private readonly CircularLinkedList<CombatActor> _turnQueue;
 
@@ -61,6 +62,7 @@ namespace MonsterCounty.Combat
         {
             GD.Print($"{actor.Name} died!");
             RemoveActor(actor);
+            ActorDying?.Invoke(actor);
             if (!_turnQueue.Contains(actor.GetType()))
             {
                 Exit();
@@ -73,14 +75,14 @@ namespace MonsterCounty.Combat
         {
             _turnQueue.Remove(actor);
             actor.Party.Remove(actor);
-            CombatUI.Instance.Get().RemoveActor(actor);
         }
 
         private void Exit()
         {
             GD.Print("exiting combat");
+            Instance = null;
             SaveGameState();
-            CombatScene.Instance.Get().ChangeToWorldScene();
+            Exiting?.Invoke();
         }
         
         private void SaveGameState()

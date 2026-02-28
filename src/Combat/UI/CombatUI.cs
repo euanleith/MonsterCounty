@@ -36,13 +36,14 @@ namespace MonsterCounty.Combat.UI
 			LoadCombatButtons();
 			BindPlayerHealthBars();
 			BindEnemyHealthBars();
+			BindCombatEvents();
 			Reset();
 		}
 
 		private void Reset()
 		{
 			SelectedEnemy = 0;
-			if (_enemyParty.Any()) SelectWithArrow(_enemyArrow, _enemyParty[SelectedEnemy], ArrowPosition.Below);
+			if (_enemyParty.Count > 0) SelectWithArrow(_enemyArrow, _enemyParty[SelectedEnemy], ArrowPosition.Below);
 		}
 
 		public void RemoveActor(CombatActor actor)
@@ -93,14 +94,24 @@ namespace MonsterCounty.Combat.UI
 		}
 
 		// todo generalise to class CombatPartyUI
-		public void BindPlayerHealthBars()
+		private void BindPlayerHealthBars()
 		{
 			BindHealthBars(_playerPartyHealthBars, _playerHealthBarTemplate, _playerParty);
 		}
 
-		public void BindEnemyHealthBars()
+		private void BindEnemyHealthBars()
 		{
 			BindHealthBars(_enemyPartyHealthBars, _enemyHealthBarTemplate, _enemyParty);
+		}
+
+		private void BindCombatEvents()
+		{
+			Combat.ActorDying += RemoveActor;
+		}
+
+		public override void _ExitTree()
+		{
+			Combat.ActorDying -= RemoveActor;
 		}
 
 		public override void _UnhandledInput(InputEvent inputEvent)

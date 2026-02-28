@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Godot;
 using Godot.Collections;
 using MonsterCounty.Actor.Combat;
 using MonsterCounty.Actor.Controllers;
@@ -11,7 +10,7 @@ namespace MonsterCounty.Combat
 {
 	public class Party: IEnumerable<CombatActor>
 	{
-		[Export] private Array<CombatActor> _members;
+		private readonly Array<CombatActor> _members;
 
 		IEnumerator<CombatActor> IEnumerable<CombatActor>.GetEnumerator() => _members.GetEnumerator();
 		public IEnumerator GetEnumerator() => _members.GetEnumerator();

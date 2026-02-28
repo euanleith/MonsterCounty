@@ -1,3 +1,4 @@
+using Godot;
 using MonsterCounty.Actor.Controllers;
 using MonsterCounty.Combat.UI;
 
@@ -7,6 +8,7 @@ namespace MonsterCounty.Actor.Combat
 	{
 		public override TurnResult StartTurn()
 		{
+			GD.Print("starting player turn");
 			CombatUI.Instance.Get().NextPlayer(this);
 			return new TurnResult(true);
 		}
