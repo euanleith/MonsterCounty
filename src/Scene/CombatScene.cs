@@ -17,7 +17,8 @@ namespace MonsterCounty.Scene
 		
 		[Export] private Array<CombatActor> _playerParty;
 		[Export] private Array<CombatActor> _enemyParty;
-
+		[Export] private CombatUI _ui;
+		
 		private CircularLinkedList<CombatActor> _turnQueue;
 		private readonly Random _rand = new();
 
@@ -25,6 +26,7 @@ namespace MonsterCounty.Scene
 		{
 			if (!Instance.Create(this, false)) return;
 			base._Ready();
+			_ui.Load(_playerParty, _enemyParty);
 			LoadOpponents(_playerParty, _enemyParty);
 			LoadOpponents(_enemyParty, _playerParty);
 			var shuffled = _playerParty.Concat(_enemyParty).OrderBy(x => _rand.Next()).ToArray();
@@ -77,7 +79,15 @@ namespace MonsterCounty.Scene
 		{
 			_turnQueue.Remove(actor);
 			actor.Visible = false;
-			// todo don't allow arrow selection, maybe set to null, don't let enemy select them, etc.
+			if (actor.IsInGroup("enemy"))
+			{
+				_enemyParty.Remove(actor);
+			}
+			else if (actor.IsInGroup("player"))
+			{
+				_playerParty.Remove(actor);
+			}
+			CombatUI.Instance.Get().Reset();
 		}
 
 		private void ChangeToWorldScene()

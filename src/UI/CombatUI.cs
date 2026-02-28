@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using Godot;
 using Godot.Collections;
 using MonsterCounty.Actor.Combat;
@@ -8,7 +9,7 @@ using MonsterCounty.Scene;
 
 namespace MonsterCounty.UI
 {
-	public partial class CombatUI : CanvasLayer, Loadable
+	public partial class CombatUI : CanvasLayer
 	{
 		public static readonly Singleton<CombatUI> Instance = new();
 
@@ -29,13 +30,21 @@ namespace MonsterCounty.UI
 		
 		private CombatController _currentPlayer;
 
-		public void Load()
+		public void Load(Array<CombatActor> playerParty, Array<CombatActor> enemyParty)
 		{
 			if (!Instance.Create(this, false)) return;
+			_playerParty = playerParty;
+			_enemyParty = enemyParty;
 			LoadCombatButtons();
-			BindHealthBars(_playerPartyHealthBars, _playerHealthBarTemplate, _playerParty);
-			BindHealthBars(_enemyPartyHealthBars, _enemyHealthBarTemplate, _enemyParty);
-			SelectWithArrow(_enemyArrow, _enemyParty[SelectedEnemy], ArrowPosition.Below);
+			BindPlayerHealthBars();
+			BindEnemyHealthBars();
+			Reset();
+		}
+
+		public void Reset()
+		{
+			SelectedEnemy = 0;
+			if (_enemyParty.Count > 0) SelectWithArrow(_enemyArrow, _enemyParty[SelectedEnemy], ArrowPosition.Below);
 		}
 
 		private void LoadCombatButtons()
@@ -77,6 +86,17 @@ namespace MonsterCounty.UI
 				container.AddChild(bar);
 			}
 			template.Visible = false;
+		}
+
+		// todo should have generalised class CombatPartyUI
+		public void BindPlayerHealthBars()
+		{
+			BindHealthBars(_playerPartyHealthBars, _playerHealthBarTemplate, _playerParty);
+		}
+
+		public void BindEnemyHealthBars()
+		{
+			BindHealthBars(_enemyPartyHealthBars, _enemyHealthBarTemplate, _enemyParty);
 		}
 
 		public override void _UnhandledInput(InputEvent inputEvent)
