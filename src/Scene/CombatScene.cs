@@ -2,8 +2,8 @@ using System;
 using System.Linq;
 using Godot;
 using Godot.Collections;
-using MonsterCounty.Actor.Actions;
 using MonsterCounty.Actor.Combat;
+using MonsterCounty.Actor.Combat.Parties;
 using MonsterCounty.Actor.Controllers;
 using MonsterCounty.Model;
 using MonsterCounty.State;
@@ -14,11 +14,13 @@ namespace MonsterCounty.Scene
 	public partial class CombatScene : Scene
 	{
 		public static readonly Singleton<CombatScene> Instance = new();
-		
+
 		[Export] private Array<CombatActor> _playerParty;
 		[Export] private Array<CombatActor> _enemyParty;
 		[Export] private CombatUI _ui;
 		
+		private Party _playerPartyInternal;
+		private Party _enemyPartyInternal;
 		private CircularLinkedList<CombatActor> _turnQueue;
 		private readonly Random _rand = new();
 
@@ -26,40 +28,14 @@ namespace MonsterCounty.Scene
 		{
 			if (!Instance.Create(this, false)) return;
 			base._Ready();
-			_ui.Load(_playerParty, _enemyParty);
-			LoadOpponents(_playerParty, _enemyParty);
-			LoadOpponents(_enemyParty, _playerParty);
-			var shuffled = _playerParty.Concat(_enemyParty).OrderBy(x => _rand.Next()).ToArray();
+			_playerPartyInternal = new(_playerParty);
+			_enemyPartyInternal = new(_enemyParty);
+			_playerPartyInternal.LoadOpponents(_enemyPartyInternal);
+			_enemyPartyInternal.LoadOpponents(_playerPartyInternal);
+			_ui.Load(_playerPartyInternal, _enemyPartyInternal);
+			var shuffled = _playerPartyInternal.Concat(_enemyPartyInternal).OrderBy(x => _rand.Next()).ToArray();
 			_turnQueue = new CircularLinkedList<CombatActor>(shuffled);
 			StartTurn();
-		}
-		
-		private void LoadOpponents(Array<CombatActor> self, Array<CombatActor> opponents)
-		{
-			foreach (CombatActor member in self)
-			{
-				member.Controllers.Get<CombatController>().LoadOpponents(opponents);
-			}
-		}
-
-		private void ProcessTurn(CombatActor actorToDie)
-		{
-			if (actorToDie != null)
-			{
-				if (!OnActorDie(actorToDie)) return;
-			}
-			_turnQueue.Next();
-			StartTurn();
-		}
-
-		public void ProcessPlayerTurn(ControllerAction<CombatActor> playerAction)
-		{
-			ProcessTurn(playerAction.Do(CombatUI.Instance.Get().SelectedEnemy));
-		}
-
-		private void ProcessEnemyTurn()
-		{
-			ProcessTurn(_turnQueue.Peek().Controllers.Get<CombatController>().TakeTurn(_rand.Next(0, _playerParty.Count)));
 		}
 
 		private bool OnActorDie(CombatActor actor)
@@ -78,16 +54,8 @@ namespace MonsterCounty.Scene
 		private void RemoveActor(CombatActor actor)
 		{
 			_turnQueue.Remove(actor);
-			actor.Visible = false;
-			if (actor.IsInGroup("enemy"))
-			{
-				_enemyParty.Remove(actor);
-			}
-			else if (actor.IsInGroup("player"))
-			{
-				_playerParty.Remove(actor);
-			}
-			CombatUI.Instance.Get().Reset();
+			actor.Party.Remove(actor);
+			CombatUI.Instance.Get().RemoveActor(actor);
 		}
 
 		private void ChangeToWorldScene()
@@ -98,14 +66,29 @@ namespace MonsterCounty.Scene
 		
 		private void StartTurn()
 		{
-			if (_turnQueue.Peek().IsInGroup("enemy"))
+			TurnResult res = _turnQueue.Peek().StartTurn();
+			if (res.WaitingForInput) return;
+			if (res.ActorToDie != null)
 			{
-				ProcessEnemyTurn();
+				if (!OnActorDie(res.ActorToDie)) return;
 			}
-			else if (_turnQueue.Peek().IsInGroup("player"))
+			NextTurn();
+		}
+
+		public void ResolveTurn(CombatPlayer player, int index)
+		{
+			CombatActor actorToDie = player.ResolveTurn(index);
+			if (actorToDie != null)
 			{
-				CombatUI.Instance.Get().NextPlayer(_turnQueue.Peek());
+				if (!OnActorDie(actorToDie)) return;
 			}
+			NextTurn();
+		}
+
+		private void NextTurn()
+		{
+			_turnQueue.Next();
+			StartTurn();
 		}
 	}
 }

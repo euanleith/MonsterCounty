@@ -5,10 +5,8 @@
 [ext_resource type="Texture2D" uid="uid://bxfp406xgq43x" path="res://art/enemy/arrow_up.png" id="3_ppua2"]
 [ext_resource type="Texture2D" uid="uid://xoq7iiwswyc0" path="res://art/enemy/arrow_down.png" id="3_ynof4"]
 
-[node name="CombatUI" type="CanvasLayer" unique_id=1878144606 node_paths=PackedStringArray("_playerParty", "_enemyParty", "_buttons", "_playerPartyHealthBars", "_playerHealthBarTemplate", "_enemyPartyHealthBars", "_enemyHealthBarTemplate", "_playerArrow", "_enemyArrow") groups=["ui"]]
+[node name="CombatUI" type="CanvasLayer" unique_id=1878144606 node_paths=PackedStringArray("_buttons", "_playerPartyHealthBars", "_playerHealthBarTemplate", "_enemyPartyHealthBars", "_enemyHealthBarTemplate", "_playerArrow", "_enemyArrow") groups=["ui"]]
 script = ExtResource("1_n7134")
-_playerParty = []
-_enemyParty = []
 _buttons = [NodePath("Button0"), NodePath("Button1")]
 _playerPartyHealthBars = NodePath("PlayerPartyHealthBars")
 _playerHealthBarTemplate = NodePath("PlayerPartyHealthBars/TemplateHealthBar")

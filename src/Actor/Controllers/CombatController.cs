@@ -1,6 +1,7 @@
 using Godot;
 using Godot.Collections;
 using MonsterCounty.Actor.Combat;
+using MonsterCounty.Actor.Combat.Parties;
 
 namespace MonsterCounty.Actor.Controllers
 {
@@ -9,8 +10,8 @@ namespace MonsterCounty.Actor.Controllers
 		[Export] public int MaxHealth;
 		
 		[Signal] public delegate void CurrentHealthChangedEventHandler(int health);
-		
-		public Array<CombatActor> Opponents;
+
+		public Party Opponents;
 		private int _currentHealth;
 		public int CurrentHealth
 		{
@@ -22,11 +23,6 @@ namespace MonsterCounty.Actor.Controllers
 		{
 			base.Load(actor);
 			CurrentHealth = MaxHealth; // todo get from state
-		}
-
-		public void LoadOpponents(Array<CombatActor> opponents)
-		{
-			Opponents = opponents;
 		}
 		
 		public CombatActor TakeTurn(double delta)

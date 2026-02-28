@@ -13,9 +13,7 @@ _playerParty = [NodePath("CombatPlayer"), NodePath("CombatPlayer2")]
 _enemyParty = [NodePath("CombatEnemy"), NodePath("CombatEnemy2")]
 _ui = NodePath("CombatUI")
 
-[node name="CombatUI" parent="." unique_id=1878144606 node_paths=PackedStringArray("_playerParty", "_enemyParty") instance=ExtResource("1_764e3")]
-_playerParty = [NodePath("../CombatPlayer"), NodePath("../CombatPlayer2")]
-_enemyParty = [NodePath("../CombatEnemy"), NodePath("../CombatEnemy2")]
+[node name="CombatUI" parent="." unique_id=1878144606 instance=ExtResource("1_764e3")]
 
 [node name="CombatPlayer" parent="." unique_id=711857539 instance=ExtResource("2_aic3r")]
 position = Vector2(176, 496)

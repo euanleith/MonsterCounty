@@ -16,8 +16,9 @@ namespace MonsterCounty.Actor.Actions.Combat
 		public override CombatActor Do(double delta)
 		{
 			int index = (int)delta;
-			if (Self.CurrentHealth <= 0) return Actor as CombatActor;
-			if (Self.Opponents[index].Controllers.Get<CombatController>().CurrentHealth <= 0) return Self.Opponents[index];
+			CombatActor actor = Actor as CombatActor;
+			if (Self.CurrentHealth <= 0) return actor;
+			if (actor.Opponents.Get(index).Controllers.Get<CombatController>().CurrentHealth <= 0) return actor.Opponents.Get(index);
 			return null;
 		}
 	}
