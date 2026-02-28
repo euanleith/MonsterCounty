@@ -1,9 +1,8 @@
+using System.Collections.Generic;
 using Godot;
-using Godot.Collections;
 using MonsterCounty.Actor.Combat;
-using MonsterCounty.Actor.Combat.Parties;
+using MonsterCounty.Combat;
 using MonsterCounty.State;
-using static MonsterCounty.State.GameState;
 
 namespace MonsterCounty.Actor.Controllers
 {
@@ -32,9 +31,9 @@ namespace MonsterCounty.Actor.Controllers
 			CurrentHealth = state.Health;
 		}
 
-		public void SaveGameState()
+		public void SaveGameState(List<CombatActorState> state)
 		{
-			GameState.Party.Add(new CombatActorState(CurrentHealth));
+			state.Add(new CombatActorState(CurrentHealth));
 		}
 		
 		public CombatActor TakeTurn(double delta)

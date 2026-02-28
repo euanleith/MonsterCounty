@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://b06auojv8t4uh"]
 
-[ext_resource type="Script" uid="uid://cnn8sqsn4dphy" path="res://src/UI/CombatUI.cs" id="1_n7134"]
+[ext_resource type="Script" uid="uid://cnn8sqsn4dphy" path="res://src/Combat/UI/CombatUI.cs" id="1_n7134"]
 [ext_resource type="PackedScene" uid="uid://dq1y1il2stg67" path="res://scenes/ui/health_bar.tscn" id="2_21fn4"]
 [ext_resource type="Texture2D" uid="uid://bxfp406xgq43x" path="res://art/enemy/arrow_up.png" id="3_ppua2"]
 [ext_resource type="Texture2D" uid="uid://xoq7iiwswyc0" path="res://art/enemy/arrow_down.png" id="3_ynof4"]

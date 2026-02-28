@@ -3,12 +3,10 @@ using System.Linq;
 using Godot;
 using Godot.Collections;
 using MonsterCounty.Actor.Combat;
-using MonsterCounty.Actor.Combat.Parties;
 using MonsterCounty.Actor.Controllers;
 using MonsterCounty.Model;
-using MonsterCounty.Scene;
 
-namespace MonsterCounty.UI
+namespace MonsterCounty.Combat.UI
 {
 	public partial class CombatUI : CanvasLayer
 	{
@@ -26,11 +24,11 @@ namespace MonsterCounty.UI
 		public int SelectedEnemy;
 		[Export] private float _arrowOffsetY = 10;
 		
-		private Party _playerParty;
-		private Party _enemyParty;
+		private Array<CombatActor> _playerParty;
+		private Array<CombatActor> _enemyParty;
 		private CombatPlayer _currentPlayer;
 
-		public void Load(Party playerParty, Party enemyParty)
+		public void Load(Array<CombatActor> playerParty, Array<CombatActor> enemyParty)
 		{
 			if (!Instance.Create(this, false)) return;
 			_playerParty = playerParty;
@@ -44,7 +42,7 @@ namespace MonsterCounty.UI
 		private void Reset()
 		{
 			SelectedEnemy = 0;
-			if (_enemyParty.Any()) SelectWithArrow(_enemyArrow, _enemyParty.Get(SelectedEnemy), ArrowPosition.Below);
+			if (_enemyParty.Any()) SelectWithArrow(_enemyArrow, _enemyParty[SelectedEnemy], ArrowPosition.Below);
 		}
 
 		public void RemoveActor(CombatActor actor)
@@ -64,7 +62,7 @@ namespace MonsterCounty.UI
 
 		private void OnButtonPressed(int buttonIndex)
 		{
-			CombatScene.Instance.Get().ResolveTurn(_currentPlayer, buttonIndex);
+			Combat.Instance.ResolveTurn(_currentPlayer, buttonIndex);
 		}
 
 		public void NextPlayer(CombatPlayer player)
@@ -82,7 +80,7 @@ namespace MonsterCounty.UI
 			}
 		}
 		
-		private void BindHealthBars(VBoxContainer container, HealthBar template, Party party)
+		private void BindHealthBars(VBoxContainer container, HealthBar template, Array<CombatActor> party)
 		{
 			foreach (CombatActor member in party)
 			{
@@ -114,13 +112,13 @@ namespace MonsterCounty.UI
 		private void SelectNextEnemy()
 		{
 			SelectedEnemy = Math.Min(SelectedEnemy+1, _enemyParty.Count()-1);
-			SelectWithArrow(_enemyArrow, _enemyParty.Get(SelectedEnemy), ArrowPosition.Below);
+			SelectWithArrow(_enemyArrow, _enemyParty[SelectedEnemy], ArrowPosition.Below);
 		}
 
 		private void SelectPreviousEnemy()
 		{
 			SelectedEnemy = Math.Max(SelectedEnemy-1, 0);
-			SelectWithArrow(_enemyArrow, _enemyParty.Get(SelectedEnemy), ArrowPosition.Below);
+			SelectWithArrow(_enemyArrow, _enemyParty[SelectedEnemy], ArrowPosition.Below);
 		}
 
 		private enum ArrowPosition

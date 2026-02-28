@@ -2,7 +2,7 @@ using Godot;
 using MonsterCounty.Actor.Combat;
 using MonsterCounty.Actor.Controllers;
 
-namespace MonsterCounty.UI
+namespace MonsterCounty.Combat.UI
 {
 	public partial class HealthBar : Control
 	{

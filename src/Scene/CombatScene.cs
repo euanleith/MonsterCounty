@@ -1,13 +1,10 @@
-using System;
-using System.Linq;
 using Godot;
 using Godot.Collections;
 using MonsterCounty.Actor.Combat;
-using MonsterCounty.Actor.Combat.Parties;
 using MonsterCounty.Actor.Controllers;
+using MonsterCounty.Combat.UI;
 using MonsterCounty.Model;
 using MonsterCounty.State;
-using MonsterCounty.UI;
 
 namespace MonsterCounty.Scene
 {
@@ -19,82 +16,23 @@ namespace MonsterCounty.Scene
 		[Export] private Array<CombatActor> _enemyParty;
 		[Export] private CombatUI _ui;
 		
-		private Party _playerPartyInternal;
-		private Party _enemyPartyInternal;
-		private CircularLinkedList<CombatActor> _turnQueue;
-		private readonly Random _rand = new();
-
 		public override void _Ready()
 		{
 			if (!Instance.Create(this, false)) return;
 			base._Ready();
-			_playerPartyInternal = GameState.Party != null ? new(_playerParty, GameState.Party) : new(_playerParty);
-			_enemyPartyInternal = new(_enemyParty);
-			_playerPartyInternal.LoadOpponents(_enemyPartyInternal);
-			_enemyPartyInternal.LoadOpponents(_playerPartyInternal);
-			_ui.Load(_playerPartyInternal, _enemyPartyInternal);
-			var shuffled = _playerPartyInternal.Concat(_enemyPartyInternal).OrderBy(x => _rand.Next()).ToArray();
-			_turnQueue = new CircularLinkedList<CombatActor>(shuffled);
-			StartTurn();
+			_ui.Load(_playerParty, _enemyParty);
+			new Combat.Combat(_playerParty, _enemyParty);
 		}
 
-		private bool OnActorDie(CombatActor actor)
+		public void ChangeToWorldScene()
 		{
-			GD.Print($"{actor.Name} died!");
-			RemoveActor(actor);
-			if (!_turnQueue.Contains(actor.GetType()))
-			{
-				GD.Print("exiting combat");
-				ChangeToWorldScene();
-				return false;
-			}
-			return true;
-		}
-
-		private void RemoveActor(CombatActor actor)
-		{
-			_turnQueue.Remove(actor);
-			actor.Party.Remove(actor);
-			CombatUI.Instance.Get().RemoveActor(actor);
-		}
-
-		private void ChangeToWorldScene()
-		{
-			SaveGameState();
+			ApplyGameState();
 			SceneManager.Instance.Get().ChangeScene(GetTree(), SceneManager.CurrentWorldScene);
 		}
 
-		private void SaveGameState()
+		private void ApplyGameState()
 		{
-			_playerPartyInternal.SaveGameState();
 			GameState.PlayerSpawnName = SpawnController.SpawnType.CurrentPosition.GetStringValue();
-		}
-		
-		private void StartTurn()
-		{
-			TurnResult res = _turnQueue.Peek().StartTurn();
-			if (res.WaitingForInput) return;
-			if (res.ActorToDie != null)
-			{
-				if (!OnActorDie(res.ActorToDie)) return;
-			}
-			NextTurn();
-		}
-
-		public void ResolveTurn(CombatPlayer player, int index)
-		{
-			CombatActor actorToDie = player.ResolveTurn(index);
-			if (actorToDie != null)
-			{
-				if (!OnActorDie(actorToDie)) return;
-			}
-			NextTurn();
-		}
-
-		private void NextTurn()
-		{
-			_turnQueue.Next();
-			StartTurn();
 		}
 	}
 }

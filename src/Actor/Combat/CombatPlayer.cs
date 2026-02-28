@@ -1,5 +1,5 @@
 using MonsterCounty.Actor.Controllers;
-using MonsterCounty.UI;
+using MonsterCounty.Combat.UI;
 
 namespace MonsterCounty.Actor.Combat
 {

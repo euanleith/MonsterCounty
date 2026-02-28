@@ -13,7 +13,7 @@ namespace MonsterCounty.State
 		public static Vector2 PlayerPosition;
 		
 		// Combat
-		public static List<CombatActorState> Party;
+		public static readonly List<CombatActorState> Party = [];
 		
 		public override void _Ready()
 		{

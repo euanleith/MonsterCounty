@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using Godot;
 using Godot.Collections;
+using MonsterCounty.Actor.Combat;
 using MonsterCounty.Actor.Controllers;
 using MonsterCounty.State;
 
-namespace MonsterCounty.Actor.Combat.Parties
+namespace MonsterCounty.Combat
 {
 	public class Party: IEnumerable<CombatActor>
 	{
@@ -37,12 +38,12 @@ namespace MonsterCounty.Actor.Combat.Parties
 			}
 		}
 
-		public void SaveGameState()
+		public void SaveGameState(List<CombatActorState> state)
 		{
-			GameState.Party = new();
+			state.Clear();
 			foreach (CombatActor member in _members)
 			{
-				member.Controllers.Get<CombatController>().SaveGameState();
+				member.Controllers.Get<CombatController>().SaveGameState(state);
 			}
 		}
 		

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dq1y1il2stg67"]
 
-[ext_resource type="Script" uid="uid://g56fskavxmde" path="res://src/UI/HealthBar.cs" id="1_1vcc2"]
+[ext_resource type="Script" uid="uid://g56fskavxmde" path="res://src/Combat/UI/HealthBar.cs" id="1_1vcc2"]
 
 [node name="HealthBar" type="Panel" unique_id=1187417681 node_paths=PackedStringArray("_name", "_bar", "_health")]
 offset_right = 256.0

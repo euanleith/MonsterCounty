@@ -1,5 +1,5 @@
-using MonsterCounty.Actor.Combat.Parties;
 using MonsterCounty.Actor.Controllers;
+using MonsterCounty.Combat;
 using MonsterCounty.Model;
 
 namespace MonsterCounty.Actor.Combat
