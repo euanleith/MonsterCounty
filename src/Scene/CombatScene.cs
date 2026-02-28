@@ -28,7 +28,7 @@ namespace MonsterCounty.Scene
 		{
 			if (!Instance.Create(this, false)) return;
 			base._Ready();
-			_playerPartyInternal = new(_playerParty);
+			_playerPartyInternal = GameState.Party != null ? new(_playerParty, GameState.Party) : new(_playerParty);
 			_enemyPartyInternal = new(_enemyParty);
 			_playerPartyInternal.LoadOpponents(_enemyPartyInternal);
 			_enemyPartyInternal.LoadOpponents(_playerPartyInternal);
@@ -60,8 +60,14 @@ namespace MonsterCounty.Scene
 
 		private void ChangeToWorldScene()
 		{
-			GameState.PlayerSpawnName = SpawnController.SpawnType.CurrentPosition.GetStringValue();
+			SaveGameState();
 			SceneManager.Instance.Get().ChangeScene(GetTree(), SceneManager.CurrentWorldScene);
+		}
+
+		private void SaveGameState()
+		{
+			_playerPartyInternal.SaveGameState();
+			GameState.PlayerSpawnName = SpawnController.SpawnType.CurrentPosition.GetStringValue();
 		}
 		
 		private void StartTurn()

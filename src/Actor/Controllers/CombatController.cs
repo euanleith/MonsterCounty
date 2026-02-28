@@ -2,6 +2,8 @@ using Godot;
 using Godot.Collections;
 using MonsterCounty.Actor.Combat;
 using MonsterCounty.Actor.Combat.Parties;
+using MonsterCounty.State;
+using static MonsterCounty.State.GameState;
 
 namespace MonsterCounty.Actor.Controllers
 {
@@ -23,6 +25,16 @@ namespace MonsterCounty.Actor.Controllers
 		{
 			base.Load(actor);
 			CurrentHealth = MaxHealth; // todo get from state
+		}
+
+		public void LoadGameState(CombatActorState state)
+		{
+			CurrentHealth = state.Health;
+		}
+
+		public void SaveGameState()
+		{
+			GameState.Party.Add(new CombatActorState(CurrentHealth));
 		}
 		
 		public CombatActor TakeTurn(double delta)
