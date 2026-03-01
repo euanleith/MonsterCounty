@@ -1,8 +1,10 @@
 using System.Collections.Generic;
 using Godot;
+using MonsterCounty.Actor.Actions.Combat;
 using MonsterCounty.Actor.Combat;
 using MonsterCounty.Combat;
 using MonsterCounty.State;
+using static MonsterCounty.Utilities.SceneUtilities;
 
 namespace MonsterCounty.Actor.Controllers
 {
@@ -19,21 +21,31 @@ namespace MonsterCounty.Actor.Controllers
 			get => _currentHealth;
 			set { EmitSignal(nameof(CurrentHealthChanged), value); _currentHealth = value; }
 		}
-		
-		public override void Load(Actor actor)
-		{
-			base.Load(actor);
-			CurrentHealth = MaxHealth; // todo get from state
-		}
+		public bool IsAlive => CurrentHealth > 0;
 
 		public void LoadGameState(CombatActorState state)
 		{
+			MaxHealth = state.MaxHealth;
 			CurrentHealth = state.Health;
+			foreach (var path in state.ActionScenePaths)
+			{
+				AddChildFromScenePath<CombatAction>(this, path);
+			}
+			LoadActions();
 		}
 
 		public void SaveGameState(List<CombatActorState> state)
 		{
-			state.Add(new CombatActorState(CurrentHealth));
+			var actionScenePaths = new string[Actions.Count];
+			for (var i = 0; i < Actions.Count; i++)
+			{
+				actionScenePaths[i] = Actions[i].SceneFilePath;
+			}
+			state.Add(new CombatActorState(MaxHealth, CurrentHealth, actionScenePaths, GetNodeId(this)));
+			foreach (var child in GetChildren())
+			{
+				child.QueueFree();
+			}
 		}
 		
 		public CombatActor TakeTurn(double delta)

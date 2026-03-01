@@ -11,9 +11,11 @@ namespace MonsterCounty.State
 		// World
 		public static string PlayerSpawnName;
 		public static Vector2 PlayerPosition;
+		public static Dictionary<string, List<string>> EntitiesRemoved;
 		
 		// Combat
-		public static readonly List<CombatActorState> Party = [];
+		public static readonly List<CombatActorState> PlayerParty = [];
+		public static readonly List<CombatActorState> EnemyParty = [];
 		
 		public override void _Ready()
 		{

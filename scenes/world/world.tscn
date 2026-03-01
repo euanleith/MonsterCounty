@@ -11,6 +11,8 @@
 [ext_resource type="PackedScene" uid="uid://8wgc112a71tx" path="res://scenes/world/spawn.tscn" id="9_1yooq"]
 [ext_resource type="PackedScene" uid="uid://w66w4orih5r" path="res://scenes/actor/world/receiver.tscn" id="10_gb53w"]
 [ext_resource type="PackedScene" uid="uid://ddn1j18ymh155" path="res://scenes/actor/world/world_enemy.tscn" id="11_5qq27"]
+[ext_resource type="PackedScene" uid="uid://10enj2mend3b" path="res://scenes/actor/actions/combat/attack_action.tscn" id="12_srmg5"]
+[ext_resource type="PackedScene" uid="uid://40wij836ji7i" path="res://scenes/actor/actions/combat/heal_action.tscn" id="13_umvgx"]
 
 [sub_resource type="Curve2D" id="Curve2D_1bvp3"]
 _data = {
@@ -18,7 +20,7 @@ _data = {
 }
 point_count = 5
 
-[sub_resource type="Curve2D" id="Curve2D_5qq27"]
+[sub_resource type="Curve2D" id="Curve2D_srmg5"]
 resource_local_to_scene = true
 _data = {
 "points": PackedVector2Array(0, 0, 0, 0, 13, 2, 0, 0, 0, 0, 268, 0, 0, 0, 0, 0, 10, 2)
@@ -337,7 +339,7 @@ curve = SubResource("Curve2D_1bvp3")
 
 [node name="PathNPC" parent="." unique_id=1629924361 instance=ExtResource("5_qfnet")]
 position = Vector2(180, 128)
-curve = SubResource("Curve2D_5qq27")
+curve = SubResource("Curve2D_srmg5")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=1992197526]
 tile_map_data = PackedByteArray("AAAAAAAAAAAGAAMAAAABAAAAAAAGAAMAAAACAAAAAAAGAAMAAAADAAAAAAAGAAMAAAAEAAAAAAAGAAMAAAAFAAAAAAAGAAMAAAAGAAAAAAAGAAMAAAAHAAAAAAAGAAMAAAAIAAAAAAAGAAMAAAAJAAAAAAAGAAMAAAAKAAAAAAAGAAMAAAALAAAAAAAGAAMAAAARAAAAAAAGAAMAAAAMAAAAAAAGAAMAAAANAAAAAAAGAAMAAAAOAAAAAAAGAAMAAAAPAAAAAAAGAAMAAAAQAAAAAAAGAAMAAAAWAAkAAAAGAAMAAAAWAAgAAAAGAAMAAAAWAAcAAAAGAAMAAAAWAAYAAAAGAAMAAAAWAAUAAAAGAAMAAAAWAAQAAAAGAAMAAAAWAAMAAAAGAAMAAAAWAAIAAAAGAAMAAAAWAAEAAAAGAAMAAAAWAAAAAAAGAAMAAAAVAAAAAAAGAAMAAAAUAAAAAAAGAAMAAAATAAAAAAAGAAMAAAASAAAAAAAGAAMAAAD//wAAAAAGAAMAAAD+/wAAAAAGAAMAAAD9/wAAAAAGAAMAAAD8/wAAAAAGAAMAAAD8/wEAAAAGAAMAAAD8/wIAAAAGAAMAAAD8/wMAAAAGAAMAAAD8/wQAAAAGAAMAAAD8/wUAAAAGAAMAAAD8/wYAAAAGAAMAAAD8/wcAAAAGAAMAAAD8/wgAAAAGAAMAAAD8/wkAAAAGAAMAAAD8/woAAAAGAAMAAAD8/wsAAAAGAAMAAAAWAAoAAAAGAAMAAAAWAAsAAAAGAAMAAAAWAAwAAAAGAAMAAAAWAA0AAAAGAAMAAAD8/wwAAAAGAAMAAAD8/w0AAAAGAAMAAAD9/w0AAAAGAAMAAAD+/w0AAAAGAAMAAAD//w0AAAAGAAMAAAAAAA0AAAAGAAMAAAABAA0AAAAGAAMAAAACAA0AAAAGAAMAAAADAA0AAAAGAAMAAAAEAA0AAAAGAAMAAAAFAA0AAAAGAAMAAAAGAA0AAAAGAAMAAAAHAA0AAAAGAAMAAAAIAA0AAAAGAAMAAAAJAA0AAAAGAAMAAAAKAA0AAAAGAAMAAAALAA0AAAAGAAMAAAAMAA0AAAAGAAMAAAANAA0AAAAGAAMAAAAOAA0AAAAGAAMAAAAPAA0AAAAGAAMAAAAQAA0AAAAGAAMAAAARAA0AAAAGAAMAAAASAA0AAAAGAAMAAAATAA0AAAAGAAMAAAAUAA0AAAAGAAMAAAAVAA0AAAAGAAMAAAANAAUAAAAQAAUAAAANAAQAAAAQAAUAAAAOAAQAAAAQAAUAAAAPAAQAAAAQAAUAAAAPAAUAAAAQAAUAAAA=")
@@ -359,6 +361,20 @@ position = Vector2(1152, 128)
 [node name="WorldEnemy" parent="." unique_id=434891005 instance=ExtResource("11_5qq27")]
 position = Vector2(-128, 256)
 
+[node name="AttackAction" parent="WorldEnemy/CombatController" parent_id_path=PackedInt32Array(434891005, 380955144) index="0" unique_id=607789692 instance=ExtResource("12_srmg5")]
+
+[node name="HealAction" parent="WorldEnemy/CombatController" parent_id_path=PackedInt32Array(434891005, 380955144) index="1" unique_id=909520099 instance=ExtResource("13_umvgx")]
+
+[node name="WorldEnemy2" parent="." unique_id=52065288 instance=ExtResource("11_5qq27")]
+position = Vector2(-96, 160)
+
+[node name="AttackAction" parent="WorldEnemy2/CombatController" parent_id_path=PackedInt32Array(52065288, 380955144) index="0" unique_id=624375598 instance=ExtResource("12_srmg5")]
+
+[node name="HealAction" parent="WorldEnemy2/CombatController" parent_id_path=PackedInt32Array(52065288, 380955144) index="1" unique_id=808293340 instance=ExtResource("13_umvgx")]
+
 [connection signal="timeout" from="MobTimer" to="." method="OnMobTimerTimeout"]
 [connection signal="timeout" from="ScoreTimer" to="." method="OnScoreTimerTimeout"]
 [connection signal="timeout" from="StartTimer" to="." method="OnStartTimerTimeout"]
+
+[editable path="WorldEnemy"]
+[editable path="WorldEnemy2"]

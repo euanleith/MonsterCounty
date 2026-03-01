@@ -1,8 +1,8 @@
 using System;
 using System.Linq;
 using Godot;
-using Godot.Collections;
 using MonsterCounty.Actor.Combat;
+using MonsterCounty.Actor.Controllers;
 using MonsterCounty.Model;
 using MonsterCounty.State;
 
@@ -13,31 +13,36 @@ namespace MonsterCounty.Combat
         public static Combat Instance { get; private set; }
 
         public static event Action<CombatActor> ActorDying;
-        public static event Action Exiting;
+        public static event Action<Party> Exiting;
         
         private readonly Party _playerParty;
+        private readonly Party _enemyParty;
         private readonly CircularLinkedList<CombatActor> _turnQueue;
 
-        public Combat(Array<CombatActor> playerPartyArr, Array<CombatActor> enemyPartyArr)
+        public Combat(Party playerParty, Party enemyParty)
         {
             if (Instance == null) Instance = this;
             else return;
-            _playerParty = GameState.Party != null ? new(playerPartyArr, GameState.Party) : new(playerPartyArr);
-            Party enemyParty = new(enemyPartyArr);
-            _playerParty.LoadOpponents(enemyParty);
-            enemyParty.LoadOpponents(_playerParty);
-            var shuffled = _playerParty.Concat(enemyParty).OrderBy(x => new Random().Next()).ToArray();
+            _playerParty = playerParty;
+            _enemyParty = enemyParty;
+            _playerParty.Load(_enemyParty);
+            _enemyParty.Load(_playerParty);
+            var shuffled = _playerParty.Concat(_enemyParty).OrderBy(x => new Random().Next()).ToArray();
             _turnQueue = new CircularLinkedList<CombatActor>(shuffled);
             StartTurn();
         }
         
         private void StartTurn()
         {
-            TurnResult res = _turnQueue.Peek().StartTurn();
-            if (res.WaitingForInput) return;
-            if (res.ActorToDie != null)
+            CombatActor next = _turnQueue.Peek();
+            if (next.Controllers.Get<CombatController>().IsAlive)
             {
-                if (!OnActorDie(res.ActorToDie)) return;
+                TurnResult res = next.StartTurn();
+                if (res.WaitingForInput) return;
+                if (res.ActorToDie != null)
+                {
+                    if (!OnActorDie(res.ActorToDie)) return;
+                }
             }
             NextTurn();
         }
@@ -61,33 +66,26 @@ namespace MonsterCounty.Combat
         private bool OnActorDie(CombatActor actor)
         {
             GD.Print($"{actor.Name} died!");
-            RemoveActor(actor);
             ActorDying?.Invoke(actor);
-            if (!_turnQueue.Contains(actor.GetType()))
+            if (actor.Party.IsDefeated())
             {
-                Exit();
+                Exit(actor.Party);
                 return false;
             }
             return true;
         }
 
-        private void RemoveActor(CombatActor actor)
-        {
-            _turnQueue.Remove(actor);
-            actor.Party.Remove(actor);
-        }
-
-        private void Exit()
+        private void Exit(Party losers)
         {
             GD.Print("exiting combat");
             Instance = null;
             SaveGameState();
-            Exiting?.Invoke();
+            Exiting?.Invoke(losers);
         }
         
         private void SaveGameState()
         {
-            _playerParty.SaveGameState(GameState.Party);
+            _playerParty.SaveGameState(GameState.PlayerParty);
         }
     }
 }

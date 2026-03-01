@@ -31,5 +31,6 @@ rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_wd7n8")
 
 [node name="CombatController" parent="." unique_id=380955144 instance=ExtResource("3_kbrux")]
+MaxHealth = 1
 
 [node name="VisualController" parent="." unique_id=98789701 instance=ExtResource("4_wd7n8")]

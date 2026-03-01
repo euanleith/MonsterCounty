@@ -1,5 +1,5 @@
 using Godot;
-using Godot.Collections;
+using System.Linq;
 using MonsterCounty.Actor.Combat;
 using MonsterCounty.Actor.Controllers;
 using MonsterCounty.Model;
@@ -19,29 +19,38 @@ namespace MonsterCounty.Combat.UI
 		[Export] private float _arrowOffsetY = 10;
 		public int SelectedEnemy => _enemyArrow.SelectedIndex;
 		
-		private Array<CombatActor> _playerParty;
-		private Array<CombatActor> _enemyParty;
+		private Party _playerParty;
+		private Party _enemyParty;
 		private CombatPlayer _currentPlayer;
 
-		public void Load(Array<CombatActor> playerParty, Array<CombatActor> enemyParty)
+		public void Load(Party playerParty, Party enemyParty)
 		{
 			if (!Instance.Create(this, false)) return;
 			_playerParty = playerParty;
 			_enemyParty = enemyParty;
+			HideDeadPartyMembers(_playerParty);
 			_buttons.Load(LoadButton, RebindButton);
 			_playerPartyHealthBars.LoadAndBind(BindHealthBar, _playerParty);
 			_enemyPartyHealthBars.LoadAndBind(BindHealthBar, _enemyParty);
 			_playerArrow.Load(Arrow.ArrowPosition.Above, _arrowOffsetY);
-			_enemyArrow.Load(Arrow.ArrowPosition.Below, _arrowOffsetY);
+			_enemyArrow.LoadAndBind(Arrow.ArrowPosition.Below, _arrowOffsetY, _enemyParty);
 			BindCombatEvents();
 			Reset();
 		}
 
 		private void Reset()
 		{
-			if (_enemyParty.Count > 0)
+			_enemyArrow.Reset();
+		}
+
+		private void HideDeadPartyMembers(Party party)
+		{
+			foreach (CombatActor member in party)
 			{
-				_enemyArrow.Bind(_enemyParty, _enemyParty.Count-1);
+				if (!member.Controllers.Get<CombatController>().IsAlive)
+				{
+					member.Visible = false;
+				}
 			}
 		}
 

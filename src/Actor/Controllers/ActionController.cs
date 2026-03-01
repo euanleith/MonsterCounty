@@ -15,13 +15,18 @@ namespace MonsterCounty.Actor.Controllers
 		public override void Load(Actor actor)
 		{
 			base.Load(actor);
+			LoadActions();
+			Decision = LoadDecision();
+		}
+
+		protected void LoadActions()
+		{
 			Actions = [];
 			foreach (ControllerAction<R> action in GetChildren().OfType<ControllerAction<R>>())
 			{
 				Actions.Add(action);
 				action.CustomInit(Actor);
 			}
-			Decision = LoadDecision();
 		}
 
 		protected virtual Decision<R> LoadDecision() => new FirstDecision<R>();

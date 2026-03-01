@@ -1,6 +1,4 @@
-using System;
 using Godot;
-using Godot.Collections;
 using MonsterCounty.Actor.Combat;
 using MonsterCounty.Actor.Controllers;
 
@@ -15,8 +13,7 @@ namespace MonsterCounty.Combat.UI
         }
         
         public int SelectedIndex;
-        private int _maxIndex;
-        private Array<CombatActor> _party;
+        private Party _party;
         private ArrowPosition _arrowPosition;
         private float _arrowOffsetY;
 
@@ -26,17 +23,34 @@ namespace MonsterCounty.Combat.UI
             _arrowPosition = arrowPosition;
         }
 
-        public void Bind(Array<CombatActor> party, int maxIndex)
+        public void Bind(Party party)
         {
             _party = party;
-            _maxIndex = maxIndex;
+            Reset();
+        }
+
+        public void LoadAndBind(ArrowPosition arrowPosition, float arrowOffsetY, Party party)
+        {
+            Load(arrowPosition, arrowOffsetY);
+            Bind(party);
+        }
+
+        public void Reset()
+        {
             Rebind(0);
         }
         
         private void Rebind(int index)
         {
-            SelectedIndex = index;
-            Rebind(_party[index]);
+            for (; index < _party.Count(); index++)
+            {
+                if (_party.Get(index).Controllers.Get<CombatController>().IsAlive)
+                {
+                    SelectedIndex = index;
+                    Rebind(_party.Get(index));
+                    break;
+                }
+            }
         }
 
         public void Rebind(CombatActor actor)
@@ -48,12 +62,24 @@ namespace MonsterCounty.Combat.UI
 
         public void Next()
         {
-            Rebind(Math.Min(SelectedIndex+1, _maxIndex));
+            for (var index = SelectedIndex+1; index < _party.Count(); index++)
+            {
+                if (_party.Get(index).Controllers.Get<CombatController>().IsAlive)
+                {
+                    Rebind(index);
+                }
+            }
         }
 
         public void Prev()
         {
-            Rebind(Math.Max(SelectedIndex-1, 0));
+            for (var index = SelectedIndex-1; index >= 0; index--)
+            {
+                if (_party.Get(index).Controllers.Get<CombatController>().IsAlive)
+                {
+                    Rebind(index);
+                }
+            }
         }
     }
 }

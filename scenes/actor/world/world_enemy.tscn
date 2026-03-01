@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://cuh0yo2ws1low" path="res://scenes/actor/controller/transmission_controller.tscn" id="11_fn7wt"]
 [ext_resource type="PackedScene" uid="uid://b2yhcwvd1q564" path="res://scenes/actor/actions/interaction/enemy_transmission_action.tscn" id="12_veedt"]
 [ext_resource type="PackedScene" uid="uid://3i2bjf6xfoyy" path="res://scenes/combat/combat.tscn" id="13_veedt"]
+[ext_resource type="PackedScene" uid="uid://cp3l3q4tklvp8" path="res://scenes/actor/controller/combat_controller.tscn" id="15_b3r2h"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4du3b"]
 radius = 36.0
@@ -88,3 +89,6 @@ Range = 100.0
 
 [node name="EnemyTransmissionAction" parent="TransmissionController" unique_id=1607805577 instance=ExtResource("12_veedt")]
 CombatScene = ExtResource("13_veedt")
+
+[node name="CombatController" parent="." unique_id=380955144 instance=ExtResource("15_b3r2h")]
+MaxHealth = 5
