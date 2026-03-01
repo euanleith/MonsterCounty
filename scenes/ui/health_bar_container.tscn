@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://dul0s0wqxttwu"]
+
+[ext_resource type="Script" uid="uid://d3xvuenpjptcj" path="res://src/Combat/UI/HealthBarContainer.cs" id="1_xqnr0"]
+[ext_resource type="Script" uid="uid://g56fskavxmde" path="res://src/Combat/UI/HealthBar.cs" id="2_xqnr0"]
+
+[node name="HealthBarContainer" type="VBoxContainer" unique_id=7682012]
+offset_left = 832.0
+offset_top = 440.0
+offset_right = 872.0
+offset_bottom = 480.0
+script = ExtResource("1_xqnr0")
+
+[node name="HealthBarTemplate" type="Control" parent="." unique_id=49890260 node_paths=PackedStringArray("_name", "_bar", "_health")]
+layout_mode = 2
+size_flags_vertical = 3
+script = ExtResource("2_xqnr0")
+_name = NodePath("ActorNameLabel")
+_bar = NodePath("ProgressBar")
+_health = NodePath("ProgressBar/HealthLabel")
+
+[node name="ActorNameLabel" type="Label" parent="HealthBarTemplate" unique_id=1882141843]
+layout_mode = 0
+offset_top = 8.0
+offset_right = 56.0
+offset_bottom = 31.0
+text = "default"
+
+[node name="ProgressBar" type="ProgressBar" parent="HealthBarTemplate" unique_id=1709138061]
+layout_mode = 0
+offset_left = 128.0
+offset_top = 8.0
+offset_right = 256.0
+offset_bottom = 31.0
+show_percentage = false
+
+[node name="HealthLabel" type="Label" parent="HealthBarTemplate/ProgressBar" unique_id=1592071453]
+layout_mode = 1
+offset_right = 128.0
+offset_bottom = 23.0
+vertical_alignment = 1

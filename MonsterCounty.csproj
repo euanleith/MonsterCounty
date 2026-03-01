@@ -6,6 +6,5 @@
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="src\Camera\" />
-    <Folder Include="src\Combat\UI\" />
   </ItemGroup>
 </Project>

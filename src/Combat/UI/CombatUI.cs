@@ -1,10 +1,9 @@
-using System;
-using System.Linq;
 using Godot;
 using Godot.Collections;
 using MonsterCounty.Actor.Combat;
 using MonsterCounty.Actor.Controllers;
 using MonsterCounty.Model;
+using MonsterCounty.UI;
 
 namespace MonsterCounty.Combat.UI
 {
@@ -12,17 +11,13 @@ namespace MonsterCounty.Combat.UI
 	{
 		public static readonly Singleton<CombatUI> Instance = new();
 		
-		[Export] private Array<Button> _buttons;
-		[Export] private VBoxContainer _playerPartyHealthBars;
-		[Export] private HealthBar _playerHealthBarTemplate;
-		[Export] private VBoxContainer _enemyPartyHealthBars;
-		[Export] private HealthBar _enemyHealthBarTemplate;
-
-		[Export] private Sprite2D _playerArrow;
-		private int _selectedPlayer;
-		[Export] private Sprite2D _enemyArrow;
-		public int SelectedEnemy;
+		[Export] private HealthBarContainer _playerPartyHealthBars;
+		[Export] private HealthBarContainer _enemyPartyHealthBars;
+		[Export] private ButtonContainer _buttons;
+		[Export] private Arrow _playerArrow;
+		[Export] private Arrow _enemyArrow;
 		[Export] private float _arrowOffsetY = 10;
+		public int SelectedEnemy => _enemyArrow.SelectedIndex;
 		
 		private Array<CombatActor> _playerParty;
 		private Array<CombatActor> _enemyParty;
@@ -33,32 +28,31 @@ namespace MonsterCounty.Combat.UI
 			if (!Instance.Create(this, false)) return;
 			_playerParty = playerParty;
 			_enemyParty = enemyParty;
-			LoadCombatButtons();
-			BindPlayerHealthBars();
-			BindEnemyHealthBars();
+			_buttons.Load(LoadButton, RebindButton);
+			_playerPartyHealthBars.LoadAndBind(BindHealthBar, _playerParty);
+			_enemyPartyHealthBars.LoadAndBind(BindHealthBar, _enemyParty);
+			_playerArrow.Load(Arrow.ArrowPosition.Above, _arrowOffsetY);
+			_enemyArrow.Load(Arrow.ArrowPosition.Below, _arrowOffsetY);
 			BindCombatEvents();
 			Reset();
 		}
 
 		private void Reset()
 		{
-			SelectedEnemy = 0;
-			if (_enemyParty.Count > 0) SelectWithArrow(_enemyArrow, _enemyParty[SelectedEnemy], ArrowPosition.Below);
-		}
-
-		public void RemoveActor(CombatActor actor)
-		{
-			actor.Visible = false;
-			Reset();
-		}
-
-		private void LoadCombatButtons()
-		{
-			for (int i = 0; i < _buttons.Count; i++)
+			if (_enemyParty.Count > 0)
 			{
-				int capturedIndex = i;
-				_buttons[i].Pressed += () => OnButtonPressed(capturedIndex);
+				_enemyArrow.Bind(_enemyParty, _enemyParty.Count-1);
 			}
+		}
+
+		private void LoadButton(Button button, int index)
+		{
+			button.Pressed += () => OnButtonPressed(index);
+		}
+
+		private void RebindButton(Button button, int index)
+		{
+			button.Text = _currentPlayer.Controllers.Get<CombatController>().Actions[index].Name;
 		}
 
 		private void OnButtonPressed(int buttonIndex)
@@ -66,42 +60,22 @@ namespace MonsterCounty.Combat.UI
 			Combat.Instance.ResolveTurn(_currentPlayer, buttonIndex);
 		}
 
+		private void BindHealthBar(HealthBar bar, CombatActor actor)
+		{
+			bar.Bind(actor);
+		}
+		
 		public void NextPlayer(CombatPlayer player)
 		{
-			BindCombatButtons(player);
-			SelectWithArrow(_playerArrow, player, ArrowPosition.Above);
-		}
-		
-		private void BindCombatButtons(CombatPlayer player)
-		{
 			_currentPlayer = player;
-			for (int i = 0; i < _buttons.Count; i++)
-			{
-				_buttons[i].Text = _currentPlayer.Controllers.Get<CombatController>().Actions[i].Name;
-			}
+			_buttons.Rebind();
+			_playerArrow.Rebind(player);
 		}
 		
-		private void BindHealthBars(VBoxContainer container, HealthBar template, Array<CombatActor> party)
+		private void RemoveActor(CombatActor actor)
 		{
-			foreach (CombatActor member in party)
-			{
-				HealthBar bar = template.Duplicate() as HealthBar;
-				bar.Visible = true;
-				bar.Bind(member);
-				container.AddChild(bar);
-			}
-			template.Visible = false;
-		}
-
-		// todo generalise to class CombatPartyUI
-		private void BindPlayerHealthBars()
-		{
-			BindHealthBars(_playerPartyHealthBars, _playerHealthBarTemplate, _playerParty);
-		}
-
-		private void BindEnemyHealthBars()
-		{
-			BindHealthBars(_enemyPartyHealthBars, _enemyHealthBarTemplate, _enemyParty);
+			actor.Visible = false;
+			Reset();
 		}
 
 		private void BindCombatEvents()
@@ -116,33 +90,8 @@ namespace MonsterCounty.Combat.UI
 
 		public override void _UnhandledInput(InputEvent inputEvent)
 		{
-			if (inputEvent.IsActionPressed(Direction.RIGHT)) SelectNextEnemy();
-			else if (inputEvent.IsActionPressed(Direction.LEFT)) SelectPreviousEnemy();
-		}
-		
-		private void SelectNextEnemy()
-		{
-			SelectedEnemy = Math.Min(SelectedEnemy+1, _enemyParty.Count()-1);
-			SelectWithArrow(_enemyArrow, _enemyParty[SelectedEnemy], ArrowPosition.Below);
-		}
-
-		private void SelectPreviousEnemy()
-		{
-			SelectedEnemy = Math.Max(SelectedEnemy-1, 0);
-			SelectWithArrow(_enemyArrow, _enemyParty[SelectedEnemy], ArrowPosition.Below);
-		}
-
-		private enum ArrowPosition
-		{
-			Above,
-			Below
-		}
-
-		private void SelectWithArrow(Sprite2D arrow, CombatActor actor, ArrowPosition arrowPosition)
-		{
-			float offsetY = _arrowOffsetY + actor.Controllers.Get<VisualController>().GetSize().Y/2;
-			if (arrowPosition == ArrowPosition.Above) offsetY *= -1;
-			arrow.GlobalPosition = actor.GlobalPosition + new Vector2(0, offsetY);
+			if (inputEvent.IsActionPressed(Direction.RIGHT)) _enemyArrow.Next();
+			else if (inputEvent.IsActionPressed(Direction.LEFT)) _enemyArrow.Prev();
 		}
 	}
 }

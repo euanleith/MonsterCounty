@@ -1,56 +1,51 @@
 [gd_scene format=3 uid="uid://b06auojv8t4uh"]
 
 [ext_resource type="Script" uid="uid://cnn8sqsn4dphy" path="res://src/Combat/UI/CombatUI.cs" id="1_n7134"]
-[ext_resource type="PackedScene" uid="uid://dq1y1il2stg67" path="res://scenes/ui/health_bar.tscn" id="2_21fn4"]
+[ext_resource type="PackedScene" uid="uid://dul0s0wqxttwu" path="res://scenes/ui/health_bar_container.tscn" id="2_ynof4"]
 [ext_resource type="Texture2D" uid="uid://bxfp406xgq43x" path="res://art/enemy/arrow_up.png" id="3_ppua2"]
 [ext_resource type="Texture2D" uid="uid://xoq7iiwswyc0" path="res://art/enemy/arrow_down.png" id="3_ynof4"]
+[ext_resource type="Script" uid="uid://bun73ogmpyhv1" path="res://src/Combat/UI/Arrow.cs" id="4_ph8cy"]
+[ext_resource type="Script" uid="uid://84olbhbdf6hm" path="res://src/UI/ButtonContainer.cs" id="5_8twgj"]
 
-[node name="CombatUI" type="CanvasLayer" unique_id=1878144606 node_paths=PackedStringArray("_buttons", "_playerPartyHealthBars", "_playerHealthBarTemplate", "_enemyPartyHealthBars", "_enemyHealthBarTemplate", "_playerArrow", "_enemyArrow") groups=["ui"]]
+[node name="CombatUI" type="CanvasLayer" unique_id=1878144606 node_paths=PackedStringArray("_playerPartyHealthBars", "_enemyPartyHealthBars", "_buttons", "_playerArrow", "_enemyArrow") groups=["ui"]]
 script = ExtResource("1_n7134")
-_buttons = [NodePath("Button0"), NodePath("Button1")]
-_playerPartyHealthBars = NodePath("PlayerPartyHealthBars")
-_playerHealthBarTemplate = NodePath("PlayerPartyHealthBars/TemplateHealthBar")
-_enemyPartyHealthBars = NodePath("EnemyPartyHealthBars")
-_enemyHealthBarTemplate = NodePath("EnemyPartyHealthBars/TemplateHealthBar")
+_playerPartyHealthBars = NodePath("PlayerHealthBarContainer")
+_enemyPartyHealthBars = NodePath("EnemyHealthBarContainer")
+_buttons = NodePath("ButtonContainer")
 _playerArrow = NodePath("PlayerArrow")
 _enemyArrow = NodePath("EnemyArrow")
 
-[node name="Button0" type="Button" parent="." unique_id=533142607]
-offset_left = 568.0
-offset_top = 376.0
-offset_right = 576.0
-offset_bottom = 384.0
+[node name="PlayerHealthBarContainer" parent="." unique_id=568172358 instance=ExtResource("2_ynof4")]
 
-[node name="Button1" type="Button" parent="." unique_id=1230609425]
-offset_left = 696.0
-offset_top = 376.0
-offset_right = 704.0
-offset_bottom = 384.0
-
-[node name="PlayerPartyHealthBars" type="VBoxContainer" parent="." unique_id=1025230008]
-offset_left = 832.0
-offset_top = 440.0
-offset_right = 872.0
-offset_bottom = 480.0
-
-[node name="TemplateHealthBar" parent="PlayerPartyHealthBars" unique_id=1187417681 instance=ExtResource("2_21fn4")]
-layout_mode = 2
-
-[node name="EnemyPartyHealthBars" type="VBoxContainer" parent="." unique_id=1498513287]
+[node name="EnemyHealthBarContainer" parent="." unique_id=7682012 instance=ExtResource("2_ynof4")]
 offset_left = 24.0
 offset_top = 24.0
 offset_right = 64.0
 offset_bottom = 64.0
 
-[node name="TemplateHealthBar" parent="EnemyPartyHealthBars" unique_id=1523865048 instance=ExtResource("2_21fn4")]
-layout_mode = 2
-
 [node name="PlayerArrow" type="Sprite2D" parent="." unique_id=683568946]
-position = Vector2(472, 264)
+position = Vector2(224.00002, 336)
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("3_ynof4")
+script = ExtResource("4_ph8cy")
 
 [node name="EnemyArrow" type="Sprite2D" parent="." unique_id=1261348474]
-position = Vector2(472, 264)
+position = Vector2(712, 192)
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("3_ppua2")
+script = ExtResource("4_ph8cy")
+
+[node name="ButtonContainer" type="VBoxContainer" parent="." unique_id=1223843313]
+offset_left = 552.0
+offset_top = 416.0
+offset_right = 627.0
+offset_bottom = 482.0
+script = ExtResource("5_8twgj")
+
+[node name="Button0" type="Button" parent="ButtonContainer" unique_id=533142607]
+layout_mode = 2
+text = "button 0"
+
+[node name="Button1" type="Button" parent="ButtonContainer" unique_id=1230609425]
+layout_mode = 2
+text = "button 1"
