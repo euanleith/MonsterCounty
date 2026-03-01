@@ -18,7 +18,7 @@ namespace MonsterCounty.Actor.Controllers
 			base._Process(delta);
 			if (_sprite != null)
 			{
-				if (Actor.Velocity.Length() > 0)
+				if (Actor.Controllers.Get<MovementController>() is { IsMoving: true })
 					_sprite.Play();
 				else
 					_sprite.Stop();

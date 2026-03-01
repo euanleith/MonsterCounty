@@ -10,6 +10,7 @@ namespace MonsterCounty.Actor.Controllers
 	{
 		[Export] public float Speed { get; private set; }
 
+		public bool IsMoving { get; private set; }
 		private Vector2 _prevPosition;
 
 		protected override void Save()
@@ -27,9 +28,11 @@ namespace MonsterCounty.Actor.Controllers
 			Actor.Velocity = Vector2.Zero;
 			if (_prevPosition != Actor.Position)
 			{
+				IsMoving = true; 
 				Actor.Controllers.Get<VisualController>().UpdateAnimation(GetDirection(Actor.Position, _prevPosition));
 				Actor.Rotation = GetRotation(Actor.Position, _prevPosition);
 			}
+			else IsMoving = false;
 
 			Actor.MoveAndSlide();
 		}
