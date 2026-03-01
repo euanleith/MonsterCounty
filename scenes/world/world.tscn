@@ -1,7 +1,7 @@
 [gd_scene format=4 uid="uid://uvkjup8xtt83"]
 
 [ext_resource type="Script" uid="uid://cj453rmg5slj4" path="res://src/Scene/WorldScene.cs" id="1_1yooq"]
-[ext_resource type="PackedScene" uid="uid://cv8uxn0ajjhqx" path="res://scenes/actor/world/world_enemy.tscn" id="2_036b0"]
+[ext_resource type="PackedScene" uid="uid://cv8uxn0ajjhqx" path="res://scenes/actor/world/world_mob.tscn" id="2_036b0"]
 [ext_resource type="PackedScene" uid="uid://5bgltxvdkt4x" path="res://scenes/actor/world/world_player.tscn" id="3_dwbse"]
 [ext_resource type="PackedScene" uid="uid://bprvrex4wphsq" path="res://scenes/ui/hud.tscn" id="4_pkg7o"]
 [ext_resource type="Script" uid="uid://cqw2h4dn5kaba" path="res://src/Camera/CameraController.cs" id="5_bq33v"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://crlb6673y01ua" path="res://scenes/world/portal.tscn" id="8_j2gmx"]
 [ext_resource type="PackedScene" uid="uid://8wgc112a71tx" path="res://scenes/world/spawn.tscn" id="9_1yooq"]
 [ext_resource type="PackedScene" uid="uid://w66w4orih5r" path="res://scenes/actor/world/receiver.tscn" id="10_gb53w"]
+[ext_resource type="PackedScene" uid="uid://ddn1j18ymh155" path="res://scenes/actor/world/world_enemy.tscn" id="11_5qq27"]
 
 [sub_resource type="Curve2D" id="Curve2D_1bvp3"]
 _data = {
@@ -17,7 +18,7 @@ _data = {
 }
 point_count = 5
 
-[sub_resource type="Curve2D" id="Curve2D_gb53w"]
+[sub_resource type="Curve2D" id="Curve2D_5qq27"]
 resource_local_to_scene = true
 _data = {
 "points": PackedVector2Array(0, 0, 0, 0, 13, 2, 0, 0, 0, 0, 268, 0, 0, 0, 0, 0, 10, 2)
@@ -336,7 +337,7 @@ curve = SubResource("Curve2D_1bvp3")
 
 [node name="PathNPC" parent="." unique_id=1629924361 instance=ExtResource("5_qfnet")]
 position = Vector2(180, 128)
-curve = SubResource("Curve2D_gb53w")
+curve = SubResource("Curve2D_5qq27")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=1992197526]
 tile_map_data = PackedByteArray("AAAAAAAAAAAGAAMAAAABAAAAAAAGAAMAAAACAAAAAAAGAAMAAAADAAAAAAAGAAMAAAAEAAAAAAAGAAMAAAAFAAAAAAAGAAMAAAAGAAAAAAAGAAMAAAAHAAAAAAAGAAMAAAAIAAAAAAAGAAMAAAAJAAAAAAAGAAMAAAAKAAAAAAAGAAMAAAALAAAAAAAGAAMAAAARAAAAAAAGAAMAAAAMAAAAAAAGAAMAAAANAAAAAAAGAAMAAAAOAAAAAAAGAAMAAAAPAAAAAAAGAAMAAAAQAAAAAAAGAAMAAAAWAAkAAAAGAAMAAAAWAAgAAAAGAAMAAAAWAAcAAAAGAAMAAAAWAAYAAAAGAAMAAAAWAAUAAAAGAAMAAAAWAAQAAAAGAAMAAAAWAAMAAAAGAAMAAAAWAAIAAAAGAAMAAAAWAAEAAAAGAAMAAAAWAAAAAAAGAAMAAAAVAAAAAAAGAAMAAAAUAAAAAAAGAAMAAAATAAAAAAAGAAMAAAASAAAAAAAGAAMAAAD//wAAAAAGAAMAAAD+/wAAAAAGAAMAAAD9/wAAAAAGAAMAAAD8/wAAAAAGAAMAAAD8/wEAAAAGAAMAAAD8/wIAAAAGAAMAAAD8/wMAAAAGAAMAAAD8/wQAAAAGAAMAAAD8/wUAAAAGAAMAAAD8/wYAAAAGAAMAAAD8/wcAAAAGAAMAAAD8/wgAAAAGAAMAAAD8/wkAAAAGAAMAAAD8/woAAAAGAAMAAAD8/wsAAAAGAAMAAAAWAAoAAAAGAAMAAAAWAAsAAAAGAAMAAAAWAAwAAAAGAAMAAAAWAA0AAAAGAAMAAAD8/wwAAAAGAAMAAAD8/w0AAAAGAAMAAAD9/w0AAAAGAAMAAAD+/w0AAAAGAAMAAAD//w0AAAAGAAMAAAAAAA0AAAAGAAMAAAABAA0AAAAGAAMAAAACAA0AAAAGAAMAAAADAA0AAAAGAAMAAAAEAA0AAAAGAAMAAAAFAA0AAAAGAAMAAAAGAA0AAAAGAAMAAAAHAA0AAAAGAAMAAAAIAA0AAAAGAAMAAAAJAA0AAAAGAAMAAAAKAA0AAAAGAAMAAAALAA0AAAAGAAMAAAAMAA0AAAAGAAMAAAANAA0AAAAGAAMAAAAOAA0AAAAGAAMAAAAPAA0AAAAGAAMAAAAQAA0AAAAGAAMAAAARAA0AAAAGAAMAAAASAA0AAAAGAAMAAAATAA0AAAAGAAMAAAAUAA0AAAAGAAMAAAAVAA0AAAAGAAMAAAANAAUAAAAQAAUAAAANAAQAAAAQAAUAAAAOAAQAAAAQAAUAAAAPAAQAAAAQAAUAAAAPAAUAAAAQAAUAAAA=")
@@ -354,6 +355,9 @@ position = Vector2(928, 416)
 
 [node name="Receiver" parent="." unique_id=120692161 instance=ExtResource("10_gb53w")]
 position = Vector2(1152, 128)
+
+[node name="WorldEnemy" parent="." unique_id=434891005 instance=ExtResource("11_5qq27")]
+position = Vector2(-128, 256)
 
 [connection signal="timeout" from="MobTimer" to="." method="OnMobTimerTimeout"]
 [connection signal="timeout" from="ScoreTimer" to="." method="OnScoreTimerTimeout"]

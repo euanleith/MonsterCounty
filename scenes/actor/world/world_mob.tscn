@@ -1,6 +1,6 @@
-[gd_scene format=3 uid="uid://ddn1j18ymh155"]
+[gd_scene format=3 uid="uid://cv8uxn0ajjhqx"]
 
-[ext_resource type="Script" uid="uid://gwg4gjsx4kkq" path="res://src/Actor/World/WorldEnemy.cs" id="1_nenq2"]
+[ext_resource type="Script" uid="uid://cfiohv5fprm06" path="res://src/Actor/World/WorldMob.cs" id="1_nenq2"]
 [ext_resource type="Texture2D" uid="uid://bsts1n3pkchfn" path="res://art/enemy/enemyFlying_down1.png" id="2_4du3b"]
 [ext_resource type="Texture2D" uid="uid://bjlppq0ejicmw" path="res://art/enemy/enemyFlying_right1.png" id="2_hb8ge"]
 [ext_resource type="Texture2D" uid="uid://bhy2dsju3meop" path="res://art/enemy/enemyFlying_right2.png" id="3_e1ltt"]
@@ -10,16 +10,17 @@
 [ext_resource type="PackedScene" uid="uid://bt1olxot22da" path="res://scenes/actor/controller/movement_controller.tscn" id="8_ipns3"]
 [ext_resource type="Texture2D" uid="uid://cejbivcwrhcm" path="res://art/enemy/enemyFlying_up1.png" id="8_li1la"]
 [ext_resource type="Texture2D" uid="uid://kv7tg2d5v0c" path="res://art/enemy/enemyFlying_up2.png" id="9_23krh"]
+[ext_resource type="PackedScene" uid="uid://imi6hcj735w2" path="res://scenes/actor/actions/movement/enemy_movement_action.tscn" id="9_ipns3"]
 [ext_resource type="PackedScene" uid="uid://jov3fdj1u72d" path="res://scenes/actor/controller/visual_controller.tscn" id="10_8qclf"]
 [ext_resource type="PackedScene" uid="uid://cuh0yo2ws1low" path="res://scenes/actor/controller/transmission_controller.tscn" id="11_fn7wt"]
 [ext_resource type="PackedScene" uid="uid://b2yhcwvd1q564" path="res://scenes/actor/actions/interaction/enemy_transmission_action.tscn" id="12_veedt"]
 [ext_resource type="PackedScene" uid="uid://3i2bjf6xfoyy" path="res://scenes/combat/combat.tscn" id="13_veedt"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4du3b"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wujgv"]
 radius = 36.0
 height = 96.0
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_wi157"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_doop2"]
 animations = [{
 "frames": [{
 "duration": 1.0,
@@ -66,20 +67,34 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="WorldEnemy" type="CharacterBody2D" unique_id=434891005 groups=["enemy"]]
+[sub_resource type="Curve2D" id="Curve2D_nenq2"]
+
+[node name="WorldMob" type="CharacterBody2D" unique_id=412161836 groups=["mobs"]]
+collision_layer = 4
+collision_mask = 7
 script = ExtResource("1_nenq2")
+metadata/_edit_group_ = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1035319252]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1884176777]
 rotation = 1.5707964
-shape = SubResource("CapsuleShape2D_4du3b")
+shape = SubResource("CapsuleShape2D_wujgv")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1758842866]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1686951384]
 scale = Vector2(0.75, 0.75)
-sprite_frames = SubResource("SpriteFrames_wi157")
+sprite_frames = SubResource("SpriteFrames_doop2")
 animation = &"right"
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=1407742141]
+
+[node name="Path2D" type="Path2D" parent="." unique_id=116702083]
+curve = SubResource("Curve2D_nenq2")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D" unique_id=735048270]
 
 [node name="MovementController" parent="." unique_id=1435023787 instance=ExtResource("8_ipns3")]
 Speed = 200.0
+
+[node name="MobMovementAction" parent="MovementController" unique_id=770279032 instance=ExtResource("9_ipns3")]
 
 [node name="VisualController" parent="." unique_id=98789701 instance=ExtResource("10_8qclf")]
 

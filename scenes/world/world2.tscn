@@ -1,7 +1,7 @@
 [gd_scene format=4 uid="uid://uskguirijcn0"]
 
 [ext_resource type="Script" uid="uid://cj453rmg5slj4" path="res://src/Scene/WorldScene.cs" id="1_4gjx5"]
-[ext_resource type="PackedScene" uid="uid://cv8uxn0ajjhqx" path="res://scenes/actor/world/world_enemy.tscn" id="2_4gjx5"]
+[ext_resource type="PackedScene" uid="uid://cv8uxn0ajjhqx" path="res://scenes/actor/world/world_mob.tscn" id="2_4gjx5"]
 [ext_resource type="PackedScene" uid="uid://5bgltxvdkt4x" path="res://scenes/actor/world/world_player.tscn" id="3_0givv"]
 [ext_resource type="PackedScene" uid="uid://bprvrex4wphsq" path="res://scenes/ui/hud.tscn" id="4_mru6i"]
 [ext_resource type="Script" uid="uid://cqw2h4dn5kaba" path="res://src/Camera/CameraController.cs" id="5_5whwl"]

@@ -29,11 +29,11 @@ namespace MonsterCounty.Scene
 	
 		public void OnMobTimerTimeout()
 		{
-			WorldEnemy worldEnemy = MobScene.Instantiate<WorldEnemy>();
-			AddChild(worldEnemy);
+			WorldMob mob = MobScene.Instantiate<WorldMob>();
+			AddChild(mob);
 			PathFollow2D spawnLocation = GetNode<PathFollow2D>("MobPath/MobSpawnLocation");
-			worldEnemy.Load();
-			worldEnemy.Start(spawnLocation);
+			mob.Load();
+			mob.Start(spawnLocation);
 		}
 	
 		public void OnScoreTimerTimeout()
