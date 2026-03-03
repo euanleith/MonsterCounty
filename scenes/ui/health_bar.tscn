@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://dq1y1il2stg67"]
+
+[ext_resource type="Script" uid="uid://g56fskavxmde" path="res://src/Combat/UI/HealthBar.cs" id="1_1vcc2"]
+
+[node name="HealthBar" type="HBoxContainer" unique_id=633682275 node_paths=PackedStringArray("_name", "_bar", "_health")]
+script = ExtResource("1_1vcc2")
+_name = NodePath("ActorNameLabel")
+_bar = NodePath("ProgressBar")
+_health = NodePath("ProgressBar/HealthLabel")
+
+[node name="ActorNameLabel" type="Label" parent="." unique_id=1089622296]
+layout_mode = 2
+text = "actor name"
+
+[node name="ProgressBar" type="ProgressBar" parent="." unique_id=1959123673]
+custom_minimum_size = Vector2(130, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+step = 1.0
+value = 100.0
+show_percentage = false
+
+[node name="HealthLabel" type="Label" parent="ProgressBar" unique_id=1094798853]
+layout_mode = 1
+offset_right = 128.0
+offset_bottom = 23.0
+text = "100"
+vertical_alignment = 1

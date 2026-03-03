@@ -7,20 +7,32 @@
 
 [node name="Combat" type="Node" unique_id=1629342209 node_paths=PackedStringArray("_playerParty", "_enemyParty", "_ui")]
 script = ExtResource("1_ltalu")
-_playerParty = [NodePath("CombatPlayer"), NodePath("CombatPlayer2")]
-_enemyParty = [NodePath("CombatEnemy"), NodePath("CombatEnemy2")]
+_playerParty = [NodePath("CombatPlayer"), NodePath("CombatPlayer2"), NodePath("CombatPlayer3"), NodePath("CombatPlayer4")]
+_enemyParty = [NodePath("CombatEnemy"), NodePath("CombatEnemy2"), NodePath("CombatEnemy3"), NodePath("CombatEnemy4")]
 _ui = NodePath("CombatUI")
 
 [node name="CombatUI" parent="." unique_id=1878144606 instance=ExtResource("1_764e3")]
 
 [node name="CombatPlayer" parent="." unique_id=1566038033 instance=ExtResource("2_aic3r")]
-position = Vector2(128, 448)
+position = Vector2(256, 448)
 
 [node name="CombatPlayer2" parent="." unique_id=1918499593 instance=ExtResource("2_aic3r")]
-position = Vector2(320, 448)
+position = Vector2(128, 512)
+
+[node name="CombatPlayer3" parent="." unique_id=462635274 instance=ExtResource("2_aic3r")]
+position = Vector2(384, 512)
+
+[node name="CombatPlayer4" parent="." unique_id=2004612333 instance=ExtResource("2_aic3r")]
+position = Vector2(256, 576)
 
 [node name="CombatEnemy" parent="." unique_id=1564967612 instance=ExtResource("3_4l26h")]
-position = Vector2(816, 104)
+position = Vector2(896, 192)
 
 [node name="CombatEnemy2" parent="." unique_id=1594809982 instance=ExtResource("3_4l26h")]
-position = Vector2(976, 104)
+position = Vector2(1024, 128)
+
+[node name="CombatEnemy3" parent="." unique_id=1930459711 instance=ExtResource("3_4l26h")]
+position = Vector2(768, 128)
+
+[node name="CombatEnemy4" parent="." unique_id=848007182 instance=ExtResource("3_4l26h")]
+position = Vector2(896, 64)

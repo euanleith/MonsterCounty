@@ -4,7 +4,7 @@ using MonsterCounty.Actor.Controllers;
 
 namespace MonsterCounty.Combat.UI
 {
-	public partial class HealthBar : Control
+	public partial class HealthBar : Container
 	{
 		[Export] private Label _name;
 		[Export] private ProgressBar _bar;

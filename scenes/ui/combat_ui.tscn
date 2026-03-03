@@ -9,43 +9,60 @@
 
 [node name="CombatUI" type="CanvasLayer" unique_id=1878144606 node_paths=PackedStringArray("_playerPartyHealthBars", "_enemyPartyHealthBars", "_buttons", "_playerArrow", "_enemyArrow") groups=["ui"]]
 script = ExtResource("1_n7134")
-_playerPartyHealthBars = NodePath("PlayerHealthBarContainer")
-_enemyPartyHealthBars = NodePath("EnemyHealthBarContainer")
-_buttons = NodePath("ButtonContainer")
-_playerArrow = NodePath("PlayerArrow")
-_enemyArrow = NodePath("EnemyArrow")
+_playerPartyHealthBars = NodePath("Control/PlayerHealthBarContainer")
+_enemyPartyHealthBars = NodePath("Control/EnemyHealthBarContainer")
+_buttons = NodePath("Control/ButtonContainer")
+_playerArrow = NodePath("Control/PlayerArrow")
+_enemyArrow = NodePath("Control/EnemyArrow")
 
-[node name="PlayerHealthBarContainer" parent="." unique_id=568172358 instance=ExtResource("2_ynof4")]
+[node name="Control" type="Control" parent="." unique_id=271382392]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="EnemyHealthBarContainer" parent="." unique_id=7682012 instance=ExtResource("2_ynof4")]
+[node name="PlayerHealthBarContainer" parent="Control" unique_id=568172358 instance=ExtResource("2_ynof4")]
+layout_mode = 0
+anchors_preset = 0
+offset_left = 870.0
+offset_top = 516.0
+offset_right = 1093.0
+offset_bottom = 620.0
+
+[node name="EnemyHealthBarContainer" parent="Control" unique_id=7682012 instance=ExtResource("2_ynof4")]
+layout_mode = 0
+anchors_preset = 0
 offset_left = 24.0
 offset_top = 24.0
 offset_right = 64.0
 offset_bottom = 64.0
 
-[node name="PlayerArrow" type="Sprite2D" parent="." unique_id=683568946]
+[node name="PlayerArrow" type="Sprite2D" parent="Control" unique_id=683568946]
 position = Vector2(224.00002, 336)
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("3_ynof4")
 script = ExtResource("4_ph8cy")
 
-[node name="EnemyArrow" type="Sprite2D" parent="." unique_id=1261348474]
+[node name="EnemyArrow" type="Sprite2D" parent="Control" unique_id=1261348474]
 position = Vector2(712, 192)
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("3_ppua2")
 script = ExtResource("4_ph8cy")
 
-[node name="ButtonContainer" type="VBoxContainer" parent="." unique_id=1223843313]
+[node name="ButtonContainer" type="VBoxContainer" parent="Control" unique_id=1223843313]
+layout_mode = 0
 offset_left = 552.0
 offset_top = 416.0
 offset_right = 627.0
 offset_bottom = 482.0
 script = ExtResource("5_8twgj")
 
-[node name="Button0" type="Button" parent="ButtonContainer" unique_id=533142607]
+[node name="Button0" type="Button" parent="Control/ButtonContainer" unique_id=533142607]
 layout_mode = 2
 text = "button 0"
 
-[node name="Button1" type="Button" parent="ButtonContainer" unique_id=1230609425]
+[node name="Button1" type="Button" parent="Control/ButtonContainer" unique_id=1230609425]
 layout_mode = 2
 text = "button 1"
