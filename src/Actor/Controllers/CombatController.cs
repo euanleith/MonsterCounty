@@ -8,12 +8,14 @@ using static MonsterCounty.Utilities.SceneUtilities;
 
 namespace MonsterCounty.Actor.Controllers
 {
-	public partial class CombatController : ActionController<CombatActor>
+	public abstract partial class CombatController : ActionController<CombatActor>
 	{
 		[Export] public int MaxHealth;
+		[Export] public CombatPosition CombatPosition;
 		
 		[Signal] public delegate void CurrentHealthChangedEventHandler(int health);
 
+		public Party Party;
 		public Party Opponents;
 		private int _currentHealth;
 		public int CurrentHealth
@@ -22,7 +24,8 @@ namespace MonsterCounty.Actor.Controllers
 			set { EmitSignal(nameof(CurrentHealthChanged), value); _currentHealth = value; }
 		}
 		public bool IsAlive => CurrentHealth > 0;
-
+		public bool HasChangedPosition;
+		
 		public void LoadGameState(CombatActorState state)
 		{
 			MaxHealth = state.MaxHealth;
@@ -47,10 +50,26 @@ namespace MonsterCounty.Actor.Controllers
 				child.QueueFree();
 			}
 		}
+
+		public virtual TurnResult StartTurn()
+		{
+			HasChangedPosition = false;
+			return new TurnResult(); // shouldn't be returned
+		}
+		
+		public virtual CombatActor ResolveTurn(int index) => null;
 		
 		public CombatActor TakeTurn(double delta)
 		{
 			return LoadDecision().Choose(Actions).Do(delta);
+		}
+		
+		public bool ChangePosition(CombatPosition position)
+		{
+			if (HasChangedPosition) return false;
+			Party.ChangePosition(Actor, position);
+			HasChangedPosition = true;
+			return true;
 		}
 	}
 }

@@ -2,7 +2,8 @@
 
 [ext_resource type="Script" uid="uid://gtmsmutejk8n" path="res://src/Actor/Combat/CombatPlayer.cs" id="1_3plt8"]
 [ext_resource type="Texture2D" uid="uid://scvabxdnh5qr" path="res://art/player/player_right1.png" id="1_eqesl"]
-[ext_resource type="PackedScene" uid="uid://cp3l3q4tklvp8" path="res://scenes/actor/controller/combat_controller.tscn" id="3_kbrux"]
+[ext_resource type="PackedScene" uid="uid://cp3l3q4tklvp8" path="res://scenes/actor/controller/player_combat_controller.tscn" id="3_kbrux"]
+[ext_resource type="Script" uid="uid://d22fv6ssycmii" path="res://src/Actor/Controllers/PlayerCombatController.cs" id="4_1ausl"]
 [ext_resource type="PackedScene" uid="uid://jov3fdj1u72d" path="res://scenes/actor/controller/visual_controller.tscn" id="4_wd7n8"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_kvvui"]
@@ -31,6 +32,6 @@ rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_wd7n8")
 
 [node name="CombatController" parent="." unique_id=380955144 instance=ExtResource("3_kbrux")]
-MaxHealth = 1
+script = ExtResource("4_1ausl")
 
 [node name="VisualController" parent="." unique_id=98789701 instance=ExtResource("4_wd7n8")]

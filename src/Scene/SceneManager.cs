@@ -40,6 +40,8 @@ namespace MonsterCounty.Scene
 			GameState.EnemyParty.Add(new CombatActorState(enemy));
 			// todo for testing, adding another enemy, and adding players statically
 			GameState.EnemyParty.Add(new CombatActorState(enemy));
+			// GameState.EnemyParty.Add(new CombatActorState(enemy));
+			// GameState.EnemyParty.Add(new CombatActorState(enemy));
 			if (GameState.PlayerParty.Count == 0)
 			{
 				GameState.PlayerParty.Add(new CombatActorState("res://scenes/combat/combat_player1.tscn"));

@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using Godot;
 using MonsterCounty.Actor.Combat;
 using MonsterCounty.Actor.Controllers;
@@ -60,26 +62,9 @@ namespace MonsterCounty.Combat.UI
             GlobalPosition = actor.GlobalPosition + new Vector2(0, offsetY);
         }
 
-        public void Next()
+        public void MoveToPosition(CombatPosition combatPosition)
         {
-            for (var index = SelectedIndex+1; index < _party.Count(); index++)
-            {
-                if (_party.Get(index).Controllers.Get<CombatController>().IsAlive)
-                {
-                    Rebind(index);
-                }
-            }
-        }
-
-        public void Prev()
-        {
-            for (var index = SelectedIndex-1; index >= 0; index--)
-            {
-                if (_party.Get(index).Controllers.Get<CombatController>().IsAlive)
-                {
-                    Rebind(index);
-                }
-            }
+            Rebind(_party.IndexOf(combatPosition));
         }
     }
 }

@@ -1,9 +1,8 @@
 [gd_scene format=3 uid="uid://draqkjhp70lmy"]
 
 [ext_resource type="Script" uid="uid://dygwxegjt4eky" path="res://src/Actor/Combat/CombatEnemy.cs" id="1_nho5u"]
-[ext_resource type="PackedScene" uid="uid://cp3l3q4tklvp8" path="res://scenes/actor/controller/combat_controller.tscn" id="2_55h4l"]
 [ext_resource type="Texture2D" uid="uid://fdey0f6gyorj" path="res://art/enemy/enemyWalking_2.png" id="3_55h4l"]
-[ext_resource type="Script" uid="uid://sqtpyxvmihvi" path="res://src/Actor/Controllers/EnemyCombatController.cs" id="4_eq8mf"]
+[ext_resource type="PackedScene" uid="uid://bqfyaxctsqjgh" path="res://scenes/actor/controller/enemy_combat_controller.tscn" id="4_eq8mf"]
 [ext_resource type="PackedScene" uid="uid://jov3fdj1u72d" path="res://scenes/actor/controller/visual_controller.tscn" id="7_v4q8q"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ss3kh"]
@@ -31,7 +30,7 @@ sprite_frames = SubResource("SpriteFrames_ss3kh")
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_v4q8q")
 
-[node name="CombatController" parent="." unique_id=380955144 instance=ExtResource("2_55h4l")]
-script = ExtResource("4_eq8mf")
-
 [node name="VisualController" parent="." unique_id=98789701 instance=ExtResource("7_v4q8q")]
+
+[node name="CombatController" parent="." unique_id=849664991 instance=ExtResource("4_eq8mf")]
+MaxHealth = 5

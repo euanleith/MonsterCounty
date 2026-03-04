@@ -1,43 +1,14 @@
-[gd_scene format=3 uid="uid://cqx2w8xngs3x5"]
+[gd_scene format=3 uid="uid://c5qhlg4rdgeqa"]
 
-[ext_resource type="Script" uid="uid://gtmsmutejk8n" path="res://src/Actor/Combat/CombatPlayer.cs" id="1_37ry1"]
-[ext_resource type="Texture2D" uid="uid://scvabxdnh5qr" path="res://art/player/player_right1.png" id="2_3bpt4"]
-[ext_resource type="PackedScene" uid="uid://cp3l3q4tklvp8" path="res://scenes/actor/controller/combat_controller.tscn" id="3_07r8t"]
+[ext_resource type="PackedScene" uid="uid://sjxtixbl402j" path="res://scenes/combat/combat_player.tscn" id="1_sx1ru"]
 [ext_resource type="PackedScene" uid="uid://10enj2mend3b" path="res://scenes/actor/actions/combat/attack_action.tscn" id="4_risnj"]
 [ext_resource type="PackedScene" uid="uid://40wij836ji7i" path="res://scenes/actor/actions/combat/heal_action.tscn" id="5_aeuf8"]
-[ext_resource type="PackedScene" uid="uid://jov3fdj1u72d" path="res://scenes/actor/controller/visual_controller.tscn" id="6_ruxdp"]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_kvvui"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("2_3bpt4")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
+[node name="CombatPlayer" unique_id=1566038033 instance=ExtResource("1_sx1ru")]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wd7n8"]
-radius = 54.0
-height = 134.0
+[node name="CombatController" parent="." index="2" unique_id=380955144]
+MaxHealth = 5
 
-[node name="CombatPlayer" type="CharacterBody2D" unique_id=1566038033 groups=["player"]]
-position = Vector2(176, 496)
-script = ExtResource("1_37ry1")
+[node name="AttackAction" parent="CombatController" index="0" unique_id=607789692 instance=ExtResource("4_risnj")]
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=303734267]
-sprite_frames = SubResource("SpriteFrames_kvvui")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=865628657]
-rotation = 1.5707964
-shape = SubResource("CapsuleShape2D_wd7n8")
-
-[node name="CombatController" parent="." unique_id=380955144 instance=ExtResource("3_07r8t")]
-MaxHealth = 6
-
-[node name="AttackAction" parent="CombatController" unique_id=607789692 instance=ExtResource("4_risnj")]
-
-[node name="HealAction" parent="CombatController" unique_id=909520099 instance=ExtResource("5_aeuf8")]
-
-[node name="VisualController" parent="." unique_id=98789701 instance=ExtResource("6_ruxdp")]
+[node name="HealAction" parent="CombatController" index="1" unique_id=909520099 instance=ExtResource("5_aeuf8")]

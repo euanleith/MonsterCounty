@@ -11,9 +11,8 @@ namespace MonsterCounty.Actor.Actions.Combat
         public override CombatActor Do(double delta)
         {
             int index = (int)delta;
-            CombatActor actor = Actor as CombatActor;
-            GD.Print($"{Actor.Name} hitting {actor.Opponents.Get(index).Name}");
-            actor.Opponents.Get(index).Controllers.Get<CombatController>().CurrentHealth -= _strength;
+            GD.Print($"{Actor.Name} hitting {Self.Opponents.Get(index).Name}");
+            Self.Opponents.Get(index).Controllers.Get<CombatController>().CurrentHealth -= _strength;
             return base.Do(delta);
         }
     }

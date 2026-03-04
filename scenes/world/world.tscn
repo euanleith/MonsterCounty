@@ -312,6 +312,14 @@ sources/0 = SubResource("TileSetAtlasSource_j2gmx")
 script = ExtResource("1_1yooq")
 MobScene = ExtResource("2_036b0")
 
+[node name="WorldEnemy2_CombatController#AttackAction" parent="." unique_id=624375598 instance=ExtResource("12_srmg5")]
+
+[node name="WorldEnemy2_CombatController#HealAction" parent="." unique_id=808293340 instance=ExtResource("13_umvgx")]
+
+[node name="WorldEnemy_CombatController#AttackAction" parent="." unique_id=607789692 instance=ExtResource("12_srmg5")]
+
+[node name="WorldEnemy_CombatController#HealAction" parent="." unique_id=909520099 instance=ExtResource("13_umvgx")]
+
 [node name="Camera2D" type="Camera2D" parent="." unique_id=26234498]
 script = ExtResource("5_bq33v")
 
@@ -361,20 +369,9 @@ position = Vector2(1152, 128)
 [node name="WorldEnemy" parent="." unique_id=434891005 instance=ExtResource("11_5qq27")]
 position = Vector2(-128, 256)
 
-[node name="AttackAction" parent="WorldEnemy/CombatController" parent_id_path=PackedInt32Array(434891005, 380955144) index="0" unique_id=607789692 instance=ExtResource("12_srmg5")]
-
-[node name="HealAction" parent="WorldEnemy/CombatController" parent_id_path=PackedInt32Array(434891005, 380955144) index="1" unique_id=909520099 instance=ExtResource("13_umvgx")]
-
-[node name="WorldEnemy2" parent="." unique_id=52065288 instance=ExtResource("11_5qq27")]
-position = Vector2(-96, 160)
-
-[node name="AttackAction" parent="WorldEnemy2/CombatController" parent_id_path=PackedInt32Array(52065288, 380955144) index="0" unique_id=624375598 instance=ExtResource("12_srmg5")]
-
-[node name="HealAction" parent="WorldEnemy2/CombatController" parent_id_path=PackedInt32Array(52065288, 380955144) index="1" unique_id=808293340 instance=ExtResource("13_umvgx")]
+[node name="WorldEnemy2" parent="." unique_id=858048346 instance=ExtResource("11_5qq27")]
+position = Vector2(-64, 128)
 
 [connection signal="timeout" from="MobTimer" to="." method="OnMobTimerTimeout"]
 [connection signal="timeout" from="ScoreTimer" to="." method="OnScoreTimerTimeout"]
 [connection signal="timeout" from="StartTimer" to="." method="OnStartTimerTimeout"]
-
-[editable path="WorldEnemy"]
-[editable path="WorldEnemy2"]

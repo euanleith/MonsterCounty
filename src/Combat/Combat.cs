@@ -35,9 +35,10 @@ namespace MonsterCounty.Combat
         private void StartTurn()
         {
             CombatActor next = _turnQueue.Peek();
-            if (next.Controllers.Get<CombatController>().IsAlive)
+            CombatController combatController = next.Controllers.Get<CombatController>();
+            if (combatController.IsAlive)
             {
-                TurnResult res = next.StartTurn();
+                TurnResult res = combatController.StartTurn();
                 if (res.WaitingForInput) return;
                 if (res.ActorToDie != null)
                 {
@@ -49,7 +50,7 @@ namespace MonsterCounty.Combat
 
         public void ResolveTurn(CombatPlayer player, int index)
         {
-            CombatActor actorToDie = player.ResolveTurn(index);
+            CombatActor actorToDie = player.Controllers.Get<CombatController>().ResolveTurn(index);
             if (actorToDie != null)
             {
                 if (!OnActorDie(actorToDie)) return;
@@ -67,9 +68,10 @@ namespace MonsterCounty.Combat
         {
             GD.Print($"{actor.Name} died!");
             ActorDying?.Invoke(actor);
-            if (actor.Party.IsDefeated())
+            Party party = actor.Controllers.Get<CombatController>().Party;
+            if (party.IsDefeated())
             {
-                Exit(actor.Party);
+                Exit(party);
                 return false;
             }
             return true;

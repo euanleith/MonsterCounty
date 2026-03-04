@@ -1,5 +1,5 @@
+using System;
 using Godot;
-using System.Linq;
 using MonsterCounty.Actor.Combat;
 using MonsterCounty.Actor.Controllers;
 using MonsterCounty.Model;
@@ -14,6 +14,7 @@ namespace MonsterCounty.Combat.UI
 		[Export] private HealthBarContainer _playerPartyHealthBars;
 		[Export] private HealthBarContainer _enemyPartyHealthBars;
 		[Export] private ButtonContainer _buttons;
+		[Export] private Button _positionButton;
 		[Export] private Arrow _playerArrow;
 		[Export] private Arrow _enemyArrow;
 		[Export] private float _arrowOffsetY = 10;
@@ -22,6 +23,7 @@ namespace MonsterCounty.Combat.UI
 		private Party _playerParty;
 		private Party _enemyParty;
 		private CombatPlayer _currentPlayer;
+		private Action<InputEvent> _inputEvent;
 
 		public void Load(Party playerParty, Party enemyParty)
 		{
@@ -31,10 +33,12 @@ namespace MonsterCounty.Combat.UI
 			HideDeadPartyMembers(_playerParty);
 			HideDeadPartyMembers(_enemyParty);
 			_buttons.Load(LoadButton, RebindButton);
+			_positionButton.Pressed += OnPositionButtonPressed;
 			_playerPartyHealthBars.LoadAndBind(BindHealthBar, _playerParty);
 			_enemyPartyHealthBars.LoadAndBind(BindHealthBar, _enemyParty);
 			_playerArrow.Load(Arrow.ArrowPosition.Above, _arrowOffsetY);
 			_enemyArrow.LoadAndBind(Arrow.ArrowPosition.Below, _arrowOffsetY, _enemyParty);
+			_inputEvent = EnemySelectionInput;
 			BindCombatEvents();
 			Reset();
 		}
@@ -57,7 +61,10 @@ namespace MonsterCounty.Combat.UI
 
 		private void LoadButton(Button button, int index)
 		{
-			button.Pressed += () => OnButtonPressed(index);
+			button.Pressed += () =>
+			{
+				Combat.Instance.ResolveTurn(_currentPlayer, index);
+			};
 		}
 
 		private void RebindButton(Button button, int index)
@@ -65,9 +72,15 @@ namespace MonsterCounty.Combat.UI
 			button.Text = _currentPlayer.Controllers.Get<CombatController>().Actions[index].Name;
 		}
 
-		private void OnButtonPressed(int buttonIndex)
+		private void OnPositionButtonPressed()
 		{
-			Combat.Instance.ResolveTurn(_currentPlayer, buttonIndex);
+			if (_currentPlayer.Controllers.Get<CombatController>().HasChangedPosition)
+			{
+				GD.Print(_currentPlayer.Name + " has already moved this turn");
+				return;
+			}
+			_inputEvent = PlayerPositionSelectionInput;
+			_buttons.Disable();
 		}
 
 		private void BindHealthBar(HealthBar bar, CombatActor actor)
@@ -98,10 +111,40 @@ namespace MonsterCounty.Combat.UI
 			Combat.ActorDying -= RemoveActor;
 		}
 
-		public override void _UnhandledInput(InputEvent inputEvent)
+		public override void _UnhandledInput(InputEvent inputEvent) => _inputEvent(inputEvent);
+
+		private void EnemySelectionInput(InputEvent inputEvent)
 		{
-			if (inputEvent.IsActionPressed(Direction.RIGHT)) _enemyArrow.Next();
-			else if (inputEvent.IsActionPressed(Direction.LEFT)) _enemyArrow.Prev();
+			CombatPosition target;
+			if (inputEvent.IsActionPressed(Direction.RIGHT)) target = CombatPosition.Left;
+			else if (inputEvent.IsActionPressed(Direction.LEFT)) target =CombatPosition.Right;
+			else if (inputEvent.IsActionPressed(Direction.UP)) target = CombatPosition.Back;
+			else if (inputEvent.IsActionPressed(Direction.DOWN)) target = CombatPosition.Front;
+			else return;
+			_enemyArrow.MoveToPosition(target);
+		}
+
+		private void PlayerPositionSelectionInput(InputEvent inputEvent)
+		{
+			CombatPosition target;
+			bool wantsToMove = true;
+			if (inputEvent.IsActionPressed(Direction.RIGHT)) target = CombatPosition.Right;
+			else if (inputEvent.IsActionPressed(Direction.LEFT)) target = CombatPosition.Left;
+			else if (inputEvent.IsActionPressed(Direction.UP)) target = CombatPosition.Front;
+			else if (inputEvent.IsActionPressed(Direction.DOWN)) target = CombatPosition.Back;
+			else if (inputEvent.IsActionPressed("escape"))
+			{
+				target = _currentPlayer.Controllers.Get<CombatController>().CombatPosition;
+				wantsToMove = false;
+			}
+			else return;
+			if (wantsToMove)
+			{
+				_currentPlayer.Controllers.Get<CombatController>().ChangePosition(target);
+				_playerArrow.Rebind(_currentPlayer);
+			}
+			_buttons.Enable();
+			_inputEvent = EnemySelectionInput;
 		}
 	}
 }

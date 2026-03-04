@@ -19,6 +19,13 @@ namespace MonsterCounty.Combat
 		public int Count() => _members.Count;
 		public CombatActor Get(int index) => _members[index];
 
+		public int IndexOf(CombatPosition position)
+		{
+			return _members
+				.Select((member, i) => new { member, i })
+				.FirstOrDefault(x => x.member.Controllers.Get<CombatController>().CombatPosition == position)?.i ?? -1;
+		}
+
 		public Party(Array<CombatActor> templates, List<CombatActorState> state)
 		{
 			_members = templates;
@@ -46,8 +53,9 @@ namespace MonsterCounty.Combat
 		{
 			foreach (CombatActor member in _members)
 			{
-				member.Party = this;
-				member.Opponents = opponents;
+				CombatController combatController = member.Controllers.Get<CombatController>();
+				combatController.Party = this;
+				combatController.Opponents = opponents;
 			}
 		}
 
@@ -63,6 +71,18 @@ namespace MonsterCounty.Combat
 		public bool IsDefeated()
 		{
 			return _members.All(member => !member.Controllers.Get<CombatController>().IsAlive);
+		}
+
+		public void ChangePosition(Actor.Actor actor, CombatPosition position)
+		{
+			Vector2 currentPosition = actor.Position;
+			CombatActor swap = _members[IndexOf(position)];
+			actor.Position = swap.Position;
+			swap.Position = currentPosition;
+			CombatController actorController = actor.Controllers.Get<CombatController>();
+			CombatController swapController = swap.Controllers.Get<CombatController>();
+			swapController.CombatPosition = actorController.CombatPosition;
+			actorController.CombatPosition = position;
 		}
 	}
 }
