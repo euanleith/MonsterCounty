@@ -29,6 +29,7 @@ namespace MonsterCounty.Combat.UI
 			_playerParty = playerParty;
 			_enemyParty = enemyParty;
 			HideDeadPartyMembers(_playerParty);
+			HideDeadPartyMembers(_enemyParty);
 			_buttons.Load(LoadButton, RebindButton);
 			_playerPartyHealthBars.LoadAndBind(BindHealthBar, _playerParty);
 			_enemyPartyHealthBars.LoadAndBind(BindHealthBar, _enemyParty);

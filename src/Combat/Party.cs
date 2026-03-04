@@ -42,12 +42,6 @@ namespace MonsterCounty.Combat
 			}
 		}
 		
-		public void Remove(CombatActor member)
-		{
-			_members.Remove(member);
-			member.Party = null;
-		}
-		
 		public void Load(Party opponents)
 		{
 			foreach (CombatActor member in _members)

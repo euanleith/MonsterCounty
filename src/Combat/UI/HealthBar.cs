@@ -12,8 +12,13 @@ namespace MonsterCounty.Combat.UI
 
 		public void Bind(CombatActor actor)
 		{
-			_name.Text = actor.Name;
 			CombatController combatController = actor.Controllers.Get<CombatController>();
+			if (!combatController.IsAlive)
+			{
+				Visible = false;
+				return;
+			}
+			_name.Text = actor.Name;
 			_bar.MaxValue = combatController.MaxHealth;
 			OnHealthChanged(combatController.CurrentHealth);
 			combatController.CurrentHealthChanged += OnHealthChanged;
