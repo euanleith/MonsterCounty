@@ -1,6 +1,6 @@
-using Godot;
 using MonsterCounty.Actor.Combat;
 using MonsterCounty.Actor.Controllers;
+using MonsterCounty.Combat;
 using static MonsterCounty.Utilities.SceneUtilities;
 
 namespace MonsterCounty.State
@@ -11,14 +11,7 @@ namespace MonsterCounty.State
 		public readonly int Health;
 		public readonly string[] ActionScenePaths;
 		public readonly string WorldPath;
-
-		public CombatActorState(int maxHealth, int health, string[] actionScenePaths, string worldPath)
-		{
-			MaxHealth = maxHealth;
-			Health = health;
-			ActionScenePaths = actionScenePaths;
-			WorldPath = worldPath;
-		}
+		public readonly CombatPosition CombatPosition;
 		
 		public CombatActorState(string scenePath) : this()
 		{
@@ -33,6 +26,7 @@ namespace MonsterCounty.State
 				ActionScenePaths[i] = combatController.Actions[i].SceneFilePath;
 			}
 			// WorldScenePath = GetNodeId(actor); // todo idk what to do here, but this function is only temp anyway
+			CombatPosition = combatController.CombatPosition;
 		}
 
 		public CombatActorState(Actor.Actor actor) : this()
@@ -46,6 +40,7 @@ namespace MonsterCounty.State
 				ActionScenePaths[i] = combatController.Actions[i].SceneFilePath;
 			}
 			WorldPath = GetNodeId(actor);
+			CombatPosition = combatController.CombatPosition;
 		}
 	}
 }

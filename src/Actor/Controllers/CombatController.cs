@@ -34,6 +34,7 @@ namespace MonsterCounty.Actor.Controllers
 			{
 				AddChildFromScenePath<CombatAction>(this, path);
 			}
+			CombatPosition = state.CombatPosition;
 			LoadActions();
 		}
 
@@ -44,7 +45,7 @@ namespace MonsterCounty.Actor.Controllers
 			{
 				actionScenePaths[i] = Actions[i].SceneFilePath;
 			}
-			state.Add(new CombatActorState(MaxHealth, CurrentHealth, actionScenePaths, GetNodeId(this)));
+			state.Add(new CombatActorState(Actor));
 			foreach (var child in GetChildren())
 			{
 				child.QueueFree();

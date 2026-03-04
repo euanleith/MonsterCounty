@@ -19,10 +19,11 @@ namespace MonsterCounty.Combat
 		public int Count() => _members.Count;
 		public CombatActor Get(int index) => _members[index];
 
-		public int IndexOf(CombatPosition position)
+		public int IndexOf(CombatPosition position, Actor.Actor exclude=null)
 		{
 			return _members
 				.Select((member, i) => new { member, i })
+				.Where(x => x.member != exclude)
 				.FirstOrDefault(x => x.member.Controllers.Get<CombatController>().CombatPosition == position)?.i ?? -1;
 		}
 
@@ -36,7 +37,9 @@ namespace MonsterCounty.Combat
 		{
 			for (int i = 0; i < state.Count; i++)
 			{
+				CombatPosition templatePosition = _members[i].Controllers.Get<CombatController>().CombatPosition;
 				_members[i].Controllers.Get<CombatController>().LoadGameState(state[i]);
+				MoveFromTemplatePosition(_members[i], templatePosition);
 			}
 		}
 		
@@ -75,14 +78,19 @@ namespace MonsterCounty.Combat
 
 		public void ChangePosition(Actor.Actor actor, CombatPosition position)
 		{
-			Vector2 currentPosition = actor.Position;
-			CombatActor swap = _members[IndexOf(position)];
-			actor.Position = swap.Position;
-			swap.Position = currentPosition;
 			CombatController actorController = actor.Controllers.Get<CombatController>();
-			CombatController swapController = swap.Controllers.Get<CombatController>();
-			swapController.CombatPosition = actorController.CombatPosition;
-			actorController.CombatPosition = position;
+			CombatActor swap = _members[IndexOf(position)];
+			(actor.Position, swap.Position) = (swap.Position, actor.Position);
+			(swap.Controllers.Get<CombatController>().CombatPosition, actorController.CombatPosition) = (actorController.CombatPosition, position);
+		}
+
+		private void MoveFromTemplatePosition(Actor.Actor actor, CombatPosition templatePosition)
+		{
+			CombatController actorController = actor.Controllers.Get<CombatController>();
+			if (actorController.CombatPosition == templatePosition) return;
+			CombatActor swap = _members[IndexOf(actorController.CombatPosition, actor)];
+			(actor.Position, swap.Position) = (swap.Position, actor.Position);
+			swap.Controllers.Get<CombatController>().CombatPosition = templatePosition;
 		}
 	}
 }
