@@ -1,4 +1,5 @@
 using Godot;
+using MonsterCounty.Actor.World;
 using MonsterCounty.Model;
 using MonsterCounty.Utilities;
 using MonsterCounty.Scene;
@@ -12,7 +13,7 @@ namespace MonsterCounty.Actor.Actions.Interaction
         
         public override CustomVoid Do(double delta)
         {
-            SceneManager.Instance.Get().ChangeToCombatScene(GetTree(), CombatScene, Actor);
+            SceneManager.Instance.Get().ChangeToCombatScene(GetTree(), CombatScene, Actor as WorldActor);
             return null;
         }
 

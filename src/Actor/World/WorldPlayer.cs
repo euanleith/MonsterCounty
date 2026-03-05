@@ -1,5 +1,8 @@
+using System.Collections.Generic;
+using Godot;
 using MonsterCounty.Actor.Controllers;
 using MonsterCounty.Model;
+using MonsterCounty.State;
 
 namespace MonsterCounty.Actor.World
 {
@@ -21,5 +24,14 @@ namespace MonsterCounty.Actor.World
 			controllers.Add(GetNode<SpawnController>("SpawnController"));
 			return controllers;
 		}
+		
+		protected override void LoadParty()
+		{
+			List<CombatActorState> partyState  = GetPartyState();
+			if (partyState.Count != 0) Party.LoadFromGameState(partyState);
+			else Party.Load(partyState);
+		}
+		
+		protected override List<CombatActorState> GetPartyState() => GameState.PlayerParty;
 	}
 }

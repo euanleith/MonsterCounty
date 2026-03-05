@@ -16,18 +16,18 @@ namespace MonsterCounty.Scene
 	{
 		public static readonly Singleton<CombatScene> Instance = new();
 
-		[Export] private Array<CombatActor> _playerParty;
-		[Export] private Array<CombatActor> _enemyParty;
+		[Export] private Party _playerParty;
+		[Export] private Party _enemyParty;
 		[Export] private CombatUI _ui;
 		
 		public override void _Ready()
 		{
 			if (!Instance.Create(this, false)) return;
 			base._Ready();
-			Party playerParty = new(_playerParty, GameState.PlayerParty);
-			Party enemyParty = new(_enemyParty, GameState.EnemyParty);
-			_ui.Load(playerParty, enemyParty);
-			new Combat.Combat(playerParty, enemyParty);
+			_playerParty.LoadFromGameStateIntoTemplates(GameState.PlayerParty);
+			_enemyParty.LoadFromGameStateIntoTemplates(GameState.EnemyParty);
+			_ui.Load(_playerParty, _enemyParty);
+			new Combat.Combat(_playerParty, _enemyParty);
 			Combat.Combat.Exiting += ChangeToWorldScene;
 		}
 
@@ -42,12 +42,12 @@ namespace MonsterCounty.Scene
 			GameState.PlayerSpawnName = SpawnController.SpawnType.CurrentPosition.GetStringValue();
 			if (losers.Any())
 			{
-				if (losers.Get(0).IsInGroup(Group.ENEMY)) // todo eventually check each individually
+				if (losers.Get(0) is CombatEnemy) // todo eventually check each individually
 				{
 					GD.Print("player won!");
 					GameState.EntitiesRemoved[Group.ENEMY].Add(GameState.EnemyParty[0].WorldPath);
 				}
-				else if (losers.Get(0).IsInGroup(Group.PLAYER)) // todo eventually check each individually
+				else if (losers.Get(0) is CombatPlayer) // todo eventually check each individually
 				{
 					GD.Print("player lost!");
 					GameState.PlayerParty.Clear();

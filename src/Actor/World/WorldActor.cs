@@ -1,25 +1,38 @@
+using System.Collections.Generic;
 using Godot;
 using MonsterCounty.Actor.Controllers;
+using MonsterCounty.Combat;
 using MonsterCounty.Model;
 using MonsterCounty.Scene;
+using MonsterCounty.State;
 
 namespace MonsterCounty.Actor.World
 {
 	public abstract partial class WorldActor : Actor
 	{
 		protected WorldScene WorldScene;
+		public Party Party;
+
+		public override void Load()
+		{
+			base.Load();
+			Party = GetNodeOrNull<Party>("Party");
+			LoadParty();
+		}
 		
 		protected override TypeMap<Controller> LoadControllers()
 		{
 			TypeMap<Controller> controllers = new TypeMap<Controller>();
 			controllers.Add(GetNode<MovementController>("MovementController"));
 			controllers.Add(GetNode<VisualController>("VisualController"));
-			var combatController = GetNodeOrNull<CombatController>("CombatController");
-			if (combatController != null)
-			{
-				controllers.Add(combatController);
-			}
 			return controllers;
 		}
+
+		protected virtual void LoadParty()
+		{
+			Party?.Load(GetPartyState());
+		}
+
+		protected abstract List<CombatActorState> GetPartyState();
 	}
 }

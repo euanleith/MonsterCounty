@@ -3,6 +3,7 @@ using System.Linq;
 using Godot;
 using MonsterCounty.Actor.Combat;
 using MonsterCounty.Actor.Controllers;
+using MonsterCounty.Actor.World;
 using MonsterCounty.Model;
 using MonsterCounty.State;
 
@@ -25,8 +26,8 @@ namespace MonsterCounty.Combat
             else return;
             _playerParty = playerParty;
             _enemyParty = enemyParty;
-            _playerParty.Load(_enemyParty);
-            _enemyParty.Load(_playerParty);
+            _playerParty.LoadOpponents(_enemyParty);
+            _enemyParty.LoadOpponents(_playerParty);
             var shuffled = _playerParty.Concat(_enemyParty).OrderBy(x => new Random().Next()).ToArray();
             _turnQueue = new CircularLinkedList<CombatActor>(shuffled);
             StartTurn();
@@ -87,7 +88,7 @@ namespace MonsterCounty.Combat
         
         private void SaveGameState()
         {
-            _playerParty.SaveGameState(GameState.PlayerParty);
+            _playerParty.Save();
         }
     }
 }

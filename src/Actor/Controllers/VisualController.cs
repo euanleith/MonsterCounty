@@ -7,6 +7,7 @@ namespace MonsterCounty.Actor.Controllers
 	public partial class VisualController : Controller
 	{
 		private AnimatedSprite2D _sprite;
+		
 		public override void Load(Actor actor)
 		{
 			base.Load(actor);
@@ -52,6 +53,16 @@ namespace MonsterCounty.Actor.Controllers
 				_ => _sprite.Animation
 			};
 			_sprite.Play(anim);
+		}
+
+		public void Hide()
+		{
+			_sprite.Visible = false;
+		}
+
+		public void Show()
+		{
+			_sprite.Visible = true;
 		}
 	}
 }

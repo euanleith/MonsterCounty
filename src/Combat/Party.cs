@@ -5,13 +5,15 @@ using Godot;
 using Godot.Collections;
 using MonsterCounty.Actor.Combat;
 using MonsterCounty.Actor.Controllers;
+using MonsterCounty.Actor.World;
 using MonsterCounty.State;
 
 namespace MonsterCounty.Combat
 {
-	public class Party: IEnumerable<CombatActor>
+	public partial class Party: Node, IEnumerable<CombatActor>
 	{
-		private readonly Array<CombatActor> _members;
+		private Array<CombatActor> _members;
+		private List<CombatActorState> _state;
 		
 		IEnumerator<CombatActor> IEnumerable<CombatActor>.GetEnumerator() => _members.GetEnumerator();
 		public IEnumerator GetEnumerator() => _members.GetEnumerator();
@@ -27,37 +29,52 @@ namespace MonsterCounty.Combat
 				.FirstOrDefault(x => x.member.Controllers.Get<CombatController>().CombatPosition == position)?.i ?? -1;
 		}
 
-		public Party(Array<CombatActor> templates, List<CombatActorState> state)
+		public void Load(List<CombatActorState> state)
 		{
-			_members = templates;
-			LoadGameState(state);
+			_members = new Array<CombatActor>(GetChildren().OfType<CombatActor>());
+			foreach (CombatActor member in _members)
+			{
+				member.Load();
+				member.Controllers.Get<CombatController>().Party = this;
+			}
+			_state = state;
 		}
 		
-		private void LoadGameState(List<CombatActorState> state)
+		public void LoadFromGameState(List<CombatActorState> state)
 		{
-			for (int i = 0; i < state.Count; i++)
+			Load(state);
+			for (int i = 0; i < _state.Count; i++)
+			{
+				_members[i].LoadCombat(_state[i]);
+			}
+		}
+		
+		public void LoadFromGameStateIntoTemplates(List<CombatActorState> state)
+		{
+			Load(state);
+			for (int i = 0; i < _state.Count; i++)
 			{
 				CombatPosition templatePosition = _members[i].Controllers.Get<CombatController>().CombatPosition;
-				_members[i].Controllers.Get<CombatController>().LoadGameState(state[i]);
+				_members[i].LoadCombat(_state[i]);
 				MoveFromTemplatePosition(_members[i], templatePosition);
 			}
 		}
 		
-		public void SaveGameState(List<CombatActorState> state)
+		public void Save(WorldActor worldActor=null)
 		{
-			state.Clear();
+			_state.Clear();
 			foreach (CombatActor member in _members)
 			{
-				member.Controllers.Get<CombatController>().SaveGameState(state);
+				CombatController combatController = member.Controllers.Get<CombatController>();
+				if (combatController.IsAlive) combatController.SaveGameState(_state, worldActor);
 			}
 		}
 		
-		public void Load(Party opponents)
+		public void LoadOpponents(Party opponents)
 		{
 			foreach (CombatActor member in _members)
 			{
 				CombatController combatController = member.Controllers.Get<CombatController>();
-				combatController.Party = this;
 				combatController.Opponents = opponents;
 			}
 		}

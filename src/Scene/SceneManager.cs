@@ -1,5 +1,7 @@
 using System;
 using Godot;
+using MonsterCounty.Actor.Combat;
+using MonsterCounty.Actor.World;
 using MonsterCounty.Model;
 using MonsterCounty.State;
 
@@ -34,19 +36,11 @@ namespace MonsterCounty.Scene
 			ChangeScene(sceneTree, newScene);
 		}
 
-		public void ChangeToCombatScene(SceneTree sceneTree, PackedScene newScene, Actor.Actor enemy)
+		public void ChangeToCombatScene(SceneTree sceneTree, PackedScene newScene, WorldActor enemy)
 		{
-			GameState.EnemyParty.Clear();
-			GameState.EnemyParty.Add(new CombatActorState(enemy));
-			// todo for testing, adding another enemy, and adding players statically
-			GameState.EnemyParty.Add(new CombatActorState(enemy));
-			// GameState.EnemyParty.Add(new CombatActorState(enemy));
-			// GameState.EnemyParty.Add(new CombatActorState(enemy));
-			if (GameState.PlayerParty.Count == 0)
-			{
-				GameState.PlayerParty.Add(new CombatActorState("res://scenes/combat/combat_player1.tscn"));
-				GameState.PlayerParty.Add(new CombatActorState("res://scenes/combat/combat_player2.tscn"));
-			}
+			// todo move to WorldActor.save
+			enemy.Party.Save(enemy);
+			WorldPlayer.Instance.Get().Party.Save(WorldPlayer.Instance.Get());
 			CurrentWorldScene = GetTree().CurrentScene.SceneFilePath;
 			ChangeScene(sceneTree, newScene);
 		}

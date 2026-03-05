@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://dgadebipipu5p"]
+
+[ext_resource type="Script" uid="uid://jgrqpdnabvij" path="res://src/Combat/Party.cs" id="1_plfoc"]
+
+[node name="Party" type="Node" unique_id=1315856782]
+script = ExtResource("1_plfoc")

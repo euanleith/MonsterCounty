@@ -1,6 +1,8 @@
 
+using System.Collections.Generic;
 using MonsterCounty.Actor.Controllers;
 using MonsterCounty.Model;
+using MonsterCounty.State;
 
 namespace MonsterCounty.Actor.World
 {
@@ -12,5 +14,7 @@ namespace MonsterCounty.Actor.World
 			controllers.Add(GetNode<ReceptionController>("ReceptionController"));
 			return controllers;
 		}
+
+		protected override List<CombatActorState> GetPartyState() => [];
 	}
 }

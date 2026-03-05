@@ -16,6 +16,9 @@
 [ext_resource type="PackedScene" uid="uid://1cp2fatumnjx" path="res://scenes/actor/controller/reception_controller.tscn" id="9_jc8oq"]
 [ext_resource type="Texture2D" uid="uid://by762fkhowxh4" path="res://art/player/player_up2.png" id="9_ufgnj"]
 [ext_resource type="PackedScene" uid="uid://gk3fi5gbrmnm" path="res://scenes/actor/controller/spawn_controller.tscn" id="10_qxrtu"]
+[ext_resource type="PackedScene" uid="uid://dgadebipipu5p" path="res://scenes/combat/party.tscn" id="17_7bx8s"]
+[ext_resource type="PackedScene" uid="uid://c5qhlg4rdgeqa" path="res://scenes/combat/combat_player1.tscn" id="18_253bv"]
+[ext_resource type="PackedScene" uid="uid://dmg6cgbqsciw1" path="res://scenes/combat/combat_player2.tscn" id="19_253bv"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_sweqy"]
 radius = 27.018513
@@ -97,3 +100,12 @@ _range = 100.0
 [node name="ReceptionController" parent="." unique_id=1035087376 instance=ExtResource("9_jc8oq")]
 
 [node name="SpawnController" parent="." unique_id=1029702009 instance=ExtResource("10_qxrtu")]
+
+[node name="Party" parent="." unique_id=1315856782 instance=ExtResource("17_7bx8s")]
+
+[node name="CombatPlayer" parent="Party" unique_id=1566038033 instance=ExtResource("18_253bv")]
+
+[node name="CombatPlayer2" parent="Party" unique_id=1161362561 instance=ExtResource("19_253bv")]
+
+[editable path="Party/CombatPlayer"]
+[editable path="Party/CombatPlayer2"]

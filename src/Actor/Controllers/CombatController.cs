@@ -3,6 +3,7 @@ using Godot;
 using MonsterCounty.Actor.Actions.Combat;
 using MonsterCounty.Actor.Combat;
 using MonsterCounty.Actor.Decisions.Combat;
+using MonsterCounty.Actor.World;
 using MonsterCounty.Combat;
 using MonsterCounty.State;
 using static MonsterCounty.Utilities.SceneUtilities;
@@ -26,11 +27,18 @@ namespace MonsterCounty.Actor.Controllers
 		}
 		public bool IsAlive => CurrentHealth > 0;
 		public bool HasChangedPosition;
+
+		public override void Load(Actor actor)
+		{
+			base.Load(actor);
+			CurrentHealth = MaxHealth;
+		}
 		
+		// todo should use existing load and save functions
 		public void LoadGameState(CombatActorState state)
 		{
 			MaxHealth = state.MaxHealth;
-			CurrentHealth = state.Health;
+			CurrentHealth = state.CurrentHealth;
 			foreach (var path in state.ActionScenePaths)
 			{
 				AddChildFromScenePath<CombatAction>(this, path);
@@ -39,14 +47,9 @@ namespace MonsterCounty.Actor.Controllers
 			LoadActions();
 		}
 
-		public void SaveGameState(List<CombatActorState> state)
+		public void SaveGameState(List<CombatActorState> state, WorldActor worldActor=null)
 		{
-			var actionScenePaths = new string[Actions.Count];
-			for (var i = 0; i < Actions.Count; i++)
-			{
-				actionScenePaths[i] = Actions[i].SceneFilePath;
-			}
-			state.Add(new CombatActorState(Actor));
+			state.Add(new CombatActorState(Actor as CombatActor, worldActor));
 			foreach (var child in GetChildren())
 			{
 				child.QueueFree();

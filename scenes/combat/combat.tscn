@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://c0w7sgsuq5vs8" path="res://src/Scene/CombatScene.cs" id="1_ltalu"]
 [ext_resource type="PackedScene" uid="uid://sjxtixbl402j" path="res://scenes/combat/combat_player.tscn" id="2_aic3r"]
 [ext_resource type="PackedScene" uid="uid://draqkjhp70lmy" path="res://scenes/combat/combat_enemy.tscn" id="3_4l26h"]
+[ext_resource type="Script" uid="uid://jgrqpdnabvij" path="res://src/Combat/Party.cs" id="3_jgg25"]
 [ext_resource type="Texture2D" uid="uid://by762fkhowxh4" path="res://art/player/player_up2.png" id="4_4voa6"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_4voa6"]
@@ -19,62 +20,68 @@ animations = [{
 
 [node name="Combat" type="Node" unique_id=1629342209 node_paths=PackedStringArray("_playerParty", "_enemyParty", "_ui")]
 script = ExtResource("1_ltalu")
-_playerParty = [NodePath("CombatPlayer"), NodePath("CombatPlayer2"), NodePath("CombatPlayer3"), NodePath("CombatPlayer4")]
-_enemyParty = [NodePath("CombatEnemy"), NodePath("CombatEnemy2"), NodePath("CombatEnemy3"), NodePath("CombatEnemy4")]
+_playerParty = NodePath("PlayerParty")
+_enemyParty = NodePath("EnemyParty")
 _ui = NodePath("CombatUI")
 
 [node name="CombatUI" parent="." unique_id=1878144606 instance=ExtResource("1_764e3")]
 
-[node name="CombatPlayer" parent="." unique_id=1566038033 instance=ExtResource("2_aic3r")]
+[node name="PlayerParty" type="Node" parent="." unique_id=882710721]
+script = ExtResource("3_jgg25")
+
+[node name="CombatPlayer" parent="PlayerParty" unique_id=1566038033 instance=ExtResource("2_aic3r")]
 position = Vector2(256, 448)
 
-[node name="CombatPlayer2" parent="." unique_id=1918499593 instance=ExtResource("2_aic3r")]
+[node name="CombatPlayer2" parent="PlayerParty" unique_id=1918499593 instance=ExtResource("2_aic3r")]
 position = Vector2(128, 512)
 
-[node name="CombatController" parent="CombatPlayer2" index="2" unique_id=380955144]
+[node name="CombatController" parent="PlayerParty/CombatPlayer2" index="3" unique_id=380955144]
 CombatPosition = 2
 
-[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="CombatPlayer2" unique_id=2085623395]
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="PlayerParty/CombatPlayer2" unique_id=2085623395]
 sprite_frames = SubResource("SpriteFrames_4voa6")
 
-[node name="CombatPlayer3" parent="." unique_id=462635274 instance=ExtResource("2_aic3r")]
+[node name="CombatPlayer3" parent="PlayerParty" unique_id=462635274 instance=ExtResource("2_aic3r")]
 position = Vector2(384, 512)
 
-[node name="CombatController" parent="CombatPlayer3" index="2" unique_id=380955144]
+[node name="CombatController" parent="PlayerParty/CombatPlayer3" index="3" unique_id=380955144]
 CombatPosition = 3
 
-[node name="CombatPlayer4" parent="." unique_id=2004612333 instance=ExtResource("2_aic3r")]
+[node name="CombatPlayer4" parent="PlayerParty" unique_id=2004612333 instance=ExtResource("2_aic3r")]
 position = Vector2(256, 576)
 
-[node name="CombatController" parent="CombatPlayer4" index="2" unique_id=380955144]
+[node name="CombatController" parent="PlayerParty/CombatPlayer4" index="3" unique_id=380955144]
 CombatPosition = 1
 
-[node name="CombatEnemy" parent="." unique_id=1564967612 instance=ExtResource("3_4l26h")]
+[node name="EnemyParty" type="Node" parent="." unique_id=1373362009]
+script = ExtResource("3_jgg25")
+
+[node name="CombatEnemy" parent="EnemyParty" unique_id=1564967612 instance=ExtResource("3_4l26h")]
 position = Vector2(896, 192)
 
-[node name="CombatEnemy2" parent="." unique_id=1594809982 instance=ExtResource("3_4l26h")]
+[node name="CombatEnemy2" parent="EnemyParty" unique_id=1594809982 instance=ExtResource("3_4l26h")]
 position = Vector2(1024, 128)
 
-[node name="CombatController" parent="CombatEnemy2" index="3" unique_id=849664991]
+[node name="CombatController" parent="EnemyParty/CombatEnemy2" index="3" unique_id=849664991]
 CombatPosition = 2
 
-[node name="CombatEnemy3" parent="." unique_id=1930459711 instance=ExtResource("3_4l26h")]
+[node name="CombatEnemy3" parent="EnemyParty" unique_id=1930459711 instance=ExtResource("3_4l26h")]
 position = Vector2(768, 128)
 
-[node name="CombatController" parent="CombatEnemy3" index="3" unique_id=849664991]
+[node name="CombatController" parent="EnemyParty/CombatEnemy3" index="3" unique_id=849664991]
 CombatPosition = 3
 
-[node name="CombatEnemy4" parent="." unique_id=848007182 instance=ExtResource("3_4l26h")]
+[node name="CombatEnemy4" parent="EnemyParty" unique_id=848007182 instance=ExtResource("3_4l26h")]
 position = Vector2(896, 64)
 
-[node name="CombatController" parent="CombatEnemy4" index="3" unique_id=849664991]
+[node name="CombatController" parent="EnemyParty/CombatEnemy4" index="3" unique_id=849664991]
 CombatPosition = 1
 
-[editable path="CombatPlayer"]
-[editable path="CombatPlayer2"]
-[editable path="CombatPlayer3"]
-[editable path="CombatPlayer4"]
-[editable path="CombatEnemy"]
-[editable path="CombatEnemy2"]
-[editable path="CombatEnemy3"]
-[editable path="CombatEnemy4"]
+[editable path="PlayerParty/CombatPlayer"]
+[editable path="PlayerParty/CombatPlayer2"]
+[editable path="PlayerParty/CombatPlayer3"]
+[editable path="PlayerParty/CombatPlayer4"]
+[editable path="EnemyParty/CombatEnemy"]
+[editable path="EnemyParty/CombatEnemy2"]
+[editable path="EnemyParty/CombatEnemy3"]
+[editable path="EnemyParty/CombatEnemy4"]
