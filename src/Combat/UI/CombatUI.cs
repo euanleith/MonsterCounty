@@ -93,6 +93,7 @@ namespace MonsterCounty.Combat.UI
 			_currentPlayer = player;
 			_buttons.Rebind();
 			_playerArrow.Rebind(player);
+			_enemyArrow.Reset();
 		}
 		
 		private void RemoveActor(CombatActor actor)
@@ -121,7 +122,7 @@ namespace MonsterCounty.Combat.UI
 			else if (inputEvent.IsActionPressed(Direction.UP)) target = CombatPosition.Back;
 			else if (inputEvent.IsActionPressed(Direction.DOWN)) target = CombatPosition.Front;
 			else return;
-			_enemyArrow.MoveToPosition(target);
+			_enemyArrow.Rebind(target);
 		}
 
 		private void PlayerPositionSelectionInput(InputEvent inputEvent)

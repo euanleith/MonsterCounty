@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Godot;
 using MonsterCounty.Actor.Actions.Combat;
 using MonsterCounty.Actor.Combat;
+using MonsterCounty.Actor.Decisions.Combat;
 using MonsterCounty.Combat;
 using MonsterCounty.State;
 using static MonsterCounty.Utilities.SceneUtilities;
@@ -62,7 +63,9 @@ namespace MonsterCounty.Actor.Controllers
 		
 		public CombatActor TakeTurn(double delta)
 		{
-			return LoadDecision().Choose(Actions).Do(delta);
+			var decision = Decision.Choose(this);
+			if (decision is CombatChoice combatDecision) ChangePosition(combatDecision.CombatPosition);
+			return decision.Action.Do(delta);
 		}
 		
 		public bool ChangePosition(CombatPosition position)

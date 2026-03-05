@@ -1,14 +1,13 @@
 using System.Linq;
-using Godot.Collections;
-using MonsterCounty.Actor.Actions;
+using MonsterCounty.Actor.Controllers;
 
 namespace MonsterCounty.Actor.Decisions
 {
-    public class FirstDecision<R> : Decision<R>
+    public class FirstDecision<C, R> : Decision<C, R> where C : ActionController<R>
     {
-        public ControllerAction<R> Choose(Array<ControllerAction<R>> actions)
+        public Choice<R> Choose(C controller)
         {
-            return actions.FirstOrDefault(action => action.ShouldDo());
+            return new Choice<R>(controller.Actions.FirstOrDefault(action => action.ShouldDo()));
         }
     }
 }

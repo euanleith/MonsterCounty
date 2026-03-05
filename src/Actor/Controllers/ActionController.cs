@@ -1,5 +1,4 @@
 using System.Linq;
-using Godot;
 using Godot.Collections;
 using MonsterCounty.Actor.Actions;
 using MonsterCounty.Actor.Decisions;
@@ -10,7 +9,7 @@ namespace MonsterCounty.Actor.Controllers
 	{
 		public Array<ControllerAction<R>> Actions; // todo enforce that actions are of same type as controller
 		private ControllerAction<R> _currentAction;
-		protected Decision<R> Decision;
+		protected Decision<ActionController<R>, R> Decision;
 
 		public override void Load(Actor actor)
 		{
@@ -29,11 +28,11 @@ namespace MonsterCounty.Actor.Controllers
 			}
 		}
 
-		protected virtual Decision<R> LoadDecision() => new FirstDecision<R>();
+		protected virtual Decision<ActionController<R>, R> LoadDecision() => new FirstDecision<ActionController<R>, R>();
 
-		protected ControllerAction<R> NextAction()
+		protected virtual ControllerAction<R> NextAction()
 		{
-			ControllerAction<R> newAction = Decision.Choose(Actions);
+			ControllerAction<R> newAction = Decision.Choose(this).Action;
 			if (newAction != null && newAction != _currentAction) newAction.Reactivate(Actor);
 			_currentAction = newAction;
 			return newAction;

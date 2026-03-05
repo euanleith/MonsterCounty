@@ -14,6 +14,14 @@ namespace MonsterCounty.Combat.UI
             Below
         }
         
+        private readonly CombatPosition[] _selectionPriority =
+        [
+            CombatPosition.Right,
+            CombatPosition.Front, 
+            CombatPosition.Back, 
+            CombatPosition.Left
+        ];
+        
         public int SelectedIndex;
         private Party _party;
         private ArrowPosition _arrowPosition;
@@ -39,20 +47,19 @@ namespace MonsterCounty.Combat.UI
 
         public void Reset()
         {
-            Rebind(0);
+            foreach (CombatPosition combatPosition in _selectionPriority)
+            {
+                if (Rebind(combatPosition)) return;
+            }
         }
         
-        private void Rebind(int index)
+        public bool Rebind(CombatPosition combatPosition)
         {
-            for (; index < _party.Count(); index++)
-            {
-                if (_party.Get(index).Controllers.Get<CombatController>().IsAlive)
-                {
-                    SelectedIndex = index;
-                    Rebind(_party.Get(index));
-                    break;
-                }
-            }
+            int index = _party.IndexOf(combatPosition);
+            if (index == -1 || !_party.Get(index).Controllers.Get<CombatController>().IsAlive) return false;
+            SelectedIndex = index;
+            Rebind(_party.Get(index));
+            return true;
         }
 
         public void Rebind(CombatActor actor)
@@ -60,11 +67,6 @@ namespace MonsterCounty.Combat.UI
             float offsetY = _arrowOffsetY + actor.Controllers.Get<VisualController>().GetSize().Y/2;
             if (_arrowPosition == ArrowPosition.Above) offsetY *= -1;
             GlobalPosition = actor.GlobalPosition + new Vector2(0, offsetY);
-        }
-
-        public void MoveToPosition(CombatPosition combatPosition)
-        {
-            Rebind(_party.IndexOf(combatPosition));
         }
     }
 }

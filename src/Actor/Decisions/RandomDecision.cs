@@ -1,17 +1,15 @@
 using System;
-using Godot;
-using Godot.Collections;
-using MonsterCounty.Actor.Actions;
+using MonsterCounty.Actor.Controllers;
 
 namespace MonsterCounty.Actor.Decisions
 {
-	public class RandomDecision<R> : Decision<R>
+	public class RandomDecision<C, R> : Decision<C, R> where C : ActionController<R>
 	{
-		public ControllerAction<R> Choose(Array<ControllerAction<R>> actions)
+		public virtual Choice<R> Choose(C controller)
 		{
 			Random rand = new Random();
-			int index = rand.Next(0, actions.Count);
-			return actions[index];
+			int index = rand.Next(0, controller.Actions.Count);
+			return new Choice<R>(controller.Actions[index]);
 		}
 	}
 }
