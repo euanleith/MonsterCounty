@@ -1,0 +1,6 @@
+[gd_resource type="Resource" script_class="PlayerTransmissionAction" format=3 uid="uid://doftit5isue1b"]
+
+[ext_resource type="Script" uid="uid://bn0dfn621lq21" path="res://src/Actor/Actions/Interaction/PlayerTransmissionAction.cs" id="1_1fi1y"]
+
+[resource]
+script = ExtResource("1_1fi1y")

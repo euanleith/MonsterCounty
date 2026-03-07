@@ -4,8 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://fdey0f6gyorj" path="res://art/enemy/enemyWalking_2.png" id="3_55h4l"]
 [ext_resource type="PackedScene" uid="uid://bdte8eqfs0y4v" path="res://scenes/actor/controller/combat_visual_controller.tscn" id="3_eq8mf"]
 [ext_resource type="PackedScene" uid="uid://bqfyaxctsqjgh" path="res://scenes/actor/controller/enemy_combat_controller.tscn" id="4_eq8mf"]
-[ext_resource type="PackedScene" uid="uid://10enj2mend3b" path="res://scenes/actor/actions/combat/attack_action.tscn" id="5_boyqr"]
-[ext_resource type="PackedScene" uid="uid://40wij836ji7i" path="res://scenes/actor/actions/combat/heal_action.tscn" id="6_v4q8q"]
+[ext_resource type="Resource" uid="uid://b1qnlot03ansh" path="res://resources/action/attack_action.tres" id="5_boyqr"]
+[ext_resource type="Resource" uid="uid://45codgfkdjhs" path="res://resources/action/heal_action.tres" id="6_v4q8q"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ss3kh"]
 animations = [{
@@ -35,7 +35,4 @@ shape = SubResource("CapsuleShape2D_v4q8q")
 [node name="VisualController" parent="." unique_id=1083062192 instance=ExtResource("3_eq8mf")]
 
 [node name="CombatController" parent="." unique_id=849664991 instance=ExtResource("4_eq8mf")]
-
-[node name="AttackAction" parent="CombatController" unique_id=607789692 instance=ExtResource("5_boyqr")]
-
-[node name="HealAction" parent="CombatController" unique_id=909520099 instance=ExtResource("6_v4q8q")]
+Actions = Array[Resource]([ExtResource("5_boyqr"), ExtResource("6_v4q8q")])

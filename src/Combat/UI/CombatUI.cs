@@ -1,5 +1,6 @@
 using System;
 using Godot;
+using MonsterCounty.Actor.Actions.Combat;
 using MonsterCounty.Actor.Combat;
 using MonsterCounty.Actor.Controllers;
 using MonsterCounty.Model;
@@ -69,7 +70,7 @@ namespace MonsterCounty.Combat.UI
 
 		private void RebindButton(Button button, int index)
 		{
-			button.Text = _currentPlayer.Controllers.Get<CombatController>().Actions[index].Name;
+			button.Text = (_currentPlayer.Controllers.Get<CombatController>().Actions[index] as CombatAction).Name;
 		}
 
 		private void OnPositionButtonPressed()

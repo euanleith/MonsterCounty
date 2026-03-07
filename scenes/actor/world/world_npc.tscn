@@ -10,9 +10,9 @@
 [ext_resource type="PackedScene" uid="uid://jov3fdj1u72d" path="res://scenes/actor/controller/visual_controller.tscn" id="4_hwkja"]
 [ext_resource type="Texture2D" uid="uid://o2pacmoxwcod" path="res://art/player/player_left2.png" id="5_n1jfc"]
 [ext_resource type="PackedScene" uid="uid://1cp2fatumnjx" path="res://scenes/actor/controller/reception_controller.tscn" id="6_j8avc"]
-[ext_resource type="PackedScene" uid="uid://emhbsgb0vhx3" path="res://scenes/actor/actions/interaction/dialogue_reception_action.tscn" id="7_kpptc"]
 [ext_resource type="Texture2D" uid="uid://1kswymjxamht" path="res://art/player/player_up1.png" id="8_e3xkw"]
 [ext_resource type="Texture2D" uid="uid://by762fkhowxh4" path="res://art/player/player_up2.png" id="9_onx6l"]
+[ext_resource type="Resource" uid="uid://dchqppc5neb63" path="res://resources/action/dialogue_reception_action.tres" id="13_ymaks"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7n8xq"]
 radius = 56.0
@@ -79,9 +79,9 @@ animation = &"up"
 
 [node name="MovementController" parent="." unique_id=1435023787 instance=ExtResource("3_tl2vt")]
 Speed = 0.5
+Actions = Array[Resource]([])
 
 [node name="VisualController" parent="." unique_id=98789701 instance=ExtResource("4_hwkja")]
 
 [node name="ReceptionController" parent="." unique_id=1035087376 instance=ExtResource("6_j8avc")]
-
-[node name="DialogueReceptionAction" parent="ReceptionController" unique_id=1653715695 instance=ExtResource("7_kpptc")]
+Actions = Array[Resource]([ExtResource("13_ymaks")])

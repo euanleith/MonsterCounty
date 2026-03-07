@@ -6,7 +6,7 @@ using static MonsterCounty.Utilities.VectorUtilities;
 
 namespace MonsterCounty.Actor.Controllers
 {
-	public partial class MovementController : ActionController<Vector2>
+	public partial class MovementController : InstancedActionController<Vector2>
 	{
 		[Export] public float Speed { get; private set; }
 

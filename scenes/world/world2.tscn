@@ -1,7 +1,7 @@
 [gd_scene format=4 uid="uid://uskguirijcn0"]
 
 [ext_resource type="Script" uid="uid://cj453rmg5slj4" path="res://src/Scene/WorldScene.cs" id="1_4gjx5"]
-[ext_resource type="PackedScene" uid="uid://b38v7rmuhlfcl" path="res://scenes/actor/world/world_mob2.tscn" id="2_0givv"]
+[ext_resource type="PackedScene" uid="uid://b38v7rmuhlfcl" path="res://scenes/actor/world/world_mob.tscn" id="2_0givv"]
 [ext_resource type="PackedScene" uid="uid://5bgltxvdkt4x" path="res://scenes/actor/world/world_player.tscn" id="3_0givv"]
 [ext_resource type="PackedScene" uid="uid://bprvrex4wphsq" path="res://scenes/ui/hud.tscn" id="4_mru6i"]
 [ext_resource type="Script" uid="uid://cqw2h4dn5kaba" path="res://src/Camera/CameraController.cs" id="5_5whwl"]
@@ -17,7 +17,7 @@ _data = {
 }
 point_count = 5
 
-[sub_resource type="Curve2D" id="Curve2D_mru6i"]
+[sub_resource type="Curve2D" id="Curve2D_0givv"]
 resource_local_to_scene = true
 _data = {
 "points": PackedVector2Array(0, 0, 0, 0, 13, 2, 0, 0, 0, 0, 256, 3, 0, 0, 0, 0, 10, 2)
@@ -337,7 +337,7 @@ curve = SubResource("Curve2D_1bvp3")
 
 [node name="PathNPC" parent="." unique_id=1629924361 instance=ExtResource("6_4wd2b")]
 position = Vector2(289, 161)
-curve = SubResource("Curve2D_mru6i")
+curve = SubResource("Curve2D_0givv")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=1992197526]
 tile_map_data = PackedByteArray("AAALAAoAAAAMAAsAAAAMAAoAAAAMAAsAAAANAAoAAAAMAAsAAAAOAAoAAAAMAAsAAAAPAAoAAAAMAAsAAAAQAAoAAAAMAAsAAAARAAoAAAAMAAsAAAASAAoAAAAMAAsAAAAVAAoAAAAMAAsAAAAWAAoAAAAMAAsAAAAXAAoAAAAMAAsAAAAYAAoAAAAMAAsAAAAZAAoAAAAMAAsAAAAaAAoAAAAMAAsAAAAbAAoAAAAMAAsAAAAcAAoAAAAMAAsAAAAdAAoAAAAMAAsAAAAeAAoAAAAMAAsAAAAfAAoAAAAMAAsAAAAgAAoAAAAMAAsAAAAgAAkAAAAMAAsAAAAgAAgAAAAMAAsAAAAgAAcAAAAMAAsAAAAgAAYAAAAMAAsAAAAgAAUAAAAMAAsAAAAgAAQAAAAMAAsAAAAgAAMAAAAMAAsAAAAgAAIAAAAMAAsAAAAgAAEAAAAMAAsAAAAgAAAAAAAMAAsAAAAgAP//AAAMAAsAAAAgAP7/AAAMAAsAAAAKAAoAAAAMAAsAAAAJAAoAAAAMAAsAAAAIAAoAAAAMAAsAAAAIAAkAAAAMAAsAAAAIAAgAAAAMAAsAAAAIAAcAAAAMAAsAAAAIAAYAAAAMAAsAAAAIAAUAAAAMAAsAAAAIAAQAAAAMAAsAAAAIAAMAAAAMAAsAAAAIAAIAAAAMAAsAAAAIAAEAAAAMAAsAAAAIAAAAAAAMAAsAAAAIAP//AAAMAAsAAAAIAP7/AAAMAAsAAAAJAP7/AAAMAAsAAAAKAP7/AAAMAAsAAAALAP7/AAAMAAsAAAAMAP7/AAAMAAsAAAANAP7/AAAMAAsAAAAOAP7/AAAMAAsAAAAPAP7/AAAMAAsAAAAQAP7/AAAMAAsAAAARAP7/AAAMAAsAAAASAP7/AAAMAAsAAAATAP7/AAAMAAsAAAAUAP7/AAAMAAsAAAAVAP7/AAAMAAsAAAAWAP7/AAAMAAsAAAAXAP7/AAAMAAsAAAAYAP7/AAAMAAsAAAAZAP7/AAAMAAsAAAAaAP7/AAAMAAsAAAAbAP7/AAAMAAsAAAAcAP7/AAAMAAsAAAAdAP7/AAAMAAsAAAAeAP7/AAAMAAsAAAAfAP7/AAAMAAsAAAAUAAoAAAAMAAsAAAA=")

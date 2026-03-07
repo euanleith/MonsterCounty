@@ -12,8 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://kv7tg2d5v0c" path="res://art/enemy/enemyFlying_up2.png" id="9_23krh"]
 [ext_resource type="PackedScene" uid="uid://jov3fdj1u72d" path="res://scenes/actor/controller/visual_controller.tscn" id="10_8qclf"]
 [ext_resource type="PackedScene" uid="uid://cuh0yo2ws1low" path="res://scenes/actor/controller/transmission_controller.tscn" id="11_fn7wt"]
-[ext_resource type="PackedScene" uid="uid://b2yhcwvd1q564" path="res://scenes/actor/actions/interaction/enemy_transmission_action.tscn" id="12_veedt"]
-[ext_resource type="PackedScene" uid="uid://3i2bjf6xfoyy" path="res://scenes/combat/combat.tscn" id="13_veedt"]
+[ext_resource type="Resource" uid="uid://84t46of1q8md" path="res://resources/action/enemy_transmission_action.tres" id="14_wi157"]
 [ext_resource type="PackedScene" uid="uid://dgadebipipu5p" path="res://scenes/combat/party.tscn" id="15_wi157"]
 [ext_resource type="PackedScene" uid="uid://draqkjhp70lmy" path="res://scenes/combat/combat_enemy.tscn" id="18_crudg"]
 
@@ -82,14 +81,13 @@ animation = &"right"
 
 [node name="MovementController" parent="." unique_id=1435023787 instance=ExtResource("8_ipns3")]
 Speed = 200.0
+Actions = Array[Resource]([])
 
 [node name="VisualController" parent="." unique_id=98789701 instance=ExtResource("10_8qclf")]
 
 [node name="TransmissionController" parent="." unique_id=1682635438 instance=ExtResource("11_fn7wt")]
 Range = 100.0
-
-[node name="EnemyTransmissionAction" parent="TransmissionController" unique_id=1607805577 instance=ExtResource("12_veedt")]
-CombatScene = ExtResource("13_veedt")
+Actions = Array[Resource]([ExtResource("14_wi157")])
 
 [node name="Party" parent="." unique_id=1315856782 instance=ExtResource("15_wi157")]
 

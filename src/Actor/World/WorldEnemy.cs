@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Godot;
 using MonsterCounty.Actor.Controllers;
 using MonsterCounty.Model;
 using MonsterCounty.State;
@@ -13,6 +14,7 @@ namespace MonsterCounty.Actor.World
             controllers.Add(GetNode<TransmissionController>("TransmissionController"));
             return controllers;
         }
+        
         protected override List<CombatActorState> GetPartyState() => GameState.EnemyParty;
     }
 }

@@ -1,9 +1,11 @@
+using Godot;
 using MonsterCounty.Model;
 using MonsterCounty.Utilities;
 using static MonsterCounty.Utilities.InputManager;
 
 namespace MonsterCounty.Actor.Actions.Interaction
 {
+	[GlobalClass]
 	public partial class PlayerTransmissionAction : TransmissionAction
 	{
 		public override bool WantsToDo() => GetInteractInput();
@@ -12,7 +14,7 @@ namespace MonsterCounty.Actor.Actions.Interaction
 
 		public override CustomVoid Do(double delta)
 		{
-			GetTree().Paused = true;
+			Actor.GetTree().Paused = true;
 			Responder.Respond(delta);
 			return null;
 		}

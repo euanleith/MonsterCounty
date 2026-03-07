@@ -1,9 +1,9 @@
 using System;
 using Godot;
-using MonsterCounty.Actor.Combat;
 using MonsterCounty.Actor.World;
 using MonsterCounty.Model;
 using MonsterCounty.State;
+using static MonsterCounty.Utilities.SceneUtilities;
 
 namespace MonsterCounty.Scene
 {
@@ -36,13 +36,13 @@ namespace MonsterCounty.Scene
 			ChangeScene(sceneTree, newScene);
 		}
 
-		public void ChangeToCombatScene(SceneTree sceneTree, PackedScene newScene, WorldActor enemy)
+		public void ChangeToCombatScene(SceneTree sceneTree, WorldActor enemy)
 		{
 			// todo move to WorldActor.save
 			enemy.Party.Save(enemy);
 			WorldPlayer.Instance.Get().Party.Save(WorldPlayer.Instance.Get());
 			CurrentWorldScene = GetTree().CurrentScene.SceneFilePath;
-			ChangeScene(sceneTree, newScene);
+			ChangeScene(sceneTree, COMBAT_SCENE_PATH);
 		}
 
 		private void ChangeScene(SceneTree sceneTree, PackedScene newScene)

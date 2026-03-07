@@ -1,15 +1,12 @@
 [gd_scene format=3 uid="uid://dmg6cgbqsciw1"]
 
 [ext_resource type="PackedScene" uid="uid://sjxtixbl402j" path="res://scenes/combat/combat_player.tscn" id="1_2xrh7"]
-[ext_resource type="PackedScene" uid="uid://10enj2mend3b" path="res://scenes/actor/actions/combat/attack_action.tscn" id="4_fxqgw"]
-[ext_resource type="PackedScene" uid="uid://40wij836ji7i" path="res://scenes/actor/actions/combat/heal_action.tscn" id="5_ppdyy"]
+[ext_resource type="Resource" uid="uid://b1qnlot03ansh" path="res://resources/action/attack_action.tres" id="2_2xrh7"]
+[ext_resource type="Resource" uid="uid://45codgfkdjhs" path="res://resources/action/heal_action.tres" id="3_qmvbq"]
 
 [node name="CombatPlayer" unique_id=1566038033 instance=ExtResource("1_2xrh7")]
 
-[node name="CombatController" parent="." index="2" unique_id=380955144]
+[node name="CombatController" parent="." index="3" unique_id=380955144]
 MaxHealth = 5
 CombatPosition = 3
-
-[node name="AttackAction" parent="CombatController" index="0" unique_id=607789692 instance=ExtResource("4_fxqgw")]
-
-[node name="HealAction" parent="CombatController" index="1" unique_id=909520099 instance=ExtResource("5_ppdyy")]
+Actions = Array[Resource]([ExtResource("2_2xrh7"), ExtResource("3_qmvbq")])

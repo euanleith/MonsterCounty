@@ -1,7 +1,7 @@
 [gd_scene format=4 uid="uid://uvkjup8xtt83"]
 
 [ext_resource type="Script" uid="uid://cj453rmg5slj4" path="res://src/Scene/WorldScene.cs" id="1_1yooq"]
-[ext_resource type="PackedScene" uid="uid://b38v7rmuhlfcl" path="res://scenes/actor/world/world_mob2.tscn" id="2_dlabj"]
+[ext_resource type="PackedScene" uid="uid://b38v7rmuhlfcl" path="res://scenes/actor/world/world_mob.tscn" id="2_dlabj"]
 [ext_resource type="PackedScene" uid="uid://5bgltxvdkt4x" path="res://scenes/actor/world/world_player.tscn" id="3_dwbse"]
 [ext_resource type="PackedScene" uid="uid://bprvrex4wphsq" path="res://scenes/ui/hud.tscn" id="4_pkg7o"]
 [ext_resource type="Script" uid="uid://cqw2h4dn5kaba" path="res://src/Camera/CameraController.cs" id="5_bq33v"]
@@ -372,11 +372,6 @@ position = Vector2(-64, 128)
 [connection signal="timeout" from="ScoreTimer" to="." method="OnScoreTimerTimeout"]
 [connection signal="timeout" from="StartTimer" to="." method="OnStartTimerTimeout"]
 
-[editable path="WorldPlayer"]
-[editable path="WorldPlayer/Party/CombatPlayer"]
-[editable path="WorldPlayer/Party/CombatPlayer2"]
 [editable path="WorldEnemy"]
 [editable path="WorldEnemy/Party/CombatEnemy"]
 [editable path="WorldEnemy/Party/CombatEnemy2"]
-[editable path="WorldEnemy2"]
-[editable path="WorldEnemy2/Party/CombatEnemy"]

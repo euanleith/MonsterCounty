@@ -8,14 +8,14 @@
 [ext_resource type="Texture2D" uid="uid://o2pacmoxwcod" path="res://art/player/player_left2.png" id="5_253bv"]
 [ext_resource type="Texture2D" uid="uid://dtmussxuxoj62" path="res://art/player/player_right2.png" id="5_gbfbk"]
 [ext_resource type="PackedScene" uid="uid://bt1olxot22da" path="res://scenes/actor/controller/movement_controller.tscn" id="6_fjrip"]
-[ext_resource type="PackedScene" uid="uid://c1x12gk76pb81" path="res://scenes/actor/actions/movement/player_movement_action.tscn" id="7_fjrip"]
 [ext_resource type="PackedScene" uid="uid://cuh0yo2ws1low" path="res://scenes/actor/controller/transmission_controller.tscn" id="7_yx67p"]
 [ext_resource type="Texture2D" uid="uid://1kswymjxamht" path="res://art/player/player_up1.png" id="8_akbcw"]
-[ext_resource type="PackedScene" uid="uid://c181w7lt7s5nl" path="res://scenes/actor/actions/interaction/player_transmission_action.tscn" id="8_jc8oq"]
 [ext_resource type="PackedScene" uid="uid://jov3fdj1u72d" path="res://scenes/actor/controller/visual_controller.tscn" id="8_smehm"]
 [ext_resource type="PackedScene" uid="uid://1cp2fatumnjx" path="res://scenes/actor/controller/reception_controller.tscn" id="9_jc8oq"]
 [ext_resource type="Texture2D" uid="uid://by762fkhowxh4" path="res://art/player/player_up2.png" id="9_ufgnj"]
 [ext_resource type="PackedScene" uid="uid://gk3fi5gbrmnm" path="res://scenes/actor/controller/spawn_controller.tscn" id="10_qxrtu"]
+[ext_resource type="Script" uid="uid://b6iwghcvyj65y" path="res://src/Actor/Actions/Movement/PlayerMovementAction.cs" id="11_253bv"]
+[ext_resource type="Script" uid="uid://bn0dfn621lq21" path="res://src/Actor/Actions/Interaction/PlayerTransmissionAction.cs" id="14_akbcw"]
 [ext_resource type="PackedScene" uid="uid://dgadebipipu5p" path="res://scenes/combat/party.tscn" id="17_7bx8s"]
 [ext_resource type="PackedScene" uid="uid://c5qhlg4rdgeqa" path="res://scenes/combat/combat_player1.tscn" id="18_253bv"]
 [ext_resource type="PackedScene" uid="uid://dmg6cgbqsciw1" path="res://scenes/combat/combat_player2.tscn" id="19_253bv"]
@@ -70,6 +70,14 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="Resource" id="Resource_ufgnj"]
+resource_local_to_scene = true
+script = ExtResource("11_253bv")
+
+[sub_resource type="Resource" id="Resource_pjqwp"]
+script = ExtResource("14_akbcw")
+_range = 400.0
+
 [node name="WorldPlayer" type="CharacterBody2D" unique_id=1818493891 groups=["player"]]
 collision_mask = 15
 script = ExtResource("1_qlg0r")
@@ -86,16 +94,13 @@ animation = &"down"
 
 [node name="MovementController" parent="." unique_id=1435023787 instance=ExtResource("6_fjrip")]
 Speed = 400.0
-
-[node name="PlayerMovementAction" parent="MovementController" unique_id=189672219 instance=ExtResource("7_fjrip")]
+Actions = Array[Resource]([SubResource("Resource_ufgnj")])
 
 [node name="VisualController" parent="." unique_id=98789701 instance=ExtResource("8_smehm")]
 
 [node name="TransmissionController" parent="." unique_id=1682635438 instance=ExtResource("7_yx67p")]
 Range = 100.0
-
-[node name="PlayerTransmissionAction" parent="TransmissionController" unique_id=436325940 instance=ExtResource("8_jc8oq")]
-_range = 100.0
+Actions = Array[Resource]([SubResource("Resource_pjqwp")])
 
 [node name="ReceptionController" parent="." unique_id=1035087376 instance=ExtResource("9_jc8oq")]
 

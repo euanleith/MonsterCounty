@@ -1,0 +1,6 @@
+[gd_resource type="Resource" script_class="MobMovementAction" format=3 uid="uid://b21fqsa68dpqu"]
+
+[ext_resource type="Script" uid="uid://dead5j5olu03t" path="res://src/Actor/Actions/Movement/MobMovementAction.cs" id="1_juiss"]
+
+[resource]
+script = ExtResource("1_juiss")

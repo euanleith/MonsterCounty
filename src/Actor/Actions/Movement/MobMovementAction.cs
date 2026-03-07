@@ -3,6 +3,7 @@ using MonsterCounty.Actor.Controllers;
 
 namespace MonsterCounty.Actor.Actions.Movement
 {
+	[GlobalClass]
 	public partial class MobMovementAction : ControllerAction<Vector2>
 	{
 		private Vector2 _velocity;

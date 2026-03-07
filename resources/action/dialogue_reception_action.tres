@@ -1,0 +1,6 @@
+[gd_resource type="Resource" script_class="DialogueReceptionAction" format=3 uid="uid://dchqppc5neb63"]
+
+[ext_resource type="Script" uid="uid://c6lipmpftdvic" path="res://src/Actor/Actions/Interaction/DialogueReceptionAction.cs" id="1_2enwc"]
+
+[resource]
+script = ExtResource("1_2enwc")

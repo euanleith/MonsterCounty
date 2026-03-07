@@ -1,4 +1,3 @@
-using Godot;
 using MonsterCounty.Actor.Combat;
 using MonsterCounty.Actor.Controllers;
 using MonsterCounty.Actor.World;
@@ -11,7 +10,7 @@ namespace MonsterCounty.State
 	{
 		public readonly int MaxHealth;
 		public readonly int CurrentHealth;
-		public readonly string[] ActionScenePaths;
+		public readonly string[] ActionResourcePaths;
 		public readonly string WorldPath;
 		public readonly CombatPosition CombatPosition;
 
@@ -20,10 +19,13 @@ namespace MonsterCounty.State
 			var combatController = combatActor.Controllers.Get<CombatController>();
 			MaxHealth = combatController.MaxHealth;
 			CurrentHealth = combatController.CurrentHealth;
-			ActionScenePaths = new string[combatController.Actions.Count];
+			ActionResourcePaths = new string[combatController.Actions.Count];
 			for (var i = 0; i < combatController.Actions.Count; i++)
 			{
-				ActionScenePaths[i] = combatController.Actions[i].SceneFilePath;
+				string resourcePath = combatController.Actions[i].ResourcePath;
+				ActionResourcePaths[i] = resourcePath != "" ?
+					resourcePath :
+					combatController.Actions[i].GetMeta(META_INSTANCE_RESOURCE_PATH).AsString();
 			}
 			if (worldActor != null) WorldPath = GetNodeId(worldActor);
 			CombatPosition = combatController.CombatPosition;

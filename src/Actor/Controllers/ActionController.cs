@@ -1,4 +1,5 @@
 using System.Linq;
+using Godot;
 using Godot.Collections;
 using MonsterCounty.Actor.Actions;
 using MonsterCounty.Actor.Decisions;
@@ -7,7 +8,7 @@ namespace MonsterCounty.Actor.Controllers
 {
 	public abstract partial class ActionController<R> : Controller
 	{
-		public Array<ControllerAction<R>> Actions; // todo enforce that actions are of same type as controller
+		[Export] public Array<ControllerAction<R>> Actions; // todo enforce that actions are of same type as controller
 		private ControllerAction<R> _currentAction;
 		protected Decision<ActionController<R>, R> Decision;
 
@@ -18,12 +19,13 @@ namespace MonsterCounty.Actor.Controllers
 			Decision = LoadDecision();
 		}
 
-		protected void LoadActions()
+		protected virtual void LoadActions()
 		{
-			Actions = [];
-			foreach (ControllerAction<R> action in GetChildren().OfType<ControllerAction<R>>())
+			if (Actions == null) return;
+			foreach (ControllerAction<R> action in Actions)
 			{
-				Actions.Add(action);
+				// action.ResourceLocalToScene = true;
+				// action.SetupLocalToScene();
 				action.CustomInit(Actor);
 			}
 		}

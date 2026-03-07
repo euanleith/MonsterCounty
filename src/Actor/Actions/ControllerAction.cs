@@ -2,8 +2,7 @@ using Godot;
 
 namespace MonsterCounty.Actor.Actions
 {
-    // todo can this be a resource instead (with 'local to scene')?
-    public abstract partial class ControllerAction<R> : Node
+    public abstract partial class ControllerAction<R> : Resource
     {
         protected Actor Actor { get; private set; }
         

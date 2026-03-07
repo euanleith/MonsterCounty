@@ -3,6 +3,7 @@ using MonsterCounty.Actor.Controllers;
 
 namespace MonsterCounty.Actor.Actions.Movement
 {
+	[GlobalClass]
 	public partial class PathMovementAction : ControllerAction<Vector2>
 	{
 		private PathFollow2D _pathFollow;

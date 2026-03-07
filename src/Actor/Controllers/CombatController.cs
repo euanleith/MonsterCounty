@@ -39,9 +39,12 @@ namespace MonsterCounty.Actor.Controllers
 		{
 			MaxHealth = state.MaxHealth;
 			CurrentHealth = state.CurrentHealth;
-			foreach (var path in state.ActionScenePaths)
+			Actions = [];
+			foreach (var path in state.ActionResourcePaths)
 			{
-				AddChildFromScenePath<CombatAction>(this, path);
+				CombatAction action = GD.Load<CombatAction>(path).Duplicate() as CombatAction;
+				action.SetMeta(META_INSTANCE_RESOURCE_PATH, path);
+				Actions.Add(action);
 			}
 			CombatPosition = state.CombatPosition;
 			LoadActions();
@@ -50,7 +53,7 @@ namespace MonsterCounty.Actor.Controllers
 		public void SaveGameState(List<CombatActorState> state, WorldActor worldActor=null)
 		{
 			state.Add(new CombatActorState(Actor as CombatActor, worldActor));
-			foreach (var child in GetChildren())
+			foreach (var child in GetChildren()) // todo replace with removing resources
 			{
 				child.QueueFree();
 			}

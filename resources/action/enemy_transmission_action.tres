@@ -1,0 +1,6 @@
+[gd_resource type="Resource" script_class="EnemyTransmissionAction" format=3 uid="uid://84t46of1q8md"]
+
+[ext_resource type="Script" uid="uid://k5abwf11gvfe" path="res://src/Actor/Actions/Interaction/EnemyTransmissionAction.cs" id="1_3qasu"]
+
+[resource]
+script = ExtResource("1_3qasu")

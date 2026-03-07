@@ -1,3 +1,4 @@
+using Godot;
 using MonsterCounty.Actor.Combat;
 using MonsterCounty.Actor.Controllers;
 
@@ -5,6 +6,8 @@ namespace MonsterCounty.Actor.Actions.Combat
 {
 	public abstract partial class CombatAction : ControllerAction<CombatActor>
 	{
+		[Export] public string Name;
+		
 		protected CombatController Self;
 
 		public override void CustomInit(Actor actor)

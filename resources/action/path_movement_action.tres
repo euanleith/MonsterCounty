@@ -1,0 +1,6 @@
+[gd_resource type="Resource" script_class="PathMovementAction" format=3 uid="uid://tkm1h1k04gkm"]
+
+[ext_resource type="Script" uid="uid://ipunyo8kfmnx" path="res://src/Actor/Actions/Movement/PathMovementAction.cs" id="1_14ggc"]
+
+[resource]
+script = ExtResource("1_14ggc")

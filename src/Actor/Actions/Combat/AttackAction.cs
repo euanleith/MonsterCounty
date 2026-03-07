@@ -4,6 +4,7 @@ using MonsterCounty.Actor.Controllers;
 
 namespace MonsterCounty.Actor.Actions.Combat
 {
+    [GlobalClass]
     public partial class AttackAction : CombatAction
     {
         [Export] private int _strength = 2;

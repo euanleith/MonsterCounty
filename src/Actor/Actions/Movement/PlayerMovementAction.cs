@@ -5,6 +5,7 @@ using static MonsterCounty.Utilities.VectorUtilities;
 
 namespace MonsterCounty.Actor.Actions.Movement
 {
+	[GlobalClass]
 	public partial class PlayerMovementAction : ControllerAction<Vector2>
 	{
 		public override Vector2 Do(double delta)

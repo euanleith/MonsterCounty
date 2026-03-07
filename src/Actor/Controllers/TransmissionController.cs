@@ -1,9 +1,11 @@
 using Godot;
+using Godot.Collections;
+using MonsterCounty.Actor.Actions;
 using MonsterCounty.Model;
 
 namespace MonsterCounty.Actor.Controllers
 {
-	public partial class TransmissionController : ActionController<CustomVoid>
+	public partial class TransmissionController : InstancedActionController<CustomVoid>
 	{
 		[Export] public float Range { get; private set; }
 		

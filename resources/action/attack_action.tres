@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="AttackAction" format=3 uid="uid://b1qnlot03ansh"]
+
+[ext_resource type="Script" uid="uid://djehi537egk1p" path="res://src/Actor/Actions/Combat/AttackAction.cs" id="1_mug7a"]
+
+[resource]
+script = ExtResource("1_mug7a")
+Name = "Attack"

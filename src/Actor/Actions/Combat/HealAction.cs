@@ -4,6 +4,7 @@ using MonsterCounty.Actor.Combat;
 
 namespace MonsterCounty.Actor.Actions.Combat
 {
+    [GlobalClass]
     public partial class HealAction : CombatAction
     {
         [Export] private int _strength = 1;
