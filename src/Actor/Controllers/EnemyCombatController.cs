@@ -8,8 +8,6 @@ namespace MonsterCounty.Actor.Controllers
 {
 	public partial class EnemyCombatController : CombatController
 	{
-		protected override Decision<ActionController<CombatActor>, CombatActor> LoadDecision() => new RandomCombatDecision();
-		
 		public override TurnResult StartTurn()
 		{
 			base.StartTurn();

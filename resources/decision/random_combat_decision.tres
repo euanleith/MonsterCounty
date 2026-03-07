@@ -1,0 +1,6 @@
+[gd_resource type="Resource" format=3 uid="uid://bo5bn8itfeqye"]
+
+[ext_resource type="Script" uid="uid://dhm7pgoyfb35i" path="res://src/Actor/Decisions/Combat/RandomCombatDecision.cs" id="1_a2rlk"]
+
+[resource]
+script = ExtResource("1_a2rlk")

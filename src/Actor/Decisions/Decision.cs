@@ -1,9 +1,10 @@
+using Godot;
 using MonsterCounty.Actor.Controllers;
 
 namespace MonsterCounty.Actor.Decisions
 {
-    public interface Decision<C, R> where C : ActionController<R>
+    public abstract partial class Decision<C, R> : Resource where C : ActionController<R>
     {
-        public Choice<R> Choose(C controller);
+        public abstract Choice<R> Choose(C controller);
     }
 }
