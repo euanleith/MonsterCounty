@@ -7,7 +7,7 @@
 [ext_resource type="Script" path="csharp://src/Actor/Actions/ControllerAction.cs:MonsterCounty.Actor.Actions.ControllerAction`1[MonsterCounty.Actor.Combat.CombatActor].cs" id="5_0n4jt"]
 [ext_resource type="Resource" uid="uid://b1qnlot03ansh" path="res://resources/action/attack_action.tres" id="5_boyqr"]
 [ext_resource type="Resource" uid="uid://45codgfkdjhs" path="res://resources/action/heal_action.tres" id="6_v4q8q"]
-[ext_resource type="Resource" uid="uid://bo5bn8itfeqye" path="res://resources/decision/random_combat_decision.tres" id="8_qp0mw"]
+[ext_resource type="Resource" uid="uid://bo5bn8itfeqye" path="res://resources/decision/random_moving_combat_decision.tres" id="8_qp0mw"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ss3kh"]
 animations = [{

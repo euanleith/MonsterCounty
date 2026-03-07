@@ -1,6 +1,0 @@
-[gd_resource type="Resource" format=3 uid="uid://km2ihdy0qeth"]
-
-[ext_resource type="Script" uid="uid://dvjf6qiwoet0m" path="res://src/Actor/Decisions/FirstDecision.cs" id="1_e44ke"]
-
-[resource]
-script = ExtResource("1_e44ke")
