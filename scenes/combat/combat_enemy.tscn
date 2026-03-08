@@ -6,8 +6,9 @@
 [ext_resource type="PackedScene" uid="uid://bqfyaxctsqjgh" path="res://scenes/actor/controller/enemy_combat_controller.tscn" id="4_eq8mf"]
 [ext_resource type="Script" path="csharp://src/Actor/Actions/ControllerAction.cs:MonsterCounty.Actor.Actions.ControllerAction`1[MonsterCounty.Actor.Combat.CombatActor].cs" id="5_0n4jt"]
 [ext_resource type="Resource" uid="uid://b1qnlot03ansh" path="res://resources/action/attack_action.tres" id="5_boyqr"]
-[ext_resource type="Resource" uid="uid://45codgfkdjhs" path="res://resources/action/heal_action.tres" id="6_v4q8q"]
+[ext_resource type="Resource" uid="uid://b538656uhwaok" path="res://resources/weapon/claws.tres" id="5_qp0mw"]
 [ext_resource type="Resource" uid="uid://bo5bn8itfeqye" path="res://resources/decision/random_moving_combat_decision.tres" id="8_qp0mw"]
+[ext_resource type="Resource" uid="uid://b8gotq32a8012" path="res://resources/action/defend_action.tres" id="9_te6b7"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ss3kh"]
 animations = [{
@@ -37,5 +38,6 @@ shape = SubResource("CapsuleShape2D_v4q8q")
 [node name="VisualController" parent="." unique_id=1083062192 instance=ExtResource("3_eq8mf")]
 
 [node name="CombatController" parent="." unique_id=849664991 instance=ExtResource("4_eq8mf")]
-Actions = Array[ExtResource("5_0n4jt")]([ExtResource("5_boyqr"), ExtResource("6_v4q8q")])
+Weapon = ExtResource("5_qp0mw")
+Actions = Array[ExtResource("5_0n4jt")]([ExtResource("5_boyqr"), ExtResource("9_te6b7")])
 Decision = ExtResource("8_qp0mw")

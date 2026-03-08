@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Weapon" format=3 uid="uid://c4742mhftx776"]
+
+[ext_resource type="Script" uid="uid://du0reolka4366" path="res://src/Utilities/Dice.cs" id="1_0cjin"]
+[ext_resource type="Script" uid="uid://cvp0eorw0j2fj" path="res://src/Combat/Weapon.cs" id="2_so4hp"]
+
+[sub_resource type="Resource" id="Resource_0cjin"]
+script = ExtResource("1_0cjin")
+NDice = 1
+NSides = 6
+metadata/_custom_type_script = "uid://du0reolka4366"
+
+[resource]
+script = ExtResource("2_so4hp")
+Name = "Revolver"
+Dice = SubResource("Resource_0cjin")

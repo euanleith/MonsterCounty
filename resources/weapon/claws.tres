@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Weapon" format=3 uid="uid://b538656uhwaok"]
+
+[ext_resource type="Script" uid="uid://du0reolka4366" path="res://src/Utilities/Dice.cs" id="1_241nn"]
+[ext_resource type="Script" uid="uid://cvp0eorw0j2fj" path="res://src/Combat/Weapon.cs" id="2_lyenv"]
+
+[sub_resource type="Resource" id="Resource_241nn"]
+script = ExtResource("1_241nn")
+NDice = 1
+NSides = 4
+metadata/_custom_type_script = "uid://du0reolka4366"
+
+[resource]
+script = ExtResource("2_lyenv")
+Name = "Claws"
+Dice = SubResource("Resource_241nn")

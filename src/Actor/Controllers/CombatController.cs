@@ -6,6 +6,7 @@ using MonsterCounty.Actor.Decisions.Combat;
 using MonsterCounty.Actor.World;
 using MonsterCounty.Combat;
 using MonsterCounty.State;
+using MonsterCounty.Utilities;
 using static MonsterCounty.Utilities.SceneUtilities;
 
 namespace MonsterCounty.Actor.Controllers
@@ -14,6 +15,7 @@ namespace MonsterCounty.Actor.Controllers
 	{
 		[Export] public int MaxHealth;
 		[Export] public CombatPosition CombatPosition;
+		[Export] public Weapon Weapon = new();
 		
 		[Signal] public delegate void CurrentHealthChangedEventHandler(int health);
 
@@ -27,6 +29,7 @@ namespace MonsterCounty.Actor.Controllers
 		}
 		public bool IsAlive => CurrentHealth > 0;
 		public bool HasChangedPosition;
+		public bool IsDefending { get; set; }
 
 		public override void Load(Actor actor)
 		{
@@ -42,11 +45,12 @@ namespace MonsterCounty.Actor.Controllers
 			Actions = [];
 			foreach (var path in state.ActionResourcePaths)
 			{
-				CombatAction action = GD.Load<CombatAction>(path).Duplicate() as CombatAction;
+				CombatAction action = GD.Load<CombatAction>(path).Duplicate(true) as CombatAction;
 				action.SetMeta(META_INSTANCE_RESOURCE_PATH, path);
 				Actions.Add(action);
 			}
 			CombatPosition = state.CombatPosition;
+			Weapon = state.Weapon;
 			LoadActions();
 		}
 
@@ -80,6 +84,14 @@ namespace MonsterCounty.Actor.Controllers
 			Party.ChangePosition(Actor, position);
 			HasChangedPosition = true;
 			return true;
+		}
+
+		public int RollToDefend()
+		{
+			int nDice = 1;
+			if (IsDefending) nDice++;
+			IsDefending = false;
+			return Dice.Roll(nDice, 8);
 		}
 	}
 }

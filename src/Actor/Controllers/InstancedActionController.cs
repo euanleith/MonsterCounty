@@ -19,7 +19,7 @@ namespace MonsterCounty.Actor.Controllers
 			var instances = new Array<ControllerAction<R>>();
 			foreach (var action in Actions)
 			{
-				var instance = (ControllerAction<R>)action.Duplicate();
+				var instance = (ControllerAction<R>)action.Duplicate(true);
 				instance.SetMeta(META_INSTANCE_RESOURCE_PATH, action.ResourcePath);
 				instances.Add(instance);
 			}

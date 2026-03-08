@@ -1,7 +1,0 @@
-[gd_resource type="Resource" script_class="HealAction" format=3 uid="uid://45codgfkdjhs"]
-
-[ext_resource type="Script" uid="uid://dvlwfrwofskwd" path="res://src/Actor/Actions/Combat/HealAction.cs" id="1_w8w5y"]
-
-[resource]
-script = ExtResource("1_w8w5y")
-Name = "Heal"

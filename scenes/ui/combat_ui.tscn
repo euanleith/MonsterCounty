@@ -70,7 +70,7 @@ text = "button 1"
 
 [node name="PositionButton" type="Button" parent="." unique_id=1496817340]
 offset_left = 556.0
-offset_top = 490.0
+offset_top = 492.0
 offset_right = 627.0
-offset_bottom = 521.0
+offset_bottom = 523.0
 text = "Position"

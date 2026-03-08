@@ -1,3 +1,5 @@
+using Godot;
+using MonsterCounty.Actor.Actions.Combat;
 using MonsterCounty.Actor.Combat;
 using MonsterCounty.Actor.Controllers;
 using MonsterCounty.Actor.World;
@@ -13,6 +15,7 @@ namespace MonsterCounty.State
 		public readonly string[] ActionResourcePaths;
 		public readonly string WorldPath;
 		public readonly CombatPosition CombatPosition;
+		public readonly Weapon Weapon;
 
 		public CombatActorState(CombatActor combatActor, WorldActor worldActor=null) : this()
 		{
@@ -29,6 +32,7 @@ namespace MonsterCounty.State
 			}
 			if (worldActor != null) WorldPath = GetNodeId(worldActor);
 			CombatPosition = combatController.CombatPosition;
+			Weapon = combatController.Weapon;
 		}
 	}
 }
