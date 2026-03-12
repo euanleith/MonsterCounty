@@ -10,7 +10,18 @@ namespace MonsterCounty.Actor.Actions.Movement
 	{
 		public override Vector2 Do(double delta)
 		{
-			Vector2 velocity = ClampDirection(GetMovementInput()) * Actor.Controllers.Get<MovementController>().Speed;
+			MovementController movementController = Actor.Controllers.Get<MovementController>();
+			Vector2 velocity = ClampDirection(GetMovementInput());
+			if (GetRunInput())
+			{
+				movementController.IsRunning = true;
+				velocity *= movementController.RunSpeed;
+			}
+			else
+			{
+				movementController.IsRunning = false;
+				velocity *= movementController.Speed;
+			}
 			return Actor.Position + velocity * (float)delta;
 		}
 	}

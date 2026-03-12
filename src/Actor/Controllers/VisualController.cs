@@ -8,10 +8,13 @@ namespace MonsterCounty.Actor.Controllers
 	{
 		private AnimatedSprite2D _sprite;
 		
+		private const string WALK = "walk";
+		private const string RUN = "run";
+		
 		public override void Load(Actor actor)
 		{
 			base.Load(actor);
-			_sprite = Actor.GetNode<AnimatedSprite2D>("AnimatedSprite2D"); // todo shouldn't be dependent on specific names. i think $mynode is better though? 
+			_sprite = Actor.GetNode<AnimatedSprite2D>("AnimatedSprite2D"); // todo shouldn't be dependent on specific names. i think $mynode is better though?
 		}
 		
 		public override void _Process(double delta)
@@ -40,11 +43,11 @@ namespace MonsterCounty.Actor.Controllers
 			return Vector2.Zero;
 		}
 
-		public void UpdateAnimation(Vector2 direction)
+		public void UpdateAnimation(Vector2 direction, bool isRunning)
 		{
 			if (direction == Vector2.Zero) return;
 			direction = ClampDirection(direction).Normalized();
-			string anim = direction switch
+			string directionName = direction switch
 			{
 				{ X: > 0.5f } => Direction.RIGHT,
 				{ X: < -0.5f } => Direction.LEFT,
@@ -52,6 +55,8 @@ namespace MonsterCounty.Actor.Controllers
 				{ Y: < -0.5f } => Direction.UP,
 				_ => _sprite.Animation
 			};
+			string stateName = isRunning ? RUN : WALK;
+			string anim = stateName + "_" + directionName;
 			_sprite.Play(anim);
 		}
 

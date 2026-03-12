@@ -9,9 +9,11 @@ namespace MonsterCounty.Actor.Controllers
 	public partial class MovementController : InstancedActionController<Vector2>
 	{
 		[Export] public float Speed { get; private set; }
+		[Export] public float RunSpeed { get; private set; }
 
 		public bool IsMoving { get; private set; }
 		private Vector2 _prevPosition;
+		public bool IsRunning;
 
 		protected override void Save()
 		{
@@ -29,7 +31,7 @@ namespace MonsterCounty.Actor.Controllers
 			if (_prevPosition != Actor.Position)
 			{
 				IsMoving = true; 
-				Actor.Controllers.Get<VisualController>().UpdateAnimation(GetDirection(Actor.Position, _prevPosition));
+				Actor.Controllers.Get<VisualController>().UpdateAnimation(GetDirection(Actor.Position, _prevPosition), IsRunning);
 				Actor.Rotation = GetRotation(Actor.Position, _prevPosition);
 			}
 			else IsMoving = false;

@@ -20,5 +20,7 @@ namespace MonsterCounty.Utilities
         }
 
         public static bool GetInteractInput() => Input.IsActionJustPressed("interact");
+        
+        public static bool GetRunInput() => Input.IsActionPressed("run");
     }
 }

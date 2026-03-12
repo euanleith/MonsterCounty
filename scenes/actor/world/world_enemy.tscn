@@ -33,7 +33,7 @@ animations = [{
 "texture": ExtResource("3_wi157")
 }],
 "loop": true,
-"name": &"down",
+"name": &"walk_down",
 "speed": 5.0
 }, {
 "frames": [{
@@ -44,7 +44,7 @@ animations = [{
 "texture": ExtResource("5_crudg")
 }],
 "loop": true,
-"name": &"left",
+"name": &"walk_left",
 "speed": 5.0
 }, {
 "frames": [{
@@ -55,7 +55,7 @@ animations = [{
 "texture": ExtResource("3_e1ltt")
 }],
 "loop": true,
-"name": &"right",
+"name": &"walk_right",
 "speed": 5.0
 }, {
 "frames": [{
@@ -66,7 +66,7 @@ animations = [{
 "texture": ExtResource("9_23krh")
 }],
 "loop": true,
-"name": &"up",
+"name": &"walk_up",
 "speed": 5.0
 }]
 
@@ -86,7 +86,7 @@ shape = SubResource("CapsuleShape2D_4du3b")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1758842866]
 scale = Vector2(0.75, 0.75)
 sprite_frames = SubResource("SpriteFrames_wi157")
-animation = &"right"
+animation = &"walk_up"
 
 [node name="MovementController" parent="." unique_id=1435023787 instance=ExtResource("8_ipns3")]
 Speed = 200.0
