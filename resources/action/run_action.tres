@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="RunAction" format=3 uid="uid://de33ln78gooia"]
+
+[ext_resource type="Script" uid="uid://4k1tcknq0c7y" path="res://src/Actor/Actions/Combat/RunAction.cs" id="1_4g5pp"]
+
+[resource]
+script = ExtResource("1_4g5pp")
+Name = "Run"

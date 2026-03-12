@@ -40,7 +40,7 @@ namespace MonsterCounty.Scene
 		private void ApplyGameState(Party losers)
 		{
 			GameState.PlayerSpawnName = SpawnController.SpawnType.CurrentPosition.GetStringValue();
-			if (losers.Any())
+			if (losers != null && losers.Any())
 			{
 				if (losers.Get(0) is CombatEnemy) // todo eventually check each individually
 				{

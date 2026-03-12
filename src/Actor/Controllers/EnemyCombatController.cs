@@ -1,8 +1,7 @@
 using System;
 using System.Collections.Generic;
 using MonsterCounty.Actor.Combat;
-using MonsterCounty.Actor.Decisions;
-using MonsterCounty.Actor.Decisions.Combat;
+using MonsterCounty.Actor.Combat.TurnResults;
 
 namespace MonsterCounty.Actor.Controllers
 {
@@ -11,13 +10,11 @@ namespace MonsterCounty.Actor.Controllers
 		public override TurnResult StartTurn()
 		{
 			base.StartTurn();
-			Random rand = new Random();
+			Random rand = new Random(); // todo choice of target should be in decision too
 			List<int> aliveOpponents = Opponents.GetAliveMembersIndices();
 			double opponentIndex = aliveOpponents[rand.Next(aliveOpponents.Count)];
-			return new TurnResult(
-				false,
-				TakeTurn(opponentIndex)
-			);
+			CombatActor actorToDie = TakeTurn(opponentIndex);
+			return actorToDie == null ? new PassResult() : new ActorToDieResult(actorToDie);
 		}
 	}
 }

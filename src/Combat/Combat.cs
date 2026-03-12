@@ -2,10 +2,9 @@ using System;
 using System.Linq;
 using Godot;
 using MonsterCounty.Actor.Combat;
+using MonsterCounty.Actor.Combat.TurnResults;
 using MonsterCounty.Actor.Controllers;
-using MonsterCounty.Actor.World;
 using MonsterCounty.Model;
-using MonsterCounty.State;
 
 namespace MonsterCounty.Combat
 {
@@ -39,11 +38,17 @@ namespace MonsterCounty.Combat
 			CombatController combatController = next.Controllers.Get<CombatController>();
 			if (combatController.IsAlive)
 			{
-				TurnResult res = combatController.StartTurn();
-				if (res.WaitingForInput) return;
-				if (res.ActorToDie != null)
+				TurnResult result = combatController.StartTurn();
+				switch (result)
 				{
-					if (!OnActorDie(res.ActorToDie)) return;
+					case ActorToDieResult r:
+						if (!OnActorDie(r.Actor)) return;
+						break;
+					case WaitForInputResult:
+						return;
+					case RunResult:
+						if (!OnActorRun(combatController.Actor)) return;
+						break;
 				}
 			}
 			NextTurn();
@@ -51,10 +56,20 @@ namespace MonsterCounty.Combat
 
 		public void ResolveTurn(CombatPlayer player, int index)
 		{
-			CombatActor actorToDie = player.Controllers.Get<CombatController>().ResolveTurn(index);
-			if (actorToDie != null)
+			CombatController combatController = player.Controllers.Get<CombatController>();
+			TurnResult result = combatController.ResolveTurn(index);
+			switch (result)
 			{
-				if (!OnActorDie(actorToDie)) return;
+				case ActorToDieResult r:
+					if (!OnActorDie(r.Actor)) return;
+					break;
+				case RunResult:
+					if (combatController.Party.GetAliveMembersIndices().Count == 1)
+					{
+						OnActorRun(combatController.Actor);
+						return;
+					}
+					break;
 			}
 			NextTurn();
 		}
@@ -68,17 +83,32 @@ namespace MonsterCounty.Combat
 		private bool OnActorDie(CombatActor actor)
 		{
 			GD.Print($"{actor.Name} died!");
+			CombatController combatController = actor.Controllers.Get<CombatController>();
+			Party party = combatController.Party;
 			ActorDying?.Invoke(actor);
-			Party party = actor.Controllers.Get<CombatController>().Party;
-			if (party.IsDefeated())
+			if (party.IsDefeated() || combatController == party.HoldingTheLine)
 			{
+				if (combatController == party.HoldingTheLine) GD.Print($"{actor.Name} died while holding the line");
 				Exit(party);
 				return false;
 			}
 			return true;
 		}
 
-		private void Exit(Party losers)
+		private bool OnActorRun(Actor.Actor actor)
+		{
+			CombatController combatController = actor.Controllers.Get<CombatController>();
+			if (combatController.Party.HoldingTheLine == combatController)
+			{
+				GD.Print($"{actor.Name} successfully held the line, party running away!");
+				Exit(null);
+				return false;
+			} 
+			GD.Print($"{actor.Name} ran away!");
+			return true;
+		}
+
+		public void Exit(Party losers)
 		{
 			GD.Print("exiting combat");
 			Instance = null;

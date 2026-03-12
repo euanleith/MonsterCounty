@@ -4,6 +4,7 @@ using MonsterCounty.Actor.Controllers;
 
 namespace MonsterCounty.Actor.Actions.Combat
 {
+	[GlobalClass]
 	public abstract partial class CombatAction : ControllerAction<CombatActor>
 	{
 		[Export] public string Name;

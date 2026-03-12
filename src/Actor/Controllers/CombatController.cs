@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Godot;
 using MonsterCounty.Actor.Actions.Combat;
 using MonsterCounty.Actor.Combat;
+using MonsterCounty.Actor.Combat.TurnResults;
 using MonsterCounty.Actor.Decisions.Combat;
 using MonsterCounty.Actor.World;
 using MonsterCounty.Combat;
@@ -30,11 +31,18 @@ namespace MonsterCounty.Actor.Controllers
 		public bool IsAlive => CurrentHealth > 0;
 		public bool HasChangedPosition;
 		public bool IsDefending { get; set; }
+		public CombatController Focus;
 
 		public override void Load(Actor actor)
 		{
 			base.Load(actor);
 			CurrentHealth = MaxHealth;
+			MonsterCounty.Combat.Combat.ActorDying += OnActorDie;
+		}
+
+		public override void _ExitTree()
+		{
+			MonsterCounty.Combat.Combat.ActorDying -= OnActorDie;
 		}
 		
 		// todo should use existing load and save functions
@@ -66,10 +74,10 @@ namespace MonsterCounty.Actor.Controllers
 		public virtual TurnResult StartTurn()
 		{
 			HasChangedPosition = false;
-			return new TurnResult(); // shouldn't be returned
+			return new PassResult(); // shouldn't be returned
 		}
 		
-		public virtual CombatActor ResolveTurn(int index) => null;
+		public virtual TurnResult ResolveTurn(int index) => null;
 		
 		public CombatActor TakeTurn(double delta)
 		{
@@ -92,6 +100,25 @@ namespace MonsterCounty.Actor.Controllers
 			if (IsDefending) nDice++;
 			IsDefending = false;
 			return Dice.Roll(nDice, 8);
+		}
+
+		private void OnActorDie(CombatActor actor)
+		{
+			LoseFocus(actor);
+		}
+
+		private void LoseFocus(CombatActor actor)
+		{
+			if (Focus == actor.Controllers.Get<CombatController>()) Focus = null;
+		}
+
+		private void StopHoldingTheLine(CombatActor actor)
+		{
+			if (actor == Actor && Party.HoldingTheLine == this)
+			{
+				GD.Print($"{Actor.Name} no longer holding the line");
+				Party.HoldingTheLine = null;
+			}
 		}
 	}
 }

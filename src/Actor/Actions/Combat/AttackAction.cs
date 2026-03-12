@@ -12,9 +12,15 @@ namespace MonsterCounty.Actor.Actions.Combat
         {
             int index = (int)delta;
             CombatController opponent = Self.Opponents.Get(index).Controllers.Get<CombatController>();
-            GD.Print($"{Actor.Name} attacking {Self.Opponents.Get(index).Name}");
+            if (Self.Focus != null)
+            {
+                GD.Print($"{Actor.Name} focused on {Self.Focus.Actor.Name}");
+                opponent = Self.Focus;
+                index = Self.Opponents.IndexOf(opponent.Actor as CombatActor);
+            }
+            GD.Print($"{Actor.Name} attacking {opponent.Actor.Name}");
             if (RollToHit(opponent)) opponent.CurrentHealth -= RollDamage();
-            return base.Do(delta);
+            return base.Do(index);
         }
 
         private bool RollToHit(CombatController opponent)

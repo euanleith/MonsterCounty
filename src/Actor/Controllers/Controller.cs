@@ -5,7 +5,7 @@ namespace MonsterCounty.Actor.Controllers
 {
 	public partial class Controller : Node
 	{
-		protected Actor Actor { get; private set; }
+		public Actor Actor { get; private set; }
 		
 		public virtual void Load(Actor actor)
 		{

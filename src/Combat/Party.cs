@@ -14,12 +14,14 @@ namespace MonsterCounty.Combat
 	{
 		private Array<CombatActor> _members;
 		private List<CombatActorState> _state;
+		public CombatController HoldingTheLine { get; set; }
 		
 		IEnumerator<CombatActor> IEnumerable<CombatActor>.GetEnumerator() => _members.GetEnumerator();
 		public IEnumerator GetEnumerator() => _members.GetEnumerator();
 		public IEnumerable<CombatActor> Concat(Party other) => _members.Concat(other._members);
 		public int Count() => _members.Count;
 		public CombatActor Get(int index) => _members[index];
+		public int IndexOf(CombatActor actor) =>_members.IndexOf(actor);
 
 		public int IndexOf(CombatPosition position, Actor.Actor exclude=null)
 		{

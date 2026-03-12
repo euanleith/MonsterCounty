@@ -4,6 +4,7 @@
 [ext_resource type="Resource" uid="uid://b1qnlot03ansh" path="res://resources/action/attack_action.tres" id="2_2xrh7"]
 [ext_resource type="Resource" uid="uid://c4742mhftx776" path="res://resources/weapon/revolver.tres" id="2_s0kgp"]
 [ext_resource type="Script" path="csharp://src/Actor/Actions/ControllerAction.cs:MonsterCounty.Actor.Actions.ControllerAction`1[MonsterCounty.Actor.Combat.CombatActor].cs" id="3_qebru"]
+[ext_resource type="Resource" uid="uid://de33ln78gooia" path="res://resources/action/run_action.tres" id="6_fxqgw"]
 [ext_resource type="Script" path="csharp://src/Actor/Decisions/FirstDecision.cs:MonsterCounty.Actor.Decisions.FirstDecision`2[MonsterCounty.Actor.Controllers.ActionController`1[MonsterCounty.Actor.Combat.CombatActor],MonsterCounty.Actor.Combat.CombatActor].cs" id="6_gdlfi"]
 [ext_resource type="Resource" uid="uid://b8gotq32a8012" path="res://resources/action/defend_action.tres" id="6_qebru"]
 
@@ -16,5 +17,5 @@ script = ExtResource("6_gdlfi")
 MaxHealth = 5
 CombatPosition = 3
 Weapon = ExtResource("2_s0kgp")
-Actions = Array[ExtResource("3_qebru")]([ExtResource("2_2xrh7"), ExtResource("6_qebru")])
+Actions = Array[ExtResource("3_qebru")]([ExtResource("2_2xrh7"), ExtResource("6_qebru"), ExtResource("6_fxqgw")])
 Decision = SubResource("Resource_s0kgp")
