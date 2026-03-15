@@ -72,7 +72,7 @@ script = ExtResource("11_b0c76")
 [sub_resource type="Resource" id="Resource_wi3ns"]
 script = ExtResource("15_n1jfc")
 
-[node name="NPC" type="CharacterBody2D" unique_id=1355807265 groups=["pause"]]
+[node name="NPC" type="CharacterBody2D" unique_id=1355807265 groups=["npc", "pause"]]
 collision_layer = 2
 collision_mask = 15
 script = ExtResource("1_7n8xq")

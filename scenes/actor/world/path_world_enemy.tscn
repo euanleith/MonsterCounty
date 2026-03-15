@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://ct0vkgbfu7lsw"]
+
+[ext_resource type="PackedScene" uid="uid://ddn1j18ymh155" path="res://scenes/actor/world/world_enemy.tscn" id="1_ohbx2"]
+[ext_resource type="Script" path="csharp://src/Actor/Actions/ControllerAction.cs:MonsterCounty.Actor.Actions.ControllerAction`1[Godot.Vector2].cs" id="2_afxxh"]
+[ext_resource type="Resource" uid="uid://tkm1h1k04gkm" path="res://resources/action/path_movement_action.tres" id="3_rwjpt"]
+
+[sub_resource type="Curve2D" id="Curve2D_nwcem"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -64, 704, 0, 0, 0, 0, 256, 704, 0, 0, 0, 0, -64, 704)
+}
+point_count = 3
+
+[node name="WorldEnemy" unique_id=434891005 instance=ExtResource("1_ohbx2")]
+
+[node name="MovementController" parent="." index="2" unique_id=1435023787]
+Actions = Array[ExtResource("2_afxxh")]([ExtResource("3_rwjpt")])
+
+[node name="Path2D" type="Path2D" parent="MovementController" index="0" unique_id=630316538]
+curve = SubResource("Curve2D_nwcem")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="MovementController/Path2D" index="0" unique_id=2048346025]
+position = Vector2(-64, 704)
+
+[editable path="Party/CombatEnemy"]

@@ -1,18 +1,27 @@
-[gd_scene format=3 uid="uid://x2jy23d5u43b"]
+[gd_scene format=3 uid="uid://cl11hwb2dv6b2"]
 
-[ext_resource type="Curve2D" uid="uid://e1ud1ub80b6j" path="res://resources/curve_2d.tres" id="1_s62kv"]
-[ext_resource type="PackedScene" uid="uid://cqaqm4aqymh8n" path="res://scenes/actor/world/world_npc.tscn" id="1_wdry7"]
-[ext_resource type="Resource" uid="uid://tkm1h1k04gkm" path="res://resources/action/path_movement_action.tres" id="3_4ym8n"]
+[ext_resource type="PackedScene" uid="uid://cqaqm4aqymh8n" path="res://scenes/actor/world/world_npc.tscn" id="2_7ors0"]
+[ext_resource type="Script" path="csharp://src/Actor/Actions/ControllerAction.cs:MonsterCounty.Actor.Actions.ControllerAction`1[Godot.Vector2].cs" id="2_wrlpa"]
+[ext_resource type="Script" uid="uid://ipunyo8kfmnx" path="res://src/Actor/Actions/Movement/PathMovementAction.cs" id="3_7ors0"]
 
-[node name="PathNPC" type="Path2D" unique_id=1337747689]
-curve = ExtResource("1_s62kv")
+[sub_resource type="Resource" id="Resource_bis6r"]
+script = ExtResource("3_7ors0")
+metadata/_custom_type_script = "uid://ipunyo8kfmnx"
 
-[node name="PathFollow2D" type="PathFollow2D" parent="." unique_id=1522427681]
-position = Vector2(24, 0)
+[sub_resource type="Curve2D" id="Curve2D_ct57f"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 192, 320, 0, 0, 0, 0, 448, 320, 0, 0, 0, 0, 192, 320)
+}
+point_count = 3
 
-[node name="NPC" parent="." unique_id=1355807265 groups=["npc"] instance=ExtResource("1_wdry7")]
+[node name="PathNPC" unique_id=1355807265 instance=ExtResource("2_7ors0")]
 
-[node name="MovementController" parent="NPC" index="2" unique_id=1435023787]
-Actions = Array[Resource]([ExtResource("3_4ym8n")])
+[node name="MovementController" parent="." index="2" unique_id=1435023787]
+Speed = 200.0
+Actions = Array[ExtResource("2_wrlpa")]([SubResource("Resource_bis6r")])
 
-[editable path="NPC"]
+[node name="Path2D" type="Path2D" parent="MovementController" index="0" unique_id=1021028726]
+curve = SubResource("Curve2D_ct57f")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="MovementController/Path2D" index="0" unique_id=1625945566]
+position = Vector2(192, 320)

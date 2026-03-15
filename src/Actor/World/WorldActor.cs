@@ -8,10 +8,23 @@ using MonsterCounty.State;
 
 namespace MonsterCounty.Actor.World
 {
+	[Tool]
 	public abstract partial class WorldActor : Actor
 	{
 		protected WorldScene WorldScene;
 		public Party Party;
+		
+		public override void _Ready()
+		{
+			if (Engine.IsEditorHint())
+			{
+				if (FindChild("Path2D", true, false) is Path2D path)
+				{
+					GD.Print("found child for " + Name);
+					path.Owner = GetTree().EditedSceneRoot;
+				}
+			}
+		}
 
 		public override void Load()
 		{

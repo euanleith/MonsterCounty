@@ -4,18 +4,12 @@
 [ext_resource type="PackedScene" uid="uid://crlb6673y01ua" path="res://scenes/world/portal.tscn" id="3_etfkh"]
 [ext_resource type="PackedScene" uid="uid://8wgc112a71tx" path="res://scenes/world/spawn.tscn" id="4_6ujm0"]
 [ext_resource type="PackedScene" uid="uid://w66w4orih5r" path="res://scenes/actor/world/receiver.tscn" id="5_g3d1d"]
-[ext_resource type="PackedScene" uid="uid://x2jy23d5u43b" path="res://scenes/actor/world/path_world_npc.tscn" id="6_fgmxq"]
+[ext_resource type="PackedScene" uid="uid://cl11hwb2dv6b2" path="res://scenes/actor/world/path_world_npc.tscn" id="6_fpffk"]
 [ext_resource type="PackedScene" uid="uid://ddn1j18ymh155" path="res://scenes/actor/world/world_enemy.tscn" id="7_rgkux"]
 [ext_resource type="PackedScene" uid="uid://draqkjhp70lmy" path="res://scenes/combat/combat_enemy.tscn" id="8_8cb7k"]
+[ext_resource type="PackedScene" uid="uid://ct0vkgbfu7lsw" path="res://scenes/actor/world/path_world_enemy.tscn" id="8_fpffk"]
 
-[sub_resource type="Curve2D" id="Curve2D_jmtjs"]
-resource_local_to_scene = true
-_data = {
-"points": PackedVector2Array(0, 0, 0, 0, 13, 2, 0, 0, 0, 0, 268, 0, 0, 0, 0, 0, 10, 2)
-}
-point_count = 3
-
-[node name="World" unique_id=1342078205 instance=ExtResource("1_o4vn4")]
+[node name="World2" unique_id=1342078205 instance=ExtResource("1_o4vn4")]
 
 [node name="TileMapLayer" parent="." index="1" unique_id=1992197526]
 tile_map_data = PackedByteArray("AAD8/wAAAAAQAAUAAAD9/wAAAAAQAAUAAAD+/wAAAAAQAAUAAAD//wAAAAAQAAUAAAAAAAAAAAAQAAUAAAABAAAAAAAQAAUAAAACAAAAAAAQAAUAAAADAAAAAAAQAAUAAAAEAAAAAAAQAAUAAAAFAAAAAAAQAAUAAAAGAAAAAAAQAAUAAAAHAAAAAAAQAAUAAAAIAAAAAAAQAAUAAAAJAAAAAAAQAAUAAAAKAAAAAAAQAAUAAAALAAAAAAAQAAUAAAAMAAAAAAAQAAUAAAANAAAAAAAQAAUAAAAOAAAAAAAQAAUAAAAPAAAAAAAQAAUAAAAQAAAAAAAQAAUAAAARAAAAAAAQAAUAAAASAAAAAAAQAAUAAAATAAAAAAAQAAUAAAAUAAAAAAAQAAUAAAAVAAAAAAAQAAUAAAAWAAAAAAAQAAUAAAAWAAEAAAAQAAUAAAAWAAIAAAAQAAUAAAAWAAMAAAAQAAUAAAAWAAQAAAAQAAUAAAAWAAUAAAAQAAUAAAAWAAYAAAAQAAUAAAAWAAcAAAAQAAUAAAAWAAgAAAAQAAUAAAAWAAkAAAAQAAUAAAAWAAoAAAAQAAUAAAAWAAsAAAAQAAUAAAD8/wEAAAAQAAUAAAD8/wIAAAAQAAUAAAD8/wMAAAAQAAUAAAD8/wQAAAAQAAUAAAD8/wUAAAAQAAUAAAD8/wYAAAAQAAUAAAD8/wcAAAAQAAUAAAD8/wgAAAAQAAUAAAD8/wwAAAAQAAUAAAD8/wkAAAAQAAUAAAD8/woAAAAQAAUAAAD8/wsAAAAQAAUAAAD8/w0AAAAQAAUAAAD9/w0AAAAQAAUAAAD+/w0AAAAQAAUAAAD//w0AAAAQAAUAAAAAAA0AAAAQAAUAAAABAA0AAAAQAAUAAAACAA0AAAAQAAUAAAADAA0AAAAQAAUAAAAEAA0AAAAQAAUAAAAFAA0AAAAQAAUAAAAGAA0AAAAQAAUAAAAHAA0AAAAQAAUAAAAMAA0AAAAQAAUAAAANAA0AAAAQAAUAAAAOAA0AAAAQAAUAAAAPAA0AAAAQAAUAAAAQAA0AAAAQAAUAAAARAA0AAAAQAAUAAAASAA0AAAAQAAUAAAATAA0AAAAQAAUAAAAUAA0AAAAQAAUAAAAVAA0AAAAQAAUAAAAWAA0AAAAQAAUAAAAWAAwAAAAQAAUAAAAIAA0AAAAQAAUAAAAJAA0AAAAQAAUAAAAKAA0AAAAQAAUAAAALAA0AAAAQAAUAAAANAAUAAAAQAAYAAAANAAQAAAAQAAYAAAAOAAQAAAAQAAYAAAAPAAQAAAAQAAYAAAAPAAUAAAAQAAYAAAA=")
@@ -31,9 +25,8 @@ position = Vector2(928, 416)
 [node name="Receiver" parent="Objects" parent_id_path=PackedInt32Array(519290412) index="0" unique_id=1082027508 instance=ExtResource("5_g3d1d")]
 position = Vector2(1152, 128)
 
-[node name="PathNPC" parent="NPCs" parent_id_path=PackedInt32Array(529508051) index="0" unique_id=1337747689 instance=ExtResource("6_fgmxq")]
-position = Vector2(180, 128)
-curve = SubResource("Curve2D_jmtjs")
+[node name="PathNPC" parent="NPCs" parent_id_path=PackedInt32Array(529508051) index="0" unique_id=1355807265 instance=ExtResource("6_fpffk")]
+position = Vector2(192, 320)
 
 [node name="WorldEnemy" parent="Enemies" parent_id_path=PackedInt32Array(784199405) index="0" unique_id=434891005 instance=ExtResource("7_rgkux")]
 position = Vector2(-128, 256)
@@ -47,8 +40,14 @@ MaxHealth = 5
 [node name="WorldEnemy2" parent="Enemies" parent_id_path=PackedInt32Array(784199405) index="1" unique_id=1514366982 instance=ExtResource("7_rgkux")]
 position = Vector2(-64, 128)
 
+[node name="WorldEnemy3" parent="Enemies" parent_id_path=PackedInt32Array(784199405) index="2" unique_id=77113484 instance=ExtResource("8_fpffk")]
+position = Vector2(-64, 704)
+
+[editable path="NPCs/PathNPC"]
 [editable path="Enemies/WorldEnemy"]
 [editable path="Enemies/WorldEnemy/Party/CombatEnemy"]
 [editable path="Enemies/WorldEnemy/Party/CombatEnemy2"]
 [editable path="Enemies/WorldEnemy2"]
 [editable path="Enemies/WorldEnemy2/Party/CombatEnemy"]
+[editable path="Enemies/WorldEnemy3"]
+[editable path="Enemies/WorldEnemy3/Party/CombatEnemy"]

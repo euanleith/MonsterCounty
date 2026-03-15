@@ -1,3 +1,4 @@
+using System;
 using Godot;
 using MonsterCounty.Actor.Controllers;
 
@@ -6,19 +7,31 @@ namespace MonsterCounty.Actor.Actions.Movement
 	[GlobalClass]
 	public partial class PathMovementAction : ControllerAction<Vector2>
 	{
+		private Path2D _path;
 		private PathFollow2D _pathFollow;
 
 		public override void CustomInit(Actor actor)
 		{
 			base.CustomInit(actor);
-			_pathFollow = Actor.GetParent().GetNode<PathFollow2D>("PathFollow2D"); // todo could i have this contain a Curve resource, and programmatically wrap the actor in a path2d & pathfollow2d?
-			if (_pathFollow == null) GD.PushError($"PathMovementAction for {Actor.GetType().Name} missing PathFollow2D sibling.");
+			try
+			{
+				_path = Actor.Controllers.Get<MovementController>().GetNode<Path2D>("Path2D");
+				_path.Owner = Actor;
+				_pathFollow = _path.GetNode<PathFollow2D>("PathFollow2D");
+			}
+			catch (Exception)
+			{
+				GD.PushError($"MovementController with PathMovementAction for {Actor.GetType().Name} missing Path2D/PathFollow2D child.");
+			}
 		}
 
 		public override Vector2 Do(double delta)
 		{
-			_pathFollow.ProgressRatio += Actor.Controllers.Get<MovementController>().Speed * (float)delta;
-			if (_pathFollow.ProgressRatio > 1f) _pathFollow.ProgressRatio = 0f;
+			_pathFollow.Progress = Mathf.Wrap(
+				_pathFollow.Progress + Actor.Controllers.Get<MovementController>().Speed * (float)delta,
+				0f,
+				_path.Curve.GetBakedLength()
+			);
 			return _pathFollow.Position;
 		}
 	}
