@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://ddn1j18ymh155" path="res://scenes/actor/world/world_enemy.tscn" id="1_dp1o7"]
 [ext_resource type="Script" uid="uid://cfiohv5fprm06" path="res://src/Actor/World/WorldMob.cs" id="2_n37hf"]
 [ext_resource type="Resource" uid="uid://b21fqsa68dpqu" path="res://resources/action/mob_movement_action.tres" id="3_jajrg"]
+[ext_resource type="Script" path="csharp://src/Actor/Actions/ControllerAction.cs:MonsterCounty.Actor.Actions.ControllerAction`1[Godot.Vector2].cs" id="3_qtftu"]
 
 [sub_resource type="Curve2D" id="Curve2D_n37hf"]
 
@@ -17,6 +18,6 @@ curve = SubResource("Curve2D_n37hf")
 [node name="PathFollow2D" type="PathFollow2D" parent="Path2D" index="0" unique_id=963117072]
 
 [node name="MovementController" parent="." index="4" unique_id=1435023787]
-Actions = Array[Resource]([ExtResource("3_jajrg")])
+Actions = Array[ExtResource("3_qtftu")]([ExtResource("3_jajrg")])
 
 [editable path="Party/CombatEnemy"]

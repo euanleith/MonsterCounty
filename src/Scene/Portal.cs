@@ -7,7 +7,7 @@ namespace MonsterCounty.Scene
     public partial class Portal : Area2D
     {
         [Export] private string _dstScene; // using PackedScene causes circular dependency - https://github.com/godotengine/godot/issues/104769
-        [Export] private string _dstPortal;
+        [Export] private string _dstSpawn;
 
         public override void _Ready()
         {
@@ -16,7 +16,7 @@ namespace MonsterCounty.Scene
         
         private void OnBodyEntered(Node2D body)
         {
-            WorldPlayer.Instance.Get().Controllers.Get<SpawnController>().SpawnName = _dstPortal;
+            WorldPlayer.Instance.Get().Controllers.Get<SpawnController>().SpawnName = _dstSpawn;
             SceneManager.Instance.Get().ChangeToWorldScene(GetTree(), _dstScene);
         }
     }

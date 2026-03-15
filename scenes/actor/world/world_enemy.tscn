@@ -86,7 +86,7 @@ shape = SubResource("CapsuleShape2D_4du3b")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1758842866]
 scale = Vector2(0.75, 0.75)
 sprite_frames = SubResource("SpriteFrames_wi157")
-animation = &"walk_up"
+animation = &"walk_right"
 
 [node name="MovementController" parent="." unique_id=1435023787 instance=ExtResource("8_ipns3")]
 Speed = 200.0
@@ -102,6 +102,7 @@ Decision = SubResource("Resource_23krh")
 [node name="Party" parent="." unique_id=1315856782 instance=ExtResource("15_wi157")]
 
 [node name="CombatEnemy" parent="Party" unique_id=1594809982 instance=ExtResource("18_crudg")]
+visible = false
 
 [node name="CombatController" parent="Party/CombatEnemy" index="3" unique_id=849664991]
 MaxHealth = 5

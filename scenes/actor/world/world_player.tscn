@@ -167,8 +167,10 @@ Decision = SubResource("Resource_cidil")
 [node name="Party" parent="." unique_id=1315856782 instance=ExtResource("17_7bx8s")]
 
 [node name="CombatPlayer" parent="Party" unique_id=1566038033 instance=ExtResource("18_253bv")]
+visible = false
 
 [node name="CombatPlayer2" parent="Party" unique_id=1161362561 instance=ExtResource("19_253bv")]
+visible = false
 
 [editable path="Party/CombatPlayer"]
 [editable path="Party/CombatPlayer2"]
