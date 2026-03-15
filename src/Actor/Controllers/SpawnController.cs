@@ -1,12 +1,13 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using Godot;
+using MonsterCounty.Actor.World;
 using MonsterCounty.Model;
 using MonsterCounty.State;
 
 namespace MonsterCounty.Actor.Controllers
 {
-	public partial class SpawnController : Controller
+	public partial class SpawnController : Controller<WorldActor>
 	{
 		[Export] public string SpawnName;
 

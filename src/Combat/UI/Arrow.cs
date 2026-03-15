@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using System.Linq;
 using Godot;
 using MonsterCounty.Actor.Combat;
 using MonsterCounty.Actor.Controllers;
@@ -56,7 +54,7 @@ namespace MonsterCounty.Combat.UI
 		public bool Rebind(CombatPosition combatPosition)
 		{
 			int index = _party.IndexOf(combatPosition);
-			if (index == -1 || !_party.Get(index).Controllers.Get<CombatController>().IsAlive) return false;
+			if (index == -1 || !_party.Get(index).CombatController.IsAlive) return false;
 			SelectedIndex = index;
 			Rebind(_party.Get(index));
 			return true;
@@ -64,7 +62,7 @@ namespace MonsterCounty.Combat.UI
 
 		public void Rebind(CombatActor actor)
 		{
-			float offsetY = _arrowOffsetY + actor.Controllers.Get<CombatVisualController>().GetSize().Y/2;
+			float offsetY = _arrowOffsetY + actor.VisualController.GetSize().Y/2;
 			if (_arrowPosition == ArrowPosition.Above) offsetY *= -1;
 			GlobalPosition = actor.GlobalPosition + new Vector2(0, offsetY);
 		}

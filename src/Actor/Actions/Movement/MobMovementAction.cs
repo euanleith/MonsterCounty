@@ -1,10 +1,11 @@
 using Godot;
 using MonsterCounty.Actor.Controllers;
+using MonsterCounty.Actor.World;
 
 namespace MonsterCounty.Actor.Actions.Movement
 {
 	[GlobalClass]
-	public partial class MobMovementAction : ControllerAction<Vector2>
+	public partial class MobMovementAction : ControllerAction<Vector2, WorldActor>
 	{
 		private Vector2 _velocity;
 		public void CustomInit(PathFollow2D spawnLocation)
@@ -17,7 +18,7 @@ namespace MonsterCounty.Actor.Actions.Movement
 			Actor.Position = spawnLocation.Position;
 
 			direction += (float)GD.RandRange(-Mathf.Pi / 4, Mathf.Pi / 4);
-			var velocity = new Vector2(Actor.Controllers.Get<MovementController>().Speed, 0);
+			var velocity = new Vector2(Actor.MovementController.Speed, 0);
 			_velocity = velocity.Rotated(direction);
 		}
 		

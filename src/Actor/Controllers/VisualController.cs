@@ -1,33 +1,16 @@
 using Godot;
-using MonsterCounty.Model;
-using static MonsterCounty.Utilities.VectorUtilities;
 
 namespace MonsterCounty.Actor.Controllers
 {
-	public partial class VisualController : Controller
+	public abstract partial class VisualController<A> : Controller<A>
+		where A : Actor
 	{
-		private AnimatedSprite2D _sprite;
-		
-		private const string WALK = "walk";
-		private const string RUN = "run";
+		protected AnimatedSprite2D Sprite;
 		
 		public override void Load(Actor actor)
 		{
 			base.Load(actor);
-			_sprite = Actor.GetNode<AnimatedSprite2D>("AnimatedSprite2D"); // todo shouldn't be dependent on specific names. i think $mynode is better though?
-		}
-		
-		public override void _Process(double delta)
-		{
-			base._Process(delta);
-			if (_sprite != null)
-			{
-				if (Actor.Controllers.Get<MovementController>() is { IsMoving: true })
-					_sprite.Play();
-				else
-					_sprite.Stop();
-				_sprite.Rotation = -Actor.Rotation;
-			}
+			Sprite = Actor.GetNode<AnimatedSprite2D>("AnimatedSprite2D"); // todo shouldn't be dependent on specific names. i think $mynode is better though?
 		}
 
 		public Vector2 GetSize()
@@ -43,31 +26,14 @@ namespace MonsterCounty.Actor.Controllers
 			return Vector2.Zero;
 		}
 
-		public void UpdateAnimation(Vector2 direction, bool isRunning)
-		{
-			if (direction == Vector2.Zero) return;
-			direction = ClampDirection(direction).Normalized();
-			string directionName = direction switch
-			{
-				{ X: > 0.5f } => Direction.RIGHT,
-				{ X: < -0.5f } => Direction.LEFT,
-				{ Y: > 0.5f } => Direction.DOWN,
-				{ Y: < -0.5f } => Direction.UP,
-				_ => _sprite.Animation
-			};
-			string stateName = isRunning ? RUN : WALK;
-			string anim = stateName + "_" + directionName;
-			_sprite.Play(anim);
-		}
-
 		public void Hide()
 		{
-			_sprite.Visible = false;
+			Sprite.Visible = false;
 		}
 
 		public void Show()
 		{
-			_sprite.Visible = true;
+			Sprite.Visible = true;
 		}
 	}
 }

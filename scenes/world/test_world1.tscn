@@ -3,11 +3,18 @@
 [ext_resource type="PackedScene" uid="uid://uvkjup8xtt83" path="res://scenes/world/world.tscn" id="1_o4vn4"]
 [ext_resource type="PackedScene" uid="uid://crlb6673y01ua" path="res://scenes/world/portal.tscn" id="3_etfkh"]
 [ext_resource type="PackedScene" uid="uid://8wgc112a71tx" path="res://scenes/world/spawn.tscn" id="4_6ujm0"]
-[ext_resource type="PackedScene" uid="uid://w66w4orih5r" path="res://scenes/actor/world/receiver.tscn" id="5_g3d1d"]
+[ext_resource type="Script" path="csharp://src/Actor/Decisions/FirstDecision.cs:MonsterCounty.Actor.Decisions.FirstDecision`3[MonsterCounty.Actor.Controllers.ActionController`2[Godot.Vector2,MonsterCounty.Actor.World.WorldActor],Godot.Vector2,MonsterCounty.Actor.World.WorldActor].cs" id="5_etfkh"]
+[ext_resource type="Script" path="csharp://src/Actor/Decisions/FirstDecision.cs:MonsterCounty.Actor.Decisions.FirstDecision`3[MonsterCounty.Actor.Controllers.ActionController`2[MonsterCounty.Model.CustomVoid,MonsterCounty.Actor.World.WorldActor],MonsterCounty.Model.CustomVoid,MonsterCounty.Actor.World.WorldActor].cs" id="6_6ujm0"]
 [ext_resource type="PackedScene" uid="uid://cl11hwb2dv6b2" path="res://scenes/actor/world/path_world_npc.tscn" id="6_fpffk"]
 [ext_resource type="PackedScene" uid="uid://ddn1j18ymh155" path="res://scenes/actor/world/world_enemy.tscn" id="7_rgkux"]
 [ext_resource type="PackedScene" uid="uid://draqkjhp70lmy" path="res://scenes/combat/combat_enemy.tscn" id="8_8cb7k"]
 [ext_resource type="PackedScene" uid="uid://ct0vkgbfu7lsw" path="res://scenes/actor/world/path_world_enemy.tscn" id="8_fpffk"]
+
+[sub_resource type="Resource" id="Resource_e3xkw"]
+script = ExtResource("5_etfkh")
+
+[sub_resource type="Resource" id="Resource_k6ytk"]
+script = ExtResource("6_6ujm0")
 
 [node name="World2" unique_id=1342078205 instance=ExtResource("1_o4vn4")]
 
@@ -22,14 +29,23 @@ _dstSpawn = "FromTestWorld1"
 [node name="FromTestWorld2" parent="Portals" parent_id_path=PackedInt32Array(1053877030) index="1" unique_id=703143493 instance=ExtResource("4_6ujm0")]
 position = Vector2(928, 416)
 
-[node name="Receiver" parent="Objects" parent_id_path=PackedInt32Array(519290412) index="0" unique_id=1082027508 instance=ExtResource("5_g3d1d")]
-position = Vector2(1152, 128)
-
 [node name="PathNPC" parent="NPCs" parent_id_path=PackedInt32Array(529508051) index="0" unique_id=1355807265 instance=ExtResource("6_fpffk")]
 position = Vector2(192, 320)
 
+[node name="MovementController" parent="NPCs/PathNPC" index="2" unique_id=1435023787]
+Decision = SubResource("Resource_e3xkw")
+
+[node name="ReceptionController" parent="NPCs/PathNPC" index="4" unique_id=1035087376]
+Decision = SubResource("Resource_k6ytk")
+
 [node name="WorldEnemy" parent="Enemies" parent_id_path=PackedInt32Array(784199405) index="0" unique_id=434891005 instance=ExtResource("7_rgkux")]
 position = Vector2(-128, 256)
+
+[node name="MovementController" parent="Enemies/WorldEnemy" index="2" unique_id=1435023787]
+Decision = SubResource("Resource_e3xkw")
+
+[node name="TransmissionController" parent="Enemies/WorldEnemy" index="4" unique_id=1682635438]
+Decision = SubResource("Resource_k6ytk")
 
 [node name="CombatEnemy2" parent="Enemies/WorldEnemy/Party" parent_id_path=PackedInt32Array(434891005, 1315856782) index="1" unique_id=1594809982 instance=ExtResource("8_8cb7k")]
 visible = false
@@ -40,8 +56,20 @@ MaxHealth = 5
 [node name="WorldEnemy2" parent="Enemies" parent_id_path=PackedInt32Array(784199405) index="1" unique_id=1514366982 instance=ExtResource("7_rgkux")]
 position = Vector2(-64, 128)
 
+[node name="MovementController" parent="Enemies/WorldEnemy2" index="2" unique_id=1435023787]
+Decision = SubResource("Resource_e3xkw")
+
+[node name="TransmissionController" parent="Enemies/WorldEnemy2" index="4" unique_id=1682635438]
+Decision = SubResource("Resource_k6ytk")
+
 [node name="WorldEnemy3" parent="Enemies" parent_id_path=PackedInt32Array(784199405) index="2" unique_id=77113484 instance=ExtResource("8_fpffk")]
 position = Vector2(-64, 704)
+
+[node name="MovementController" parent="Enemies/WorldEnemy3" index="2" unique_id=1435023787]
+Decision = SubResource("Resource_e3xkw")
+
+[node name="TransmissionController" parent="Enemies/WorldEnemy3" index="4" unique_id=1682635438]
+Decision = SubResource("Resource_k6ytk")
 
 [editable path="NPCs/PathNPC"]
 [editable path="Enemies/WorldEnemy"]

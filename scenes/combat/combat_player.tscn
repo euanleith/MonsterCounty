@@ -4,6 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://scvabxdnh5qr" path="res://art/player/player_right1.png" id="1_eqesl"]
 [ext_resource type="PackedScene" uid="uid://cp3l3q4tklvp8" path="res://scenes/actor/controller/player_combat_controller.tscn" id="3_kbrux"]
 [ext_resource type="PackedScene" uid="uid://bdte8eqfs0y4v" path="res://scenes/actor/controller/combat_visual_controller.tscn" id="3_wd7n8"]
+[ext_resource type="Script" uid="uid://du0reolka4366" path="res://src/Utilities/Dice.cs" id="5_pghrf"]
+[ext_resource type="Script" uid="uid://cvp0eorw0j2fj" path="res://src/Combat/Weapon.cs" id="6_1gamj"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_kvvui"]
 animations = [{
@@ -20,6 +22,13 @@ animations = [{
 radius = 54.0
 height = 134.0
 
+[sub_resource type="Resource" id="Resource_wtwmv"]
+script = ExtResource("5_pghrf")
+
+[sub_resource type="Resource" id="Resource_eilio"]
+script = ExtResource("6_1gamj")
+Dice = SubResource("Resource_wtwmv")
+
 [node name="CombatPlayer" type="CharacterBody2D" unique_id=1566038033]
 script = ExtResource("1_3plt8")
 
@@ -33,3 +42,4 @@ shape = SubResource("CapsuleShape2D_wd7n8")
 [node name="VisualController" parent="." unique_id=1083062192 instance=ExtResource("3_wd7n8")]
 
 [node name="CombatController" parent="." unique_id=380955144 instance=ExtResource("3_kbrux")]
+Weapon = SubResource("Resource_eilio")

@@ -11,7 +11,11 @@ namespace MonsterCounty.Actor.World
 	[Tool]
 	public abstract partial class WorldActor : Actor
 	{
-		protected WorldScene WorldScene;
+		public MovementController MovementController;
+		public WorldVisualController VisualController;
+		public ReceptionController ReceptionController;
+		
+		private WorldScene _worldScene;
 		public Party Party;
 		
 		public override void _Ready()
@@ -33,11 +37,15 @@ namespace MonsterCounty.Actor.World
 			LoadParty();
 		}
 		
-		protected override TypeMap<Controller> LoadControllers()
+		protected override TypeMap<ConcreteController> LoadControllers()
 		{
-			TypeMap<Controller> controllers = new TypeMap<Controller>();
-			controllers.Add(GetNode<MovementController>("MovementController"));
-			controllers.Add(GetNode<VisualController>("VisualController"));
+			TypeMap<ConcreteController> controllers = new TypeMap<ConcreteController>();
+			MovementController = GetNode<MovementController>("MovementController");
+			VisualController = GetNode<WorldVisualController>("VisualController");
+			ReceptionController = GetNode<ReceptionController>("ReceptionController");
+			controllers.Add(MovementController);
+			controllers.Add(VisualController);
+			controllers.Add(ReceptionController);
 			return controllers;
 		}
 

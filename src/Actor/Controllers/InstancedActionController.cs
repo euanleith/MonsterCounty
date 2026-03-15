@@ -11,15 +11,16 @@ namespace MonsterCounty.Actor.Controllers
 	 * Example use case: if you need to know which actor performed the action,
 	 * e.g. TransmissionAction needs to know who is transmitting
 	 */
-	public abstract partial class InstancedActionController<R> : ActionController<R>
+	public abstract partial class InstancedActionController<R, A> : ActionController<R, A>
+		where A : Actor
 	{
 		protected override void LoadActions()
 		{
 			if (Actions == null) return;
-			var instances = new Array<ControllerAction<R>>();
+			var instances = new Array<ControllerAction<R, A>>();
 			foreach (var action in Actions)
 			{
-				var instance = (ControllerAction<R>)action.Duplicate(true);
+				var instance = (ControllerAction<R, A>)action.Duplicate(true);
 				instance.SetMeta(META_INSTANCE_RESOURCE_PATH, action.ResourcePath);
 				instances.Add(instance);
 			}

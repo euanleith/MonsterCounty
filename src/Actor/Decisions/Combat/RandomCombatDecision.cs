@@ -8,11 +8,11 @@ using static MonsterCounty.Utilities.EnumUtilities;
 namespace MonsterCounty.Actor.Decisions.Combat
 {
     [GlobalClass]
-    public partial class RandomCombatDecision : RandomDecision<ActionController<CombatActor>, CombatActor>
+    public partial class RandomCombatDecision : RandomDecision<ActionController<CombatActor, CombatActor>, CombatActor, CombatActor>
     {
         [Export] private bool _changeCombatPosition;
         
-        public override CombatChoice Choose(ActionController<CombatActor> controller)
+        public override CombatChoice Choose(ActionController<CombatActor, CombatActor> controller)
         { 
             var randomAction = base.Choose(controller).Action;
             var position = _changeCombatPosition ? 

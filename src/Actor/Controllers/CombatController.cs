@@ -12,7 +12,7 @@ using static MonsterCounty.Utilities.SceneUtilities;
 
 namespace MonsterCounty.Actor.Controllers
 {
-	public abstract partial class CombatController : ActionController<CombatActor>
+	public abstract partial class CombatController : ActionController<CombatActor, CombatActor>
 	{
 		[Export] public int MaxHealth;
 		[Export] public CombatPosition CombatPosition;
@@ -64,7 +64,7 @@ namespace MonsterCounty.Actor.Controllers
 
 		public void SaveGameState(List<CombatActorState> state, WorldActor worldActor=null)
 		{
-			state.Add(new CombatActorState(Actor as CombatActor, worldActor));
+			state.Add(new CombatActorState(Actor, worldActor));
 			foreach (var child in GetChildren()) // todo replace with removing resources
 			{
 				child.QueueFree();
@@ -109,7 +109,7 @@ namespace MonsterCounty.Actor.Controllers
 
 		private void LoseFocus(CombatActor actor)
 		{
-			if (Focus == actor.Controllers.Get<CombatController>()) Focus = null;
+			if (Focus == actor.CombatController) Focus = null;
 		}
 
 		private void StopHoldingTheLine(CombatActor actor)

@@ -3,19 +3,19 @@
 [ext_resource type="PackedScene" uid="uid://sjxtixbl402j" path="res://scenes/combat/combat_player.tscn" id="1_sx1ru"]
 [ext_resource type="Resource" uid="uid://b1qnlot03ansh" path="res://resources/action/attack_action.tres" id="2_sx1ru"]
 [ext_resource type="Resource" uid="uid://c4742mhftx776" path="res://resources/weapon/revolver.tres" id="2_tlloj"]
-[ext_resource type="Script" path="csharp://src/Actor/Actions/ControllerAction.cs:MonsterCounty.Actor.Actions.ControllerAction`1[MonsterCounty.Actor.Combat.CombatActor].cs" id="3_wrouv"]
-[ext_resource type="Script" path="csharp://src/Actor/Decisions/FirstDecision.cs:MonsterCounty.Actor.Decisions.FirstDecision`2[MonsterCounty.Actor.Controllers.ActionController`1[MonsterCounty.Actor.Combat.CombatActor],MonsterCounty.Actor.Combat.CombatActor].cs" id="6_jsr2d"]
+[ext_resource type="Script" path="csharp://src/Actor/Actions/ControllerAction.cs:MonsterCounty.Actor.Actions.ControllerAction`2[MonsterCounty.Actor.Combat.CombatActor,MonsterCounty.Actor.Combat.CombatActor].cs" id="3_tlloj"]
 [ext_resource type="Resource" uid="uid://de33ln78gooia" path="res://resources/action/run_action.tres" id="6_n1o6a"]
 [ext_resource type="Resource" uid="uid://b8gotq32a8012" path="res://resources/action/defend_action.tres" id="6_wrouv"]
+[ext_resource type="Script" path="csharp://src/Actor/Decisions/FirstDecision.cs:MonsterCounty.Actor.Decisions.FirstDecision`3[MonsterCounty.Actor.Controllers.ActionController`2[MonsterCounty.Actor.Combat.CombatActor,MonsterCounty.Actor.Combat.CombatActor],MonsterCounty.Actor.Combat.CombatActor,MonsterCounty.Actor.Combat.CombatActor].cs" id="7_wrouv"]
 
-[sub_resource type="Resource" id="Resource_s0kgp"]
-script = ExtResource("6_jsr2d")
+[sub_resource type="Resource" id="Resource_jsr2d"]
+script = ExtResource("7_wrouv")
 
-[node name="CombatPlayer2" unique_id=1566038033 instance=ExtResource("1_sx1ru")]
+[node name="CombatPlayer" unique_id=1566038033 instance=ExtResource("1_sx1ru")]
 
 [node name="CombatController" parent="." index="3" unique_id=380955144]
 MaxHealth = 5
 CombatPosition = 2
 Weapon = ExtResource("2_tlloj")
-Actions = Array[ExtResource("3_wrouv")]([ExtResource("2_sx1ru"), ExtResource("6_wrouv"), ExtResource("6_n1o6a")])
-Decision = SubResource("Resource_s0kgp")
+Actions = Array[ExtResource("3_tlloj")]([ExtResource("2_sx1ru"), ExtResource("6_wrouv"), ExtResource("6_n1o6a")])
+Decision = SubResource("Resource_jsr2d")

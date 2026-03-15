@@ -28,7 +28,7 @@ namespace MonsterCounty.Combat
 			return _members
 				.Select((member, i) => new { member, i })
 				.Where(x => x.member != exclude)
-				.FirstOrDefault(x => x.member.Controllers.Get<CombatController>().CombatPosition == position)?.i ?? -1;
+				.FirstOrDefault(x => x.member.CombatController.CombatPosition == position)?.i ?? -1;
 		}
 
 		public void Load(List<CombatActorState> state)
@@ -37,7 +37,7 @@ namespace MonsterCounty.Combat
 			foreach (CombatActor member in _members)
 			{
 				member.Load();
-				member.Controllers.Get<CombatController>().Party = this;
+				member.CombatController.Party = this;
 			}
 			_state = state;
 		}
@@ -56,7 +56,7 @@ namespace MonsterCounty.Combat
 			Load(state);
 			for (int i = 0; i < _state.Count; i++)
 			{
-				CombatPosition templatePosition = _members[i].Controllers.Get<CombatController>().CombatPosition;
+				CombatPosition templatePosition = _members[i].CombatController.CombatPosition;
 				_members[i].LoadCombat(_state[i]);
 				MoveFromTemplatePosition(_members[i], templatePosition);
 			}
@@ -67,7 +67,7 @@ namespace MonsterCounty.Combat
 			_state.Clear();
 			foreach (CombatActor member in _members)
 			{
-				CombatController combatController = member.Controllers.Get<CombatController>();
+				CombatController combatController = member.CombatController;
 				if (combatController.IsAlive) combatController.SaveGameState(_state, worldActor);
 			}
 		}
@@ -76,7 +76,7 @@ namespace MonsterCounty.Combat
 		{
 			foreach (CombatActor member in _members)
 			{
-				CombatController combatController = member.Controllers.Get<CombatController>();
+				CombatController combatController = member.CombatController;
 				combatController.Opponents = opponents;
 			}
 		}
@@ -85,31 +85,31 @@ namespace MonsterCounty.Combat
 		{
 			return _members
 				.Select((member, index) => new { member, index })
-				.Where(x => x.member.Controllers.Get<CombatController>().IsAlive)
+				.Where(x => x.member.CombatController.IsAlive)
 				.Select(x => x.index)
 				.ToList();
 		}
 
 		public bool IsDefeated()
 		{
-			return _members.All(member => !member.Controllers.Get<CombatController>().IsAlive);
+			return _members.All(member => !member.CombatController.IsAlive);
 		}
 
-		public void ChangePosition(Actor.Actor actor, CombatPosition position)
+		public void ChangePosition(CombatActor actor, CombatPosition position)
 		{
-			CombatController actorController = actor.Controllers.Get<CombatController>();
+			CombatController actorController = actor.CombatController;
 			CombatActor swap = _members[IndexOf(position)];
 			(actor.Position, swap.Position) = (swap.Position, actor.Position);
-			(swap.Controllers.Get<CombatController>().CombatPosition, actorController.CombatPosition) = (actorController.CombatPosition, position);
+			(swap.CombatController.CombatPosition, actorController.CombatPosition) = (actorController.CombatPosition, position);
 		}
 
-		private void MoveFromTemplatePosition(Actor.Actor actor, CombatPosition templatePosition)
+		private void MoveFromTemplatePosition(CombatActor actor, CombatPosition templatePosition)
 		{
-			CombatController actorController = actor.Controllers.Get<CombatController>();
+			CombatController actorController = actor.CombatController;
 			if (actorController.CombatPosition == templatePosition) return;
 			CombatActor swap = _members[IndexOf(actorController.CombatPosition, actor)];
 			(actor.Position, swap.Position) = (swap.Position, actor.Position);
-			swap.Controllers.Get<CombatController>().CombatPosition = templatePosition;
+			swap.CombatController.CombatPosition = templatePosition;
 		}
 	}
 }

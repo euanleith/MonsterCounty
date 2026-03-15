@@ -53,7 +53,7 @@ namespace MonsterCounty.Combat.UI
 		{
 			foreach (CombatActor member in party)
 			{
-				if (!member.Controllers.Get<CombatController>().IsAlive)
+				if (!member.CombatController.IsAlive)
 				{
 					member.Visible = false;
 				}
@@ -70,12 +70,12 @@ namespace MonsterCounty.Combat.UI
 
 		private void RebindButton(Button button, int index)
 		{
-			button.Text = (_currentPlayer.Controllers.Get<CombatController>().Actions[index] as CombatAction).Name;
+			button.Text = (_currentPlayer.CombatController.Actions[index] as CombatAction).Name;
 		}
 
 		private void OnPositionButtonPressed()
 		{
-			if (_currentPlayer.Controllers.Get<CombatController>().HasChangedPosition)
+			if (_currentPlayer.CombatController.HasChangedPosition)
 			{
 				GD.Print(_currentPlayer.Name + " has already moved this turn");
 				return;
@@ -136,13 +136,13 @@ namespace MonsterCounty.Combat.UI
 			else if (inputEvent.IsActionPressed(Direction.DOWN)) target = CombatPosition.Back;
 			else if (inputEvent.IsActionPressed("escape"))
 			{
-				target = _currentPlayer.Controllers.Get<CombatController>().CombatPosition;
+				target = _currentPlayer.CombatController.CombatPosition;
 				wantsToMove = false;
 			}
 			else return;
 			if (wantsToMove)
 			{
-				_currentPlayer.Controllers.Get<CombatController>().ChangePosition(target);
+				_currentPlayer.CombatController.ChangePosition(target);
 				_playerArrow.Rebind(_currentPlayer);
 			}
 			_buttons.Enable();

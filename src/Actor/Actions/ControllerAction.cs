@@ -2,11 +2,11 @@ using Godot;
 
 namespace MonsterCounty.Actor.Actions
 {
-    public abstract partial class ControllerAction<R> : Resource
+    public abstract partial class ControllerAction<R, A> : Resource
     {
-        protected Actor Actor { get; private set; }
+        protected A Actor { get; private set; }
         
-        public virtual void CustomInit(Actor actor)
+        public virtual void CustomInit(A actor)
         {
             Actor = actor;
         }

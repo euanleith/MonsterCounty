@@ -11,7 +11,7 @@ namespace MonsterCounty.Model
         {
             map[typeof(TDerived)] = obj;
         }
-
+        
         public TDerived Get<TDerived>() where TDerived : class, TBase
         {
             return map.TryGetValue(typeof(TDerived), out var value)

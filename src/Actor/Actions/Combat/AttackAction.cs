@@ -11,12 +11,12 @@ namespace MonsterCounty.Actor.Actions.Combat
         public override CombatActor Do(double delta)
         {
             int index = (int)delta;
-            CombatController opponent = Self.Opponents.Get(index).Controllers.Get<CombatController>();
+            CombatController opponent = Self.Opponents.Get(index).CombatController;
             if (Self.Focus != null)
             {
                 GD.Print($"{Actor.Name} focused on {Self.Focus.Actor.Name}");
                 opponent = Self.Focus;
-                index = Self.Opponents.IndexOf(opponent.Actor as CombatActor);
+                index = Self.Opponents.IndexOf(opponent.Actor);
             }
             GD.Print($"{Actor.Name} attacking {opponent.Actor.Name}");
             if (RollToHit(opponent)) opponent.CurrentHealth -= RollDamage();

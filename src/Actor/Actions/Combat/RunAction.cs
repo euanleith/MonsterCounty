@@ -13,7 +13,7 @@ namespace MonsterCounty.Actor.Actions.Combat
             Self.Party.HoldingTheLine = Self;
             foreach (CombatActor opponent in Self.Opponents)
             {
-                CombatController combatController = opponent.Controllers.Get<CombatController>();
+                CombatController combatController = opponent.CombatController;
                 if (combatController.IsAlive)
                 {
                     GD.Print("setting focus for " + opponent.Name);

@@ -3,13 +3,14 @@ using MonsterCounty.Scene;
 
 namespace MonsterCounty.Actor.Controllers
 {
-	public partial class Controller : Node
+	public partial class Controller<A> : ConcreteController
+		where A : Actor
 	{
-		public Actor Actor { get; private set; }
+		public A Actor { get; private set; }
 		
-		public virtual void Load(Actor actor)
+		public override void Load(Actor actor)
 		{
-			Actor = actor;
+			Actor = (A)actor;
 			SceneManager.Instance.Get().Connect(SceneManager.SignalName.SceneChange, Callable.From(Save)); // using this rather than '+=' syntax as that still runs after the node is freed  
 		}
 

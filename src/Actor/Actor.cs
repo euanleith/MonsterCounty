@@ -6,9 +6,9 @@ namespace MonsterCounty.Actor
 {
 	public abstract partial class Actor : CharacterBody2D, Loadable
 	{
-		public TypeMap<Controller> Controllers { get; private set; }
+		protected TypeMap<ConcreteController> Controllers { get; private set; }
 		
-		protected abstract TypeMap<Controller> LoadControllers();
+		protected abstract TypeMap<ConcreteController> LoadControllers();
 
 		public virtual void Load()
 		{

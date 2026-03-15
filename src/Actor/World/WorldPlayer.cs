@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Godot;
 using MonsterCounty.Actor.Controllers;
 using MonsterCounty.Model;
 using MonsterCounty.State;
@@ -9,6 +8,9 @@ namespace MonsterCounty.Actor.World
 	public partial class WorldPlayer : WorldActor
 	{
 		public static readonly Singleton<WorldPlayer> Instance = new();
+		
+		public TransmissionController TransmissionController;
+		public SpawnController SpawnController;
 
 		public override void Load()
 		{
@@ -16,12 +18,13 @@ namespace MonsterCounty.Actor.World
 			base.Load();
 		}
 
-		protected override TypeMap<Controller> LoadControllers()
+		protected override TypeMap<ConcreteController> LoadControllers()
 		{
-			TypeMap<Controller> controllers = base.LoadControllers();
-			controllers.Add(GetNode<TransmissionController>("TransmissionController"));
-			controllers.Add(GetNode<ReceptionController>("ReceptionController"));
-			controllers.Add(GetNode<SpawnController>("SpawnController"));
+			TypeMap<ConcreteController> controllers = base.LoadControllers();
+			TransmissionController = GetNode<TransmissionController>("TransmissionController");
+			SpawnController = GetNode<SpawnController>("SpawnController");
+			controllers.Add(TransmissionController);
+			controllers.Add(SpawnController);
 			return controllers;
 		}
 		

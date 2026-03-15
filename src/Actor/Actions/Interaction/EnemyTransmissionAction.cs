@@ -11,7 +11,7 @@ namespace MonsterCounty.Actor.Actions.Interaction
     {
         public override CustomVoid Do(double delta)
         {
-            SceneManager.Instance.Get().ChangeToCombatScene(Actor.GetTree(), Actor as WorldActor);
+            SceneManager.Instance.Get().ChangeToCombatScene(Actor.GetTree(), Actor);
             return null;
         }
 

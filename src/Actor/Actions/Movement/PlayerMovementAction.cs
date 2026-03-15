@@ -1,16 +1,17 @@
 using Godot;
 using MonsterCounty.Actor.Controllers;
+using MonsterCounty.Actor.World;
 using static MonsterCounty.Utilities.InputManager;
 using static MonsterCounty.Utilities.VectorUtilities;
 
 namespace MonsterCounty.Actor.Actions.Movement
 {
 	[GlobalClass]
-	public partial class PlayerMovementAction : ControllerAction<Vector2>
+	public partial class PlayerMovementAction : ControllerAction<Vector2, WorldActor>
 	{
 		public override Vector2 Do(double delta)
 		{
-			MovementController movementController = Actor.Controllers.Get<MovementController>();
+			MovementController movementController = Actor.MovementController;
 			Vector2 velocity = ClampDirection(GetMovementInput());
 			if (GetRunInput())
 			{

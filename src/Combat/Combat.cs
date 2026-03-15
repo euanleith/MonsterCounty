@@ -35,7 +35,7 @@ namespace MonsterCounty.Combat
 		private void StartTurn()
 		{
 			CombatActor next = _turnQueue.Peek();
-			CombatController combatController = next.Controllers.Get<CombatController>();
+			CombatController combatController = next.CombatController;
 			if (combatController.IsAlive)
 			{
 				TurnResult result = combatController.StartTurn();
@@ -56,7 +56,7 @@ namespace MonsterCounty.Combat
 
 		public void ResolveTurn(CombatPlayer player, int index)
 		{
-			CombatController combatController = player.Controllers.Get<CombatController>();
+			CombatController combatController = player.CombatController;
 			TurnResult result = combatController.ResolveTurn(index);
 			switch (result)
 			{
@@ -83,7 +83,7 @@ namespace MonsterCounty.Combat
 		private bool OnActorDie(CombatActor actor)
 		{
 			GD.Print($"{actor.Name} died!");
-			CombatController combatController = actor.Controllers.Get<CombatController>();
+			CombatController combatController = actor.CombatController;
 			Party party = combatController.Party;
 			ActorDying?.Invoke(actor);
 			if (party.IsDefeated() || combatController == party.HoldingTheLine)
@@ -95,9 +95,9 @@ namespace MonsterCounty.Combat
 			return true;
 		}
 
-		private bool OnActorRun(Actor.Actor actor)
+		private bool OnActorRun(CombatActor actor)
 		{
-			CombatController combatController = actor.Controllers.Get<CombatController>();
+			CombatController combatController = actor.CombatController;
 			if (combatController.Party.HoldingTheLine == combatController)
 			{
 				GD.Print($"{actor.Name} successfully held the line, party running away!");

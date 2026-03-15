@@ -7,14 +7,13 @@
 [ext_resource type="Texture2D" uid="uid://b31i3yae68b7b" path="res://art/player/player_down2.png" id="3_ks21u"]
 [ext_resource type="PackedScene" uid="uid://bt1olxot22da" path="res://scenes/actor/controller/movement_controller.tscn" id="3_tl2vt"]
 [ext_resource type="Texture2D" uid="uid://bdp7xyrgsbx1q" path="res://art/player/player_left1.png" id="4_b0c76"]
-[ext_resource type="PackedScene" uid="uid://jov3fdj1u72d" path="res://scenes/actor/controller/visual_controller.tscn" id="4_hwkja"]
+[ext_resource type="PackedScene" uid="uid://jov3fdj1u72d" path="res://scenes/actor/controller/world_visual_controller.tscn" id="4_hwkja"]
 [ext_resource type="Texture2D" uid="uid://o2pacmoxwcod" path="res://art/player/player_left2.png" id="5_n1jfc"]
 [ext_resource type="PackedScene" uid="uid://1cp2fatumnjx" path="res://scenes/actor/controller/reception_controller.tscn" id="6_j8avc"]
 [ext_resource type="Texture2D" uid="uid://1kswymjxamht" path="res://art/player/player_up1.png" id="8_e3xkw"]
 [ext_resource type="Texture2D" uid="uid://by762fkhowxh4" path="res://art/player/player_up2.png" id="9_onx6l"]
-[ext_resource type="Script" path="csharp://src/Actor/Decisions/FirstDecision.cs:MonsterCounty.Actor.Decisions.FirstDecision`2[MonsterCounty.Actor.Controllers.ActionController`1[Godot.Vector2],Godot.Vector2].cs" id="11_b0c76"]
 [ext_resource type="Resource" uid="uid://dchqppc5neb63" path="res://resources/action/dialogue_reception_action.tres" id="13_ymaks"]
-[ext_resource type="Script" path="csharp://src/Actor/Decisions/FirstDecision.cs:MonsterCounty.Actor.Decisions.FirstDecision`2[MonsterCounty.Actor.Controllers.ActionController`1[MonsterCounty.Model.CustomVoid],MonsterCounty.Model.CustomVoid].cs" id="15_n1jfc"]
+[ext_resource type="Script" path="csharp://src/Actor/Actions/ControllerAction.cs:MonsterCounty.Actor.Actions.ControllerAction`2[MonsterCounty.Model.CustomVoid,MonsterCounty.Actor.World.WorldActor].cs" id="14_b0c76"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7n8xq"]
 radius = 56.0
@@ -66,12 +65,6 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="Resource" id="Resource_e3xkw"]
-script = ExtResource("11_b0c76")
-
-[sub_resource type="Resource" id="Resource_wi3ns"]
-script = ExtResource("15_n1jfc")
-
 [node name="NPC" type="CharacterBody2D" unique_id=1355807265 groups=["npc", "pause"]]
 collision_layer = 2
 collision_mask = 15
@@ -87,10 +80,8 @@ animation = &"walk_up"
 
 [node name="MovementController" parent="." unique_id=1435023787 instance=ExtResource("3_tl2vt")]
 Speed = 0.5
-Decision = SubResource("Resource_e3xkw")
 
 [node name="VisualController" parent="." unique_id=98789701 instance=ExtResource("4_hwkja")]
 
 [node name="ReceptionController" parent="." unique_id=1035087376 instance=ExtResource("6_j8avc")]
-Actions = [ExtResource("13_ymaks")]
-Decision = SubResource("Resource_wi3ns")
+Actions = Array[ExtResource("14_b0c76")]([ExtResource("13_ymaks")])

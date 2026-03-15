@@ -1,12 +1,11 @@
 using Godot;
-using MonsterCounty.Actor.Actions;
 using MonsterCounty.Actor.World;
 using MonsterCounty.State;
 using static MonsterCounty.Utilities.VectorUtilities;
 
 namespace MonsterCounty.Actor.Controllers
 {
-	public partial class MovementController : InstancedActionController<Vector2>
+	public partial class MovementController : InstancedActionController<Vector2, WorldActor>
 	{
 		[Export] public float Speed { get; private set; }
 		[Export] public float RunSpeed { get; private set; }
@@ -23,7 +22,7 @@ namespace MonsterCounty.Actor.Controllers
 
 		public override void _PhysicsProcess(double delta)
 		{
-			ControllerAction<Vector2> currentAction = NextAction();
+			var currentAction = NextAction();
 			if (currentAction == null) return;
 			_prevPosition = Actor.Position;
 			Actor.Position = currentAction.Do(delta);
@@ -31,7 +30,7 @@ namespace MonsterCounty.Actor.Controllers
 			if (_prevPosition != Actor.Position)
 			{
 				IsMoving = true; 
-				Actor.Controllers.Get<VisualController>().UpdateAnimation(GetDirection(Actor.Position, _prevPosition), IsRunning);
+				Actor.VisualController.UpdateAnimation(GetDirection(Actor.Position, _prevPosition), IsRunning);
 				Actor.Rotation = GetRotation(Actor.Position, _prevPosition);
 			}
 			else IsMoving = false;

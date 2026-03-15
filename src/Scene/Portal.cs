@@ -16,7 +16,7 @@ namespace MonsterCounty.Scene
         
         private void OnBodyEntered(Node2D body)
         {
-            WorldPlayer.Instance.Get().Controllers.Get<SpawnController>().SpawnName = _dstSpawn;
+            WorldPlayer.Instance.Get().SpawnController.SpawnName = _dstSpawn;
             SceneManager.Instance.Get().ChangeToWorldScene(GetTree(), _dstScene);
         }
     }

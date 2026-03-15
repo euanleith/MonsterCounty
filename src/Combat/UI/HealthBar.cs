@@ -12,7 +12,7 @@ namespace MonsterCounty.Combat.UI
 
 		public void Bind(CombatActor actor)
 		{
-			CombatController combatController = actor.Controllers.Get<CombatController>();
+			CombatController combatController = actor.CombatController;
 			if (!combatController.IsAlive)
 			{
 				Visible = false;

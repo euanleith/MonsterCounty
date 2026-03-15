@@ -3,13 +3,13 @@
 [ext_resource type="PackedScene" uid="uid://sjxtixbl402j" path="res://scenes/combat/combat_player.tscn" id="1_2xrh7"]
 [ext_resource type="Resource" uid="uid://b1qnlot03ansh" path="res://resources/action/attack_action.tres" id="2_2xrh7"]
 [ext_resource type="Resource" uid="uid://c4742mhftx776" path="res://resources/weapon/revolver.tres" id="2_s0kgp"]
-[ext_resource type="Script" path="csharp://src/Actor/Actions/ControllerAction.cs:MonsterCounty.Actor.Actions.ControllerAction`1[MonsterCounty.Actor.Combat.CombatActor].cs" id="3_qebru"]
+[ext_resource type="Script" path="csharp://src/Actor/Actions/ControllerAction.cs:MonsterCounty.Actor.Actions.ControllerAction`2[MonsterCounty.Actor.Combat.CombatActor,MonsterCounty.Actor.Combat.CombatActor].cs" id="3_s0kgp"]
 [ext_resource type="Resource" uid="uid://de33ln78gooia" path="res://resources/action/run_action.tres" id="6_fxqgw"]
-[ext_resource type="Script" path="csharp://src/Actor/Decisions/FirstDecision.cs:MonsterCounty.Actor.Decisions.FirstDecision`2[MonsterCounty.Actor.Controllers.ActionController`1[MonsterCounty.Actor.Combat.CombatActor],MonsterCounty.Actor.Combat.CombatActor].cs" id="6_gdlfi"]
 [ext_resource type="Resource" uid="uid://b8gotq32a8012" path="res://resources/action/defend_action.tres" id="6_qebru"]
+[ext_resource type="Script" path="csharp://src/Actor/Decisions/FirstDecision.cs:MonsterCounty.Actor.Decisions.FirstDecision`3[MonsterCounty.Actor.Controllers.ActionController`2[MonsterCounty.Actor.Combat.CombatActor,MonsterCounty.Actor.Combat.CombatActor],MonsterCounty.Actor.Combat.CombatActor,MonsterCounty.Actor.Combat.CombatActor].cs" id="7_qebru"]
 
-[sub_resource type="Resource" id="Resource_s0kgp"]
-script = ExtResource("6_gdlfi")
+[sub_resource type="Resource" id="Resource_jsr2d"]
+script = ExtResource("7_qebru")
 
 [node name="CombatPlayer" unique_id=1566038033 instance=ExtResource("1_2xrh7")]
 
@@ -17,5 +17,5 @@ script = ExtResource("6_gdlfi")
 MaxHealth = 5
 CombatPosition = 3
 Weapon = ExtResource("2_s0kgp")
-Actions = Array[ExtResource("3_qebru")]([ExtResource("2_2xrh7"), ExtResource("6_qebru"), ExtResource("6_fxqgw")])
-Decision = SubResource("Resource_s0kgp")
+Actions = Array[ExtResource("3_s0kgp")]([ExtResource("2_2xrh7"), ExtResource("6_qebru"), ExtResource("6_fxqgw")])
+Decision = SubResource("Resource_jsr2d")

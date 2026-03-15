@@ -1,5 +1,3 @@
-using Godot;
-using MonsterCounty.Actor.Actions.Combat;
 using MonsterCounty.Actor.Combat;
 using MonsterCounty.Actor.Controllers;
 using MonsterCounty.Actor.World;
@@ -19,7 +17,7 @@ namespace MonsterCounty.State
 
 		public CombatActorState(CombatActor combatActor, WorldActor worldActor=null) : this()
 		{
-			var combatController = combatActor.Controllers.Get<CombatController>();
+			var combatController = combatActor.CombatController;
 			MaxHealth = combatController.MaxHealth;
 			CurrentHealth = combatController.CurrentHealth;
 			ActionResourcePaths = new string[combatController.Actions.Count];
