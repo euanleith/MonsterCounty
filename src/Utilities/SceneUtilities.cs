@@ -18,6 +18,6 @@ namespace MonsterCounty.Utilities
 			self.AddChild(InstantiateFromScenePath<T>(path));
 		}
 		
-		public static string GetNodeId(Node node) => node.GetPath(); // todo not sure if i want to do it this way
+		public static string GetNodeId(Node node) => node.GetPath();
 	}
 }

@@ -54,6 +54,11 @@ namespace MonsterCounty.Actor.World
 			Party?.Load(GetPartyState());
 		}
 
+		public override void Save()
+		{
+			Party.Save(this);	
+		}
+
 		protected abstract List<CombatActorState> GetPartyState();
 	}
 }

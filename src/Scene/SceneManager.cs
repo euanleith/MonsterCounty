@@ -38,9 +38,8 @@ namespace MonsterCounty.Scene
 
 		public void ChangeToCombatScene(SceneTree sceneTree, WorldActor enemy)
 		{
-			// todo move to WorldActor.save
-			enemy.Party.Save(enemy);
-			WorldPlayer.Instance.Get().Party.Save(WorldPlayer.Instance.Get());
+			enemy.Save();
+			WorldPlayer.Instance.Get().Save();
 			CurrentWorldScene = GetTree().CurrentScene.SceneFilePath;
 			ChangeScene(sceneTree, COMBAT_SCENE_PATH);
 		}

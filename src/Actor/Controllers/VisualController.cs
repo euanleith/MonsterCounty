@@ -10,7 +10,7 @@ namespace MonsterCounty.Actor.Controllers
 		public override void Load(Actor actor)
 		{
 			base.Load(actor);
-			Sprite = Actor.GetNode<AnimatedSprite2D>("AnimatedSprite2D"); // todo shouldn't be dependent on specific names. i think $mynode is better though?
+			Sprite = Actor.GetNode<AnimatedSprite2D>("AnimatedSprite2D");
 		}
 
 		public Vector2 GetSize()

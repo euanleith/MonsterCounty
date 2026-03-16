@@ -15,7 +15,9 @@ namespace MonsterCounty.Actor
 			Controllers = LoadControllers();
 			Controllers.ForEach(controller => controller.Load(this));
 		}
-		
+
+		public virtual void Save() { }
+
 		public override void _Process(double delta)
 		{
 			Controllers.ForEach(controller => controller._Process(delta));
