@@ -11,7 +11,7 @@ namespace MonsterCounty.Actor.Actions.Interaction
 		[Export] private float _range;
 		
 		protected ReceptionController Responder;
-		private Area2D _area;
+		private Area2D _hitbox;
 		
 		protected abstract uint GetCollisionMask();
 
@@ -19,22 +19,26 @@ namespace MonsterCounty.Actor.Actions.Interaction
 		{
 			base.CustomInit(actor);
 			
-			// todo move elsewhere
-			_area = new Area2D();
-			Actor.AddChild(_area);
+			_hitbox = ConstructHitbox(_range, Actor.VisualController.GetSize());
+			Actor.AddChild(_hitbox);
+			_hitbox.CollisionMask = GetCollisionMask();
+			_hitbox.BodyEntered += BodyEntered;
+			_hitbox.BodyExited += BodyExited;
+		}
 
-			CollisionShape2D shape = new CollisionShape2D();
-			RectangleShape2D rect = new RectangleShape2D();
+		private static Area2D ConstructHitbox(float range, Vector2 actorSize)
+		{
+			var area = new Area2D();
+			var shape = new CollisionShape2D();
+			var rect = new RectangleShape2D();
 
-			Vector2 size = Actor.VisualController.GetSize();
-			rect.Size = new Vector2(_range, size.X);
-			shape.Shape = rect;
+			rect.Size = new Vector2(range, actorSize.X);
+			shape.Shape = rect;			
+			
+			area.AddChild(shape);			
+			area.Position = new Vector2(range/2 + actorSize.X/2 + actorSize.X/6, 0); // todo literally no clue why i need size.X/6 but it works so..
 
-			_area.AddChild(shape);
-			_area.CollisionMask = GetCollisionMask();
-			_area.Position = new Vector2(_range/2 + size.X/2 + size.X/6, 0); // todo literally no clue why i need size.X/6 but it works so..
-			_area.BodyEntered += BodyEntered;
-			_area.BodyExited += BodyExited;
+			return area;
 		}
 
 		private void BodyEntered(Node2D body) => Responder = (body as WorldActor)?.ReceptionController;
