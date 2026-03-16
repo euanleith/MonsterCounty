@@ -10,10 +10,7 @@ namespace MonsterCounty.Actor.Controllers
 		public override TurnResult StartTurn()
 		{
 			base.StartTurn();
-			Random rand = new Random(); // todo choice of target should be in decision too
-			List<int> aliveOpponents = Opponents.GetAliveMembersIndices();
-			double opponentIndex = aliveOpponents[rand.Next(aliveOpponents.Count)];
-			CombatActor actorToDie = TakeTurn(opponentIndex);
+			CombatActor actorToDie = TakeTurn(-1);
 			return actorToDie == null ? new PassResult() : new ActorToDieResult(actorToDie);
 		}
 	}

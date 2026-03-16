@@ -45,7 +45,6 @@ namespace MonsterCounty.Actor.Controllers
 			MonsterCounty.Combat.Combat.ActorDying -= OnActorDie;
 		}
 		
-		// todo should use existing load and save functions
 		public void LoadGameState(CombatActorState state)
 		{
 			MaxHealth = state.MaxHealth;
@@ -65,10 +64,6 @@ namespace MonsterCounty.Actor.Controllers
 		public void SaveGameState(List<CombatActorState> state, WorldActor worldActor=null)
 		{
 			state.Add(new CombatActorState(Actor, worldActor));
-			foreach (var child in GetChildren()) // todo replace with removing resources
-			{
-				child.QueueFree();
-			}
 		}
 
 		public virtual TurnResult StartTurn()
@@ -82,7 +77,11 @@ namespace MonsterCounty.Actor.Controllers
 		public CombatActor TakeTurn(double delta)
 		{
 			var decision = Decision.Choose(this);
-			if (decision is CombatChoice combatDecision) ChangePosition(combatDecision.CombatPosition);
+			if (decision is CombatChoice combatDecision)
+			{
+				ChangePosition(combatDecision.CombatPosition);
+				delta = combatDecision.Target;
+			}
 			return decision.Action.Do(delta);
 		}
 		

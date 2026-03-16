@@ -7,11 +7,11 @@ namespace MonsterCounty.Actor.Decisions
 		where A : Actor
 		where C : ActionController<R, A>
 	{
-		private readonly Random _rand = new();
+		protected readonly Random Rand = new();
 		
 		public override Choice<R, A> Choose(C controller)
 		{
-			int index = _rand.Next(0, controller.Actions.Count);
+			int index = Rand.Next(0, controller.Actions.Count);
 			return new Choice<R, A>(controller.Actions[index]);
 		}
 	}

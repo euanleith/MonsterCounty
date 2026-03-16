@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Godot;
 using MonsterCounty.Actor.Actions.Combat;
 using MonsterCounty.Actor.Combat;
@@ -13,12 +14,25 @@ namespace MonsterCounty.Actor.Decisions.Combat
         [Export] private bool _changeCombatPosition;
         
         public override CombatChoice Choose(ActionController<CombatActor, CombatActor> controller)
-        { 
-            var randomAction = base.Choose(controller).Action;
-            var position = _changeCombatPosition ? 
+        {
+            var combatController = controller as CombatController;
+            var randAction = base.Choose(controller).Action;
+            var randPosition = GetRandomPosition(combatController);
+            var randTarget = GetRandomTarget(combatController);
+            return new CombatChoice(randAction as CombatAction, randPosition, randTarget);
+        }
+
+        private CombatPosition GetRandomPosition(CombatController combatController)
+        {
+            return _changeCombatPosition ? 
                 GetRandomEnumValue<CombatPosition>() : 
-                (controller as CombatController).CombatPosition;
-            return new CombatChoice(randomAction as CombatAction, position);
+                combatController.CombatPosition;
+        }
+
+        private int GetRandomTarget(CombatController combatController)
+        {
+            var aliveOpponents = combatController.Opponents.GetAliveMembersIndices();
+            return aliveOpponents[Rand.Next(aliveOpponents.Count)];
         }
     }
 }
