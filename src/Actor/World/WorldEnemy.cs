@@ -8,6 +8,12 @@ namespace MonsterCounty.Actor.World
 	public partial class WorldEnemy : WorldActor
 	{
 		public TransmissionController TransmissionController;
+
+		public override void Load()
+		{
+			base.Load();
+			AutoSave = false;
+		}
 		
 		protected override TypeMap<ConcreteController> LoadControllers()
 		{

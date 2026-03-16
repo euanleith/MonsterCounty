@@ -1,17 +1,18 @@
 [gd_scene format=3 uid="uid://sjxtixbl402j"]
 
 [ext_resource type="Script" uid="uid://gtmsmutejk8n" path="res://src/Actor/Combat/CombatPlayer.cs" id="1_3plt8"]
-[ext_resource type="Texture2D" uid="uid://scvabxdnh5qr" path="res://art/player/player_right1.png" id="1_eqesl"]
+[ext_resource type="Texture2D" uid="uid://by762fkhowxh4" path="res://art/player/player_up2.png" id="2_1gamj"]
 [ext_resource type="PackedScene" uid="uid://cp3l3q4tklvp8" path="res://scenes/actor/controller/player_combat_controller.tscn" id="3_kbrux"]
 [ext_resource type="PackedScene" uid="uid://bdte8eqfs0y4v" path="res://scenes/actor/controller/combat_visual_controller.tscn" id="3_wd7n8"]
 [ext_resource type="Script" uid="uid://du0reolka4366" path="res://src/Utilities/Dice.cs" id="5_pghrf"]
 [ext_resource type="Script" uid="uid://cvp0eorw0j2fj" path="res://src/Combat/Weapon.cs" id="6_1gamj"]
+[ext_resource type="Script" path="csharp://src/Actor/Decisions/FirstDecision.cs:MonsterCounty.Actor.Decisions.FirstDecision`3[MonsterCounty.Actor.Controllers.ActionController`2[MonsterCounty.Actor.Combat.CombatActor,MonsterCounty.Actor.Combat.CombatActor],MonsterCounty.Actor.Combat.CombatActor,MonsterCounty.Actor.Combat.CombatActor].cs" id="7_wtwmv"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_kvvui"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_eqesl")
+"texture": ExtResource("2_1gamj")
 }],
 "loop": true,
 "name": &"default",
@@ -29,6 +30,9 @@ script = ExtResource("5_pghrf")
 script = ExtResource("6_1gamj")
 Dice = SubResource("Resource_wtwmv")
 
+[sub_resource type="Resource" id="Resource_lf34q"]
+script = ExtResource("7_wtwmv")
+
 [node name="CombatPlayer" type="CharacterBody2D" unique_id=1566038033]
 script = ExtResource("1_3plt8")
 
@@ -43,3 +47,4 @@ shape = SubResource("CapsuleShape2D_wd7n8")
 
 [node name="CombatController" parent="." unique_id=380955144 instance=ExtResource("3_kbrux")]
 Weapon = SubResource("Resource_eilio")
+Decision = SubResource("Resource_lf34q")

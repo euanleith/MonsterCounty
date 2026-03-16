@@ -14,7 +14,7 @@ namespace MonsterCounty.Actor.Controllers
 		private Vector2 _prevPosition;
 		public bool IsRunning;
 
-		protected override void Save()
+		public override void Save()
 		{
 			base.Save();
 			GameState.PlayerPosition = WorldPlayer.Instance.Get().GlobalPosition;

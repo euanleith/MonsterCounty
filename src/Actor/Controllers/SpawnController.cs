@@ -27,7 +27,7 @@ namespace MonsterCounty.Actor.Controllers
 			MoveToSpawn(GameState.PlayerSpawnName);
 		}
 
-		protected override void Save()
+		public override void Save()
 		{
 			base.Save();
 			GameState.PlayerSpawnName = SpawnName;

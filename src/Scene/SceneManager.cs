@@ -39,7 +39,7 @@ namespace MonsterCounty.Scene
 		public void ChangeToCombatScene(SceneTree sceneTree, WorldActor enemy)
 		{
 			enemy.Save();
-			WorldPlayer.Instance.Get().Save();
+			// WorldPlayer.Instance.Get().Save();
 			CurrentWorldScene = GetTree().CurrentScene.SceneFilePath;
 			ChangeScene(sceneTree, COMBAT_SCENE_PATH);
 		}

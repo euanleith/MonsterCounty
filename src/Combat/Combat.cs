@@ -112,13 +112,7 @@ namespace MonsterCounty.Combat
 		{
 			GD.Print("exiting combat");
 			Instance = null;
-			SaveGameState();
 			Exiting?.Invoke(losers);
-		}
-		
-		private void SaveGameState()
-		{
-			_playerParty.Save();
 		}
 	}
 }

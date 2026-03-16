@@ -56,7 +56,8 @@ namespace MonsterCounty.Actor.World
 
 		public override void Save()
 		{
-			Party.Save(this);	
+			base.Save();
+			Party?.Save(this);	
 		}
 
 		protected abstract List<CombatActorState> GetPartyState();
