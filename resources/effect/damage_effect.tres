@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Effect" format=3 uid="uid://cdcvqyjlc4mwj"]
+
+[ext_resource type="Script" uid="uid://du0reolka4366" path="res://src/Utilities/Dice.cs" id="1_5meap"]
+[ext_resource type="Script" uid="uid://cmmp2kinatehy" path="res://src/Combat/Effect.cs" id="2_labte"]
+
+[sub_resource type="Resource" id="Resource_5meap"]
+script = ExtResource("1_5meap")
+NDice = 1
+NSides = 6
+metadata/_custom_type_script = "uid://du0reolka4366"
+
+[resource]
+script = ExtResource("2_labte")
+_strength = SubResource("Resource_5meap")
