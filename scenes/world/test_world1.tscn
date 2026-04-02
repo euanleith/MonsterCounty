@@ -4,13 +4,14 @@
 [ext_resource type="PackedScene" uid="uid://crlb6673y01ua" path="res://scenes/world/portal.tscn" id="3_etfkh"]
 [ext_resource type="PackedScene" uid="uid://8wgc112a71tx" path="res://scenes/world/spawn.tscn" id="4_6ujm0"]
 [ext_resource type="PackedScene" uid="uid://cl11hwb2dv6b2" path="res://scenes/actor/world/path_world_npc.tscn" id="6_fpffk"]
+[ext_resource type="Script" uid="uid://dhm7pgoyfb35i" path="res://src/Actor/Decisions/Combat/RandomCombatDecision.cs" id="7_jmtjs"]
 [ext_resource type="PackedScene" uid="uid://ddn1j18ymh155" path="res://scenes/actor/world/world_enemy.tscn" id="7_rgkux"]
-[ext_resource type="Script" path="csharp://src/Actor/Decisions/FirstDecision.cs:MonsterCounty.Actor.Decisions.FirstDecision`4[MonsterCounty.Actor.Controllers.ActionController`3[MonsterCounty.Model.CustomVoid,MonsterCounty.Actor.World.WorldActor,MonsterCounty.Actor.Actions.Interaction.ReceptionAction],MonsterCounty.Model.CustomVoid,MonsterCounty.Actor.World.WorldActor,MonsterCounty.Actor.Actions.Interaction.ReceptionAction].cs" id="8_6ujm0"]
 [ext_resource type="PackedScene" uid="uid://draqkjhp70lmy" path="res://scenes/combat/combat_enemy.tscn" id="8_8cb7k"]
-[ext_resource type="PackedScene" uid="uid://ct0vkgbfu7lsw" path="res://scenes/actor/world/path_world_enemy.tscn" id="8_fpffk"]
 
-[sub_resource type="Resource" id="Resource_g3d1d"]
-script = ExtResource("8_6ujm0")
+[sub_resource type="Resource" id="Resource_jmtjs"]
+script = ExtResource("7_jmtjs")
+_changeCombatPosition = true
+metadata/_custom_type_script = "uid://dhm7pgoyfb35i"
 
 [node name="World2" unique_id=1342078205 instance=ExtResource("1_o4vn4")]
 
@@ -26,31 +27,24 @@ _dstSpawn = "FromTestWorld1"
 position = Vector2(928, 416)
 
 [node name="PathNPC" parent="NPCs" parent_id_path=PackedInt32Array(529508051) index="0" unique_id=1355807265 instance=ExtResource("6_fpffk")]
-position = Vector2(192, 320)
+position = Vector2(130, 452)
+
+[node name="PathFollow2D" parent="NPCs/PathNPC/MovementController/Path2D" parent_id_path=PackedInt32Array(1355807265, 1021028726) index="0" unique_id=1625945566]
+position = Vector2(136, 445)
+rotation = 0.033695105
 
 [node name="WorldEnemy" parent="Enemies" parent_id_path=PackedInt32Array(784199405) index="0" unique_id=434891005 instance=ExtResource("7_rgkux")]
-position = Vector2(-128, 256)
+position = Vector2(-76, 216)
 
 [node name="CombatEnemy2" parent="Enemies/WorldEnemy/Party" parent_id_path=PackedInt32Array(434891005, 1315856782) index="1" unique_id=1594809982 instance=ExtResource("8_8cb7k")]
 visible = false
 
 [node name="CombatController" parent="Enemies/WorldEnemy/Party/CombatEnemy2" index="3" unique_id=849664991]
+Decision = SubResource("Resource_jmtjs")
 MaxHealth = 5
-
-[node name="WorldEnemy2" parent="Enemies" parent_id_path=PackedInt32Array(784199405) index="1" unique_id=1514366982 instance=ExtResource("7_rgkux")]
-position = Vector2(-64, 128)
-
-[node name="ReceptionController" parent="Enemies/WorldEnemy2" index="5" unique_id=1035087376]
-Decision = SubResource("Resource_g3d1d")
-
-[node name="WorldEnemy3" parent="Enemies" parent_id_path=PackedInt32Array(784199405) index="2" unique_id=77113484 instance=ExtResource("8_fpffk")]
-position = Vector2(-64, 704)
+CombatPosition = 1
 
 [editable path="NPCs/PathNPC"]
 [editable path="Enemies/WorldEnemy"]
 [editable path="Enemies/WorldEnemy/Party/CombatEnemy"]
 [editable path="Enemies/WorldEnemy/Party/CombatEnemy2"]
-[editable path="Enemies/WorldEnemy2"]
-[editable path="Enemies/WorldEnemy2/Party/CombatEnemy"]
-[editable path="Enemies/WorldEnemy3"]
-[editable path="Enemies/WorldEnemy3/Party/CombatEnemy"]

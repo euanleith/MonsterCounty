@@ -8,7 +8,7 @@ namespace MonsterCounty.Actor.Actions.Interaction
     [GlobalClass]
     public partial class EnemyTransmissionAction : TransmissionAction
     {
-        public override CustomVoid Do(double delta)
+        public override CustomVoid Do(CustomVoid context)
         {
             SceneManager.Instance.Get().ChangeToCombatScene(Actor.GetTree(), Actor);
             return null;

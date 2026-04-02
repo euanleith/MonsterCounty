@@ -4,10 +4,10 @@ using MonsterCounty.Actor.Controllers;
 
 namespace MonsterCounty.Actor.Decisions
 {
-	public abstract partial class RandomDecision<TController, TResult, TActor, TAction> : Decision<TController, TResult, TActor, TAction> 
+	public abstract partial class RandomDecision<TController, TResult, TActor, TAction, TContext> : Decision<TController, TResult, TActor, TAction, TContext> 
 		where TActor : Actor
-		where TController : ActionController<TResult, TActor, TAction>
-		where TAction : ControllerAction<TResult, TActor>
+		where TController : ActionController<TResult, TActor, TAction, TContext>
+		where TAction : ControllerAction<TResult, TActor, TContext>
 	{
 		protected readonly Random Rand = new();
 		

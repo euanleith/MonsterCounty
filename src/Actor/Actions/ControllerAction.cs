@@ -2,11 +2,12 @@ using Godot;
 
 namespace MonsterCounty.Actor.Actions
 {
-    public abstract partial class ControllerAction<R, A> : Resource
+    // todo reorder like TActor, TContext, TResult
+    public abstract partial class ControllerAction<TResult, TActor, TContext> : Resource
     {
-        protected A Actor { get; private set; }
+        protected TActor Actor { get; private set; }
         
-        public virtual void CustomInit(A actor)
+        public virtual void CustomInit(TActor actor)
         {
             Actor = actor;
         }
@@ -19,6 +20,6 @@ namespace MonsterCounty.Actor.Actions
 
         public bool ShouldDo() => WantsToDo() && CanDo();
 
-        public abstract R Do(double delta);
+        public abstract TResult Do(TContext context);
     }
 }

@@ -4,6 +4,7 @@ using Godot.Collections;
 using MonsterCounty.Actor.Actions.Combat;
 using MonsterCounty.Actor.Combat;
 using MonsterCounty.Actor.Combat.TurnResults;
+using MonsterCounty.Actor.Decisions;
 using MonsterCounty.Actor.Decisions.Combat;
 using MonsterCounty.Actor.World;
 using MonsterCounty.Combat;
@@ -13,9 +14,21 @@ using static MonsterCounty.Utilities.SceneUtilities;
 
 namespace MonsterCounty.Actor.Controllers
 {
-	public abstract partial class CombatController : ActionController<CombatActor, CombatActor, CombatAction>
+	public abstract partial class CombatController : ActionController<CombatActor, CombatActor, CombatAction, double>
 	{
 		[Export] public override Array<CombatAction> Actions { get; protected set; } = [];
+		[Export] protected override Decision<
+			ActionController<CombatActor, CombatActor, CombatAction, double>, 
+			CombatActor, 
+			CombatActor, 
+			CombatAction, 
+			double
+		> Decision { get; set; } = new FirstDecision<
+			ActionController<CombatActor, CombatActor, CombatAction, double>,
+			CombatActor, 
+			CombatActor, 
+			CombatAction, 
+			double>();
 		[Export] public int MaxHealth;
 		[Export] public CombatPosition CombatPosition;
 		[Export] public Weapon Weapon = new();

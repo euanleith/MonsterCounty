@@ -12,10 +12,10 @@ namespace MonsterCounty.Actor.Actions.Interaction
 
 		protected override uint GetCollisionMask() => Layers.ToLayerMask(Layers.NPC, Layers.INTERACTABLE);
 
-		public override CustomVoid Do(double delta)
+		public override CustomVoid Do(CustomVoid context)
 		{
 			Actor.GetTree().Paused = true;
-			Responder.Respond(delta);
+			Responder.Respond();
 			return null;
 		}
 	}

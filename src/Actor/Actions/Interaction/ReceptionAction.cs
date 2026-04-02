@@ -3,5 +3,5 @@ using MonsterCounty.Model;
 
 namespace MonsterCounty.Actor.Actions.Interaction
 {
-    public abstract partial class ReceptionAction : ControllerAction<CustomVoid, WorldActor>;
+    public abstract partial class ReceptionAction : ControllerAction<CustomVoid, WorldActor, CustomVoid>;
 }

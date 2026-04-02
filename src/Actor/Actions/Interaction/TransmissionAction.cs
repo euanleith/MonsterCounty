@@ -6,7 +6,7 @@ using MonsterCounty.Model;
 namespace MonsterCounty.Actor.Actions.Interaction
 {
 	[GlobalClass]
-	public abstract partial class TransmissionAction : ControllerAction<CustomVoid, WorldActor>
+	public abstract partial class TransmissionAction : ControllerAction<CustomVoid, WorldActor, CustomVoid>
 	{
 		[Export] private float _range;
 		

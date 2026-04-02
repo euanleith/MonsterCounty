@@ -1,16 +1,13 @@
-using Godot;
-using MonsterCounty.Scene;
-
 namespace MonsterCounty.Actor.Controllers
 {
-	public partial class Controller<A> : ConcreteController
-		where A : Actor
+	public partial class Controller<TActor> : ConcreteController
+		where TActor : Actor
 	{
-		public A Actor { get; private set; }
+		public TActor Actor { get; private set; }
 		
 		public override void Load(Actor actor)
 		{
-			Actor = (A)actor;
+			Actor = (TActor)actor;
 			// SceneManager.Instance.Get().Connect(SceneManager.SignalName.SceneChange, Callable.From(Save)); // using this rather than '+=' syntax as that still runs after the node is freed  
 		}
 

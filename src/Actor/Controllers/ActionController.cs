@@ -5,18 +5,21 @@ using MonsterCounty.Actor.Decisions;
 
 namespace MonsterCounty.Actor.Controllers
 {
-	// todo reorder like TActor, TAction, TResult
+	// todo reorder like TActor, TAction, TContext, TResult
 	// todo should just need TActor and TResult?
-	public abstract partial class ActionController<TResult, TActor, [MustBeVariant] TAction> : Controller<TActor>
+	public abstract partial class ActionController<TResult, TActor, [MustBeVariant] TAction, TContext> : Controller<TActor>
 		where TActor : Actor
-		where TAction : ControllerAction<TResult, TActor>
+		where TAction : ControllerAction<TResult, TActor, TContext>
 	{
-		[Export] protected Decision<ActionController<TResult, TActor, TAction>, TResult, TActor, TAction> Decision = 
-			new FirstDecision<ActionController<TResult, TActor, TAction>, TResult, TActor, TAction>();
-		
 		public abstract Array<TAction> Actions { get; protected set; }
-		private ControllerAction<TResult, TActor> _currentAction;
-
+		private TAction _currentAction;
+		protected abstract Decision<
+			ActionController<TResult, TActor, TAction, TContext>, 
+			TResult, 
+			TActor, 
+			TAction, 
+			TContext
+		> Decision { get; set; }
 		
 		public override void Load(Actor actor)
 		{
@@ -33,7 +36,7 @@ namespace MonsterCounty.Actor.Controllers
 			}
 		}
 		
-		protected virtual ControllerAction<TResult, TActor> NextAction()
+		protected TAction NextAction()
 		{
 			var newAction = Decision.Choose(this).Action;
 			if (newAction != null && newAction != _currentAction) newAction.Reactivate(Actor);

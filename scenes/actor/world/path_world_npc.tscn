@@ -1,27 +1,40 @@
 [gd_scene format=3 uid="uid://cl11hwb2dv6b2"]
 
-[ext_resource type="Script" path="csharp://src/Actor/Actions/ControllerAction.cs:MonsterCounty.Actor.Actions.ControllerAction`2[Godot.Vector2,MonsterCounty.Actor.World.WorldActor].cs" id="2_4ym8n"]
+[ext_resource type="Script" uid="uid://w372xdr0wc1x" path="res://src/Actor/Actions/Movement/MovementAction.cs" id="2_4lgcd"]
+[ext_resource type="Script" path="csharp://src/Actor/Decisions/FirstDecision.cs:MonsterCounty.Actor.Decisions.FirstDecision`5[MonsterCounty.Actor.Controllers.ActionController`4[Godot.Vector2,MonsterCounty.Actor.World.WorldActor,MonsterCounty.Actor.Actions.Movement.MovementAction,System.Double],Godot.Vector2,MonsterCounty.Actor.World.WorldActor,MonsterCounty.Actor.Actions.Movement.MovementAction,System.Double].cs" id="2_4ym8n"]
 [ext_resource type="PackedScene" uid="uid://cqaqm4aqymh8n" path="res://scenes/actor/world/world_npc.tscn" id="2_7ors0"]
 [ext_resource type="Script" uid="uid://ipunyo8kfmnx" path="res://src/Actor/Actions/Movement/PathMovementAction.cs" id="3_7ors0"]
+[ext_resource type="Script" path="csharp://src/Actor/Decisions/FirstDecision.cs:MonsterCounty.Actor.Decisions.FirstDecision`5[MonsterCounty.Actor.Controllers.ActionController`4[MonsterCounty.Model.CustomVoid,MonsterCounty.Actor.World.WorldActor,MonsterCounty.Actor.Actions.Interaction.ReceptionAction,MonsterCounty.Model.CustomVoid],MonsterCounty.Model.CustomVoid,MonsterCounty.Actor.World.WorldActor,MonsterCounty.Actor.Actions.Interaction.ReceptionAction,MonsterCounty.Model.CustomVoid].cs" id="3_jd0i5"]
 
-[sub_resource type="Resource" id="Resource_bis6r"]
+[sub_resource type="Resource" id="Resource_06j55"]
 script = ExtResource("3_7ors0")
 metadata/_custom_type_script = "uid://ipunyo8kfmnx"
 
+[sub_resource type="Resource" id="Resource_4lgcd"]
+script = ExtResource("2_4ym8n")
+
 [sub_resource type="Curve2D" id="Curve2D_ct57f"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 192, 320, 0, 0, 0, 0, 448, 320, 0, 0, 0, 0, 192, 320)
+"points": PackedVector2Array(0, 0, 0, 0, 136, 445, 0, 0, 0, 0, 314, 451, 0, 0, 0, 0, 136, 445)
 }
 point_count = 3
+
+[sub_resource type="Resource" id="Resource_juqir"]
+script = ExtResource("3_jd0i5")
 
 [node name="PathNPC" unique_id=1355807265 instance=ExtResource("2_7ors0")]
 
 [node name="MovementController" parent="." index="2" unique_id=1435023787]
+Actions = Array[ExtResource("2_4lgcd")]([SubResource("Resource_06j55")])
 Speed = 200.0
-Actions = Array[ExtResource("2_4ym8n")]([SubResource("Resource_bis6r")])
+Decision = SubResource("Resource_4lgcd")
 
 [node name="Path2D" type="Path2D" parent="MovementController" index="0" unique_id=1021028726]
 curve = SubResource("Curve2D_ct57f")
 
 [node name="PathFollow2D" type="PathFollow2D" parent="MovementController/Path2D" index="0" unique_id=1625945566]
-position = Vector2(192, 320)
+position = Vector2(156, -1)
+rotation = -3.1036363
+
+[node name="ReceptionController" parent="." index="4" unique_id=1035087376]
+Decision = SubResource("Resource_juqir")

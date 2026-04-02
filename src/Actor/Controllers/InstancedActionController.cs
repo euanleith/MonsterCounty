@@ -12,9 +12,9 @@ namespace MonsterCounty.Actor.Controllers
 	 * Example use case: if you need to know which actor performed the action,
 	 * e.g. TransmissionAction needs to know who is transmitting
 	 */
-	public abstract partial class InstancedActionController<TResult, TActor, [MustBeVariant] TAction> : ActionController<TResult, TActor, TAction>
+	public abstract partial class InstancedActionController<TResult, TActor, [MustBeVariant] TAction, TContext> : ActionController<TResult, TActor, TAction, TContext>
 		where TActor : Actor
-		where TAction : ControllerAction<TResult, TActor>
+		where TAction : ControllerAction<TResult, TActor, TContext>
 	{
 		protected override void LoadActions()
 		{

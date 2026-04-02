@@ -4,10 +4,10 @@ using MonsterCounty.Actor.Controllers;
 
 namespace MonsterCounty.Actor.Decisions
 {
-	public partial class FirstDecision<TController, TResult, TActor, TAction> : Decision<TController, TResult, TActor, TAction> 
+	public partial class FirstDecision<TController, TResult, TActor, TAction, TContext> : Decision<TController, TResult, TActor, TAction, TContext> 
 		where TActor : Actor
-		where TController : ActionController<TResult, TActor, TAction>
-		where TAction : ControllerAction<TResult, TActor>
+		where TController : ActionController<TResult, TActor, TAction, TContext>
+		where TAction : ControllerAction<TResult, TActor, TContext>
 	{
 		public override Choice<TAction> Choose(TController controller)
 		{
