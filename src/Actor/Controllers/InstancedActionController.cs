@@ -1,3 +1,4 @@
+using Godot;
 using Godot.Collections;
 using MonsterCounty.Actor.Actions;
 using static MonsterCounty.Utilities.SceneUtilities;
@@ -11,16 +12,17 @@ namespace MonsterCounty.Actor.Controllers
 	 * Example use case: if you need to know which actor performed the action,
 	 * e.g. TransmissionAction needs to know who is transmitting
 	 */
-	public abstract partial class InstancedActionController<R, A> : ActionController<R, A>
-		where A : Actor
+	public abstract partial class InstancedActionController<TResult, TActor, [MustBeVariant] TAction> : ActionController<TResult, TActor, TAction>
+		where TActor : Actor
+		where TAction : ControllerAction<TResult, TActor>
 	{
 		protected override void LoadActions()
 		{
 			if (Actions == null) return;
-			var instances = new Array<ControllerAction<R, A>>();
+			var instances = new Array<TAction>();
 			foreach (var action in Actions)
 			{
-				var instance = (ControllerAction<R, A>)action.Duplicate(true);
+				var instance = (TAction)action.Duplicate(true);
 				instance.SetMeta(META_INSTANCE_RESOURCE_PATH, action.ResourcePath);
 				instances.Add(instance);
 			}

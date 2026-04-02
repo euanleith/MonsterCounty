@@ -1,11 +1,9 @@
 using Godot;
-using MonsterCounty.Actor.Controllers;
-using MonsterCounty.Actor.World;
 
 namespace MonsterCounty.Actor.Actions.Movement
 {
 	[GlobalClass]
-	public partial class MobMovementAction : ControllerAction<Vector2, WorldActor>
+	public partial class MobMovementAction : MovementAction
 	{
 		private Vector2 _velocity;
 		public void CustomInit(PathFollow2D spawnLocation)

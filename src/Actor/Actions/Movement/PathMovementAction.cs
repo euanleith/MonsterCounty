@@ -1,12 +1,11 @@
 using System;
 using Godot;
-using MonsterCounty.Actor.Controllers;
 using MonsterCounty.Actor.World;
 
 namespace MonsterCounty.Actor.Actions.Movement
 {
 	[GlobalClass]
-	public partial class PathMovementAction : ControllerAction<Vector2, WorldActor>
+	public partial class PathMovementAction : MovementAction
 	{
 		private Path2D _path;
 		private PathFollow2D _pathFollow;

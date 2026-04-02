@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Godot;
+using Godot.Collections;
 using MonsterCounty.Actor.Actions.Combat;
 using MonsterCounty.Actor.Combat;
 using MonsterCounty.Actor.Combat.TurnResults;
@@ -12,8 +13,9 @@ using static MonsterCounty.Utilities.SceneUtilities;
 
 namespace MonsterCounty.Actor.Controllers
 {
-	public abstract partial class CombatController : ActionController<CombatActor, CombatActor>
+	public abstract partial class CombatController : ActionController<CombatActor, CombatActor, CombatAction>
 	{
+		[Export] public override Array<CombatAction> Actions { get; protected set; } = [];
 		[Export] public int MaxHealth;
 		[Export] public CombatPosition CombatPosition;
 		[Export] public Weapon Weapon = new();

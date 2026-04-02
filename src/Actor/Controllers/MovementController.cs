@@ -1,12 +1,15 @@
 using Godot;
+using Godot.Collections;
+using MonsterCounty.Actor.Actions.Movement;
 using MonsterCounty.Actor.World;
 using MonsterCounty.State;
 using static MonsterCounty.Utilities.VectorUtilities;
 
 namespace MonsterCounty.Actor.Controllers
 {
-	public partial class MovementController : InstancedActionController<Vector2, WorldActor>
+	public partial class MovementController : InstancedActionController<Vector2, WorldActor, MovementAction>
 	{
+		[Export] public override Array<MovementAction> Actions { get; protected set; } = [];
 		[Export] public float Speed { get; private set; }
 		[Export] public float RunSpeed { get; private set; }
 

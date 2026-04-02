@@ -1,9 +1,7 @@
-using MonsterCounty.Actor.Actions;
-
 namespace MonsterCounty.Actor.Decisions
 {
-    public class Choice<R, A>(ControllerAction<R, A> action)
+    public class Choice<TAction>(TAction action)
     {
-        public readonly ControllerAction<R, A> Action = action;
+        public readonly TAction Action = action;
     }
 }

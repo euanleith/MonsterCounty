@@ -5,14 +5,19 @@ using MonsterCounty.Actor.Decisions;
 
 namespace MonsterCounty.Actor.Controllers
 {
-	public abstract partial class ActionController<R, A> : Controller<A>
-		where A : Actor
+	// todo reorder like TActor, TAction, TResult
+	// todo should just need TActor and TResult?
+	public abstract partial class ActionController<TResult, TActor, [MustBeVariant] TAction> : Controller<TActor>
+		where TActor : Actor
+		where TAction : ControllerAction<TResult, TActor>
 	{
-		[Export] public Array<ControllerAction<R, A>> Actions = []; // todo enforce that actions are of same type as controller
-		[Export] protected Decision<ActionController<R, A>, R, A> Decision = new FirstDecision<ActionController<R, A>, R, A>();
+		[Export] protected Decision<ActionController<TResult, TActor, TAction>, TResult, TActor, TAction> Decision = 
+			new FirstDecision<ActionController<TResult, TActor, TAction>, TResult, TActor, TAction>();
 		
-		private ControllerAction<R, A> _currentAction;
+		public abstract Array<TAction> Actions { get; protected set; }
+		private ControllerAction<TResult, TActor> _currentAction;
 
+		
 		public override void Load(Actor actor)
 		{
 			base.Load(actor);
@@ -22,15 +27,15 @@ namespace MonsterCounty.Actor.Controllers
 		protected virtual void LoadActions()
 		{
 			if (Actions == null) return;
-			foreach (ControllerAction<R, A> action in Actions)
+			foreach (var action in Actions)
 			{
 				action.CustomInit(Actor);
 			}
 		}
 		
-		protected virtual ControllerAction<R, A> NextAction()
+		protected virtual ControllerAction<TResult, TActor> NextAction()
 		{
-			ControllerAction<R, A> newAction = Decision.Choose(this).Action;
+			var newAction = Decision.Choose(this).Action;
 			if (newAction != null && newAction != _currentAction) newAction.Reactivate(Actor);
 			_currentAction = newAction;
 			return newAction;
