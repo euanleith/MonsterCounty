@@ -9,8 +9,14 @@
 [ext_resource type="PackedScene" uid="uid://draqkjhp70lmy" path="res://scenes/combat/combat_enemy.tscn" id="8_8cb7k"]
 
 [sub_resource type="Resource" id="Resource_jmtjs"]
+resource_local_to_scene = true
 script = ExtResource("7_jmtjs")
-_changeCombatPosition = true
+metadata/_custom_type_script = "uid://dhm7pgoyfb35i"
+
+[sub_resource type="Resource" id="Resource_fpffk"]
+resource_local_to_scene = true
+script = ExtResource("7_jmtjs")
+ChangeCombatPosition = true
 metadata/_custom_type_script = "uid://dhm7pgoyfb35i"
 
 [node name="World2" unique_id=1342078205 instance=ExtResource("1_o4vn4")]
@@ -36,11 +42,14 @@ rotation = 0.033695105
 [node name="WorldEnemy" parent="Enemies" parent_id_path=PackedInt32Array(784199405) index="0" unique_id=434891005 instance=ExtResource("7_rgkux")]
 position = Vector2(-76, 216)
 
+[node name="CombatController" parent="Enemies/WorldEnemy/Party/CombatEnemy" parent_id_path=PackedInt32Array(434891005, 1594809982) index="3" unique_id=849664991]
+Decision = SubResource("Resource_jmtjs")
+
 [node name="CombatEnemy2" parent="Enemies/WorldEnemy/Party" parent_id_path=PackedInt32Array(434891005, 1315856782) index="1" unique_id=1594809982 instance=ExtResource("8_8cb7k")]
 visible = false
 
 [node name="CombatController" parent="Enemies/WorldEnemy/Party/CombatEnemy2" index="3" unique_id=849664991]
-Decision = SubResource("Resource_jmtjs")
+Decision = SubResource("Resource_fpffk")
 MaxHealth = 5
 CombatPosition = 1
 
