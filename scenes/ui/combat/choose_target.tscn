@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://bo3srv7o7poci"]
+
+[ext_resource type="Texture2D" uid="uid://bxfp406xgq43x" path="res://art/enemy/arrow_up.png" id="1_ice87"]
+[ext_resource type="Script" uid="uid://dgwp4uxj07etd" path="res://src/Combat/UI/ChooseTarget.cs" id="1_mqo15"]
+[ext_resource type="Script" uid="uid://bun73ogmpyhv1" path="res://src/Combat/UI/Arrow.cs" id="2_mqo15"]
+
+[node name="ChooseTarget" type="Control" unique_id=762568040 node_paths=PackedStringArray("_button", "_arrow")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_mqo15")
+_button = NodePath("Button")
+_arrow = NodePath("EnemyArrow")
+
+[node name="Button" type="Button" parent="." unique_id=1681492879]
+layout_mode = 0
+offset_left = 544.0
+offset_top = 442.0
+offset_right = 652.0
+offset_bottom = 473.0
+text = "Select Target"
+
+[node name="EnemyArrow" type="Sprite2D" parent="." unique_id=1449337747]
+position = Vector2(706, 159.00002)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_ice87")
+script = ExtResource("2_mqo15")
+_arrowPosition = 1

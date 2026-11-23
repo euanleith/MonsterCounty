@@ -18,7 +18,7 @@ namespace MonsterCounty.Scene
 
 		[Export] private Party _playerParty;
 		[Export] private Party _enemyParty;
-		[Export] private CombatUI _ui;
+		[Export] private CombatUi _ui;
 		
 		public override void _Ready()
 		{

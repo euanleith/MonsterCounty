@@ -1,4 +1,3 @@
-using MonsterCounty.Actor.Actions.Combat;
 using MonsterCounty.Actor.Combat;
 using MonsterCounty.Actor.Combat.TurnResults;
 using MonsterCounty.Combat.UI;
@@ -11,13 +10,13 @@ namespace MonsterCounty.Actor.Controllers
         {
             base.StartTurn();
             if (Party.HoldingTheLine != null) return new RunResult();
-            CombatUI.Instance.Get().NextPlayer(Actor as CombatPlayer);
+            CombatUi.Instance.Get().NextPlayer(Actor as CombatPlayer);
             return new WaitForInputResult();
         }
 		
-        public override TurnResult ResolveTurn(int index)
+        public override TurnResult ResolveTurn(int actionIndex, int targetIndex)
         {
-            CombatActor actorToDie = Actions[index].Do(CombatUI.Instance.Get().SelectedEnemy);
+            CombatActor actorToDie = Actions[actionIndex].Do(targetIndex);
             if (actorToDie != null) return new ActorToDieResult(actorToDie);
             if (Party.HoldingTheLine == this) return new RunResult();
             return new PassResult();

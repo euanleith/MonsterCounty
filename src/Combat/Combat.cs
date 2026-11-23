@@ -54,10 +54,10 @@ namespace MonsterCounty.Combat
 			NextTurn();
 		}
 
-		public void ResolveTurn(CombatPlayer player, int index)
+		public void ResolveTurn(CombatPlayer player, int actionIndex, int targetIndex)
 		{
 			CombatController combatController = player.CombatController;
-			TurnResult result = combatController.ResolveTurn(index);
+			TurnResult result = combatController.ResolveTurn(actionIndex, targetIndex);
 			switch (result)
 			{
 				case ActorToDieResult r:

@@ -1,0 +1,52 @@
+[gd_scene format=3 uid="uid://bmo55y6pxigjt"]
+
+[ext_resource type="Script" uid="uid://84olbhbdf6hm" path="res://src/UI/ButtonContainer.cs" id="1_440wy"]
+[ext_resource type="Script" uid="uid://dfrd8ppc7f2f" path="res://src/Combat/UI/ChooseAction.cs" id="1_gefpa"]
+[ext_resource type="Texture2D" uid="uid://xoq7iiwswyc0" path="res://art/enemy/arrow_down.png" id="3_a3l14"]
+[ext_resource type="Script" uid="uid://bun73ogmpyhv1" path="res://src/Combat/UI/Arrow.cs" id="4_eh6oc"]
+
+[node name="ChooseAction" type="Control" unique_id=818073594 node_paths=PackedStringArray("_actionButtons", "_positionButton", "_playerArrow")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_gefpa")
+_actionButtons = NodePath("ButtonContainer")
+_positionButton = NodePath("PositionButton")
+_playerArrow = NodePath("PlayerArrow")
+
+[node name="ButtonContainer" type="VBoxContainer" parent="." unique_id=1126952105]
+layout_mode = 0
+offset_left = 552.0
+offset_top = 416.0
+offset_right = 627.0
+offset_bottom = 482.0
+script = ExtResource("1_440wy")
+
+[node name="Button0" type="Button" parent="ButtonContainer" unique_id=896690488]
+layout_mode = 2
+text = "button 0"
+
+[node name="Button1" type="Button" parent="ButtonContainer" unique_id=477282360]
+layout_mode = 2
+text = "button 1"
+
+[node name="Button2" type="Button" parent="ButtonContainer" unique_id=90538592]
+layout_mode = 2
+text = "button 2"
+
+[node name="PositionButton" type="Button" parent="." unique_id=768766035]
+layout_mode = 0
+offset_left = 556.0
+offset_top = 534.0
+offset_right = 627.0
+offset_bottom = 565.0
+text = "Position"
+
+[node name="PlayerArrow" type="Sprite2D" parent="." unique_id=506691065]
+position = Vector2(224, 336)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("3_a3l14")
+script = ExtResource("4_eh6oc")

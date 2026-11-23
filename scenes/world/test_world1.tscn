@@ -16,7 +16,6 @@ metadata/_custom_type_script = "uid://dhm7pgoyfb35i"
 [sub_resource type="Resource" id="Resource_fpffk"]
 resource_local_to_scene = true
 script = ExtResource("7_jmtjs")
-ChangeCombatPosition = true
 metadata/_custom_type_script = "uid://dhm7pgoyfb35i"
 
 [node name="World2" unique_id=1342078205 instance=ExtResource("1_o4vn4")]
@@ -51,7 +50,7 @@ visible = false
 [node name="CombatController" parent="Enemies/WorldEnemy/Party/CombatEnemy2" index="3" unique_id=849664991]
 Decision = SubResource("Resource_fpffk")
 MaxHealth = 5
-CombatPosition = 1
+CombatPosition = 2
 
 [editable path="NPCs/PathNPC"]
 [editable path="Enemies/WorldEnemy"]

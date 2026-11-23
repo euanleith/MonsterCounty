@@ -1,20 +1,17 @@
 [gd_scene format=3 uid="uid://b06auojv8t4uh"]
 
-[ext_resource type="Script" uid="uid://cnn8sqsn4dphy" path="res://src/Combat/UI/CombatUI.cs" id="1_n7134"]
+[ext_resource type="Script" uid="uid://dwmonamq4qjui" path="res://src/Combat/UI/CombatUi.cs" id="1_ynof4"]
 [ext_resource type="PackedScene" uid="uid://dul0s0wqxttwu" path="res://scenes/ui/health_bar_container.tscn" id="2_ynof4"]
-[ext_resource type="Texture2D" uid="uid://bxfp406xgq43x" path="res://art/enemy/arrow_up.png" id="3_ppua2"]
-[ext_resource type="Texture2D" uid="uid://xoq7iiwswyc0" path="res://art/enemy/arrow_down.png" id="3_ynof4"]
-[ext_resource type="Script" uid="uid://bun73ogmpyhv1" path="res://src/Combat/UI/Arrow.cs" id="4_ph8cy"]
-[ext_resource type="Script" uid="uid://84olbhbdf6hm" path="res://src/UI/ButtonContainer.cs" id="5_8twgj"]
+[ext_resource type="PackedScene" uid="uid://bo3srv7o7poci" path="res://scenes/ui/combat/choose_target.tscn" id="3_ph8cy"]
+[ext_resource type="PackedScene" uid="uid://bmo55y6pxigjt" path="res://scenes/ui/combat/choose_action.tscn" id="6_ph8cy"]
 
-[node name="CombatUI" type="CanvasLayer" unique_id=1878144606 node_paths=PackedStringArray("_playerPartyHealthBars", "_enemyPartyHealthBars", "_buttons", "_positionButton", "_playerArrow", "_enemyArrow") groups=["ui"]]
-script = ExtResource("1_n7134")
+[node name="CombatUI" type="CanvasLayer" unique_id=1878144606 node_paths=PackedStringArray("_playerPartyHealthBars", "_enemyPartyHealthBars", "_combatPhaseContainer") groups=["ui"]]
+script = ExtResource("1_ynof4")
 _playerPartyHealthBars = NodePath("Control/PlayerHealthBarContainer")
 _enemyPartyHealthBars = NodePath("Control/EnemyHealthBarContainer")
-_buttons = NodePath("Control/ButtonContainer")
-_positionButton = NodePath("PositionButton")
-_playerArrow = NodePath("Control/PlayerArrow")
-_enemyArrow = NodePath("Control/EnemyArrow")
+_combatPhaseContainer = NodePath("CombatPhaseContainer")
+_chooseActionScene = ExtResource("6_ph8cy")
+_chooseTargetScene = ExtResource("3_ph8cy")
 
 [node name="Control" type="Control" parent="." unique_id=271382392]
 layout_mode = 3
@@ -40,41 +37,8 @@ offset_top = 24.0
 offset_right = 64.0
 offset_bottom = 64.0
 
-[node name="PlayerArrow" type="Sprite2D" parent="Control" unique_id=683568946]
-position = Vector2(224.00002, 336)
-scale = Vector2(0.2, 0.2)
-texture = ExtResource("3_ynof4")
-script = ExtResource("4_ph8cy")
-
-[node name="EnemyArrow" type="Sprite2D" parent="Control" unique_id=1261348474]
-position = Vector2(712, 192)
-scale = Vector2(0.2, 0.2)
-texture = ExtResource("3_ppua2")
-script = ExtResource("4_ph8cy")
-
-[node name="ButtonContainer" type="VBoxContainer" parent="Control" unique_id=1223843313]
-layout_mode = 0
-offset_left = 552.0
-offset_top = 416.0
-offset_right = 627.0
-offset_bottom = 482.0
-script = ExtResource("5_8twgj")
-
-[node name="Button0" type="Button" parent="Control/ButtonContainer" unique_id=533142607]
-layout_mode = 2
-text = "button 0"
-
-[node name="Button1" type="Button" parent="Control/ButtonContainer" unique_id=1230609425]
-layout_mode = 2
-text = "button 1"
-
-[node name="Button2" type="Button" parent="Control/ButtonContainer" unique_id=1410190057]
-layout_mode = 2
-text = "button 2"
-
-[node name="PositionButton" type="Button" parent="." unique_id=1496817340]
-offset_left = 556.0
-offset_top = 534.0
-offset_right = 627.0
-offset_bottom = 565.0
-text = "Position"
+[node name="CombatPhaseContainer" type="Control" parent="." unique_id=470951167]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0

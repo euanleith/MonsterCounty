@@ -1,11 +1,13 @@
 using Godot;
 using MonsterCounty.Actor.Combat;
-using MonsterCounty.Actor.Controllers;
 
 namespace MonsterCounty.Combat.UI
 {
 	public partial class Arrow : Sprite2D
 	{
+		[Export] private ArrowPosition _arrowPosition;
+		[Export] private float _offsetY = 10;
+		
 		public enum ArrowPosition
 		{
 			Above,
@@ -22,47 +24,46 @@ namespace MonsterCounty.Combat.UI
 		
 		public int SelectedIndex;
 		private Party _party;
-		private ArrowPosition _arrowPosition;
-		private float _arrowOffsetY;
 
 		// todo how to generalise this wrt static/dynamic uielement?
-		public void Load(ArrowPosition arrowPosition, float arrowOffsetY)
+		public void Load()
 		{
-			_arrowPosition = arrowPosition;
 		}
 
-		public void Bind(Party party)
+		public int Bind(Party party)
 		{
 			_party = party;
-			Reset();
+			return Reset();
 		}
 
-		public void LoadAndBind(ArrowPosition arrowPosition, float arrowOffsetY, Party party)
+		public int LoadAndBind(Party party)
 		{
-			Load(arrowPosition, arrowOffsetY);
-			Bind(party);
+			Load();
+			return Bind(party);
 		}
 
-		public void Reset()
+		public int Reset()
 		{
 			foreach (CombatPosition combatPosition in _selectionPriority)
 			{
-				if (Rebind(combatPosition)) return;
+				int index = Rebind(combatPosition);
+				if (index != -1) return index;
 			}
+			return -1;
 		}
 		
-		public bool Rebind(CombatPosition combatPosition)
+		public int Rebind(CombatPosition combatPosition)
 		{
 			int index = _party.IndexOf(combatPosition);
-			if (index == -1 || !_party.Get(index).CombatController.IsAlive) return false;
+			if (index == -1 || !_party.Get(index).CombatController.IsAlive) return -1;
 			SelectedIndex = index;
 			Rebind(_party.Get(index));
-			return true;
+			return index;
 		}
 
 		public void Rebind(CombatActor actor)
 		{
-			float offsetY = _arrowOffsetY + actor.VisualController.GetSize().Y/2;
+			float offsetY = _offsetY + actor.VisualController.GetSize().Y/2;
 			if (_arrowPosition == ArrowPosition.Above) offsetY *= -1;
 			GlobalPosition = actor.GlobalPosition + new Vector2(0, offsetY);
 		}

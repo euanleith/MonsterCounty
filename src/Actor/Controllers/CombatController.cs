@@ -87,7 +87,7 @@ namespace MonsterCounty.Actor.Controllers
 			return new PassResult(); // shouldn't be returned
 		}
 		
-		public virtual TurnResult ResolveTurn(int index) => null;
+		public virtual TurnResult ResolveTurn(int actionIndex, int targetIndex) => null;
 		
 		public CombatActor TakeTurn(double delta)
 		{
