@@ -59,12 +59,13 @@ namespace MonsterCounty.Combat.UI
 				wantsToMove = false;
 			}
 			else return;
+			_actionButtons.Enable();
 			if (wantsToMove)
 			{
 				_context.CurrentPlayer.CombatController.ChangePosition(target);
 				_playerArrow.Rebind(_context.CurrentPlayer);
+				_actionButtons.Focus(0);
 			}
-			_actionButtons.Enable();
 			_inputEvent = null;
 		}
 		

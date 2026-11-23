@@ -10,7 +10,7 @@ namespace MonsterCounty.UI
 		protected Array<T> Array;
 		private Action<T, int> _rebindElement;
 
-		public void Load(Action<T, int> loadElement, Action<T, int> rebindElement)
+		public virtual void Load(Action<T, int> loadElement, Action<T, int> rebindElement)
 		{
 			_rebindElement = rebindElement;
 			Array = new(GetChildren().OfType<T>());

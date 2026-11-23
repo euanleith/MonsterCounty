@@ -27,14 +27,18 @@ script = ExtResource("1_440wy")
 
 [node name="Button0" type="Button" parent="ButtonContainer" unique_id=896690488]
 layout_mode = 2
+focus_neighbor_bottom = NodePath("../Button1")
 text = "button 0"
 
 [node name="Button1" type="Button" parent="ButtonContainer" unique_id=477282360]
 layout_mode = 2
+focus_neighbor_top = NodePath("../Button0")
+focus_neighbor_bottom = NodePath("../Button2")
 text = "button 1"
 
 [node name="Button2" type="Button" parent="ButtonContainer" unique_id=90538592]
 layout_mode = 2
+focus_neighbor_top = NodePath("../Button1")
 text = "button 2"
 
 [node name="PositionButton" type="Button" parent="." unique_id=768766035]

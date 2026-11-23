@@ -100,10 +100,10 @@ namespace MonsterCounty.Combat.UI
 
 		public static CombatPosition? DirectionToPosition(InputEvent inputEvent, bool invertX = false, bool invertY = false)
 		{
-			if (inputEvent.IsActionPressed(Direction.RIGHT)) return invertX ? CombatPosition.Left : CombatPosition.Right;
-			if (inputEvent.IsActionPressed(Direction.LEFT)) return invertX ? CombatPosition.Right : CombatPosition.Left;
-			if (inputEvent.IsActionPressed(Direction.UP)) return invertY ? CombatPosition.Back : CombatPosition.Front;
-			if (inputEvent.IsActionPressed(Direction.DOWN)) return invertY ? CombatPosition.Front : CombatPosition.Back;
+			if (inputEvent.IsActionPressed(Direction.UI_RIGHT)) return invertX ? CombatPosition.Left : CombatPosition.Right;
+			if (inputEvent.IsActionPressed(Direction.UI_LEFT)) return invertX ? CombatPosition.Right : CombatPosition.Left;
+			if (inputEvent.IsActionPressed(Direction.UI_UP)) return invertY ? CombatPosition.Back : CombatPosition.Front;
+			if (inputEvent.IsActionPressed(Direction.UI_DOWN)) return invertY ? CombatPosition.Front : CombatPosition.Back;
 			return null;
 		}
 	}

@@ -16,6 +16,7 @@ namespace MonsterCounty.Combat.UI
             _context = context;
             
             _button.Pressed += () => _context.Ui.OnTargetSelected();
+            _button.GrabFocus();
             
             _context.SelectedTarget = _arrow.LoadAndBind(_context.EnemyParty); 
             _inputEvent = EnemySelectionInput;
